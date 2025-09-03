@@ -1,0 +1,12 @@
+.vscode
+.env
+session
+node_modules
+*.log
+temp
+info
+volume
+prueba/*
+jsons
+test
+public/baileys-provider/*.png

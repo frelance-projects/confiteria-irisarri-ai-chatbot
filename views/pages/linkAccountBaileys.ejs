@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Link Account</title>
+    <style>
+      /* Estilos generales para tema oscuro */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: #4a90e2;
+        margin-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        color: #bbbbbb;
+        margin-bottom: 20px;
+      }
+
+      /* Contenedor del QR */
+      .qr-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1e1e1e;
+        border-radius: 12px;
+      }
+
+      img {
+        cursor: pointer;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 12px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        filter: blur(10px);
+        transition: filter 0.6s ease-in-out, transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+        opacity: 0;
+        transform: scale(0.95);
+        animation: fadeIn 0.7s ease-out forwards;
+      }
+
+      .logo {
+        object-fit: cover;
+        transition: none;
+        border-radius: 0px;
+        width: 60px;
+        height: auto;
+        opacity: 1;
+        filter: blur(0px);
+        animation: none;
+        box-shadow: none;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      img.clear {
+        filter: none;
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+        opacity: 1;
+      }
+
+      #mensaje {
+        font-size: 1rem;
+        color: #aaaaaa;
+        margin-top: 10px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+      }
+
+      #mensaje.oculto {
+        opacity: 0;
+      }
+
+      #creditos {
+        font-size: 0.9rem;
+        color: #cccccc;
+        margin-top: 20px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="logo" src="/public/icons/infinity-icon.png" />
+    <h1>Conectar QR</h1>
+    <h2>Escanea el código QR con WhatsApp</h2>
+    <div class="qr-container" onclick="clickImagen()">
+      <img id="qrImage" alt="Código QR" />
+    </div>
+    <p id="mensaje">Haz clic en la imagen para actualizar</p>
+    <p id="creditos">Dev by Johan S.</p>
+
+    <script>
+      // Variables para actualizar la imagen QR
+      const intervalHide = 30
+      const intervalload = 8
+      const imageUrl = '/public/baileys-provider/baileys_qr.png'
+
+      // Elementos
+      const imgElement = document.getElementById('qrImage')
+      const messageElement = document.getElementById('mensaje')
+
+      function hideImage() {
+        imgElement.classList.remove('clear')
+        messageElement.classList.remove('oculto')
+      }
+
+      function showImage() {
+        imgElement.classList.add('clear')
+        messageElement.classList.add('oculto')
+      }
+
+      function loadImage() {
+        const timestamp = new Date().getTime()
+        imgElement.src = `${imageUrl}?v=${timestamp}`
+      }
+
+      function clickImagen() {
+        showImage()
+        loadImage()
+      }
+
+      window.onload = function () {
+        loadImage()
+        setInterval(loadImage, intervalload * 1000)
+        setInterval(hideImage, intervalHide * 1000)
+      }
+
+      // Multi-lenguaje: Actualiza los textos según el idioma del navegador
+      document.addEventListener('DOMContentLoaded', function () {
+        const texts = {
+          es: {
+            title: 'Vincular cuenta',
+            h1: 'Conectar QR',
+            h2: 'Escanea el código QR con WhatsApp',
+            mensaje: 'Haz clic en la imagen para actualizar',
+            creditos: 'Dev by Johan S.'
+          },
+          en: {
+            title: 'Link Account',
+            h1: 'Connect QR',
+            h2: 'Scan the QR code with WhatsApp',
+            mensaje: 'Click on the image to update',
+            creditos: 'Dev by Johan S.'
+          }
+        }
+        const lang = navigator.language.startsWith('es') ? 'es' : 'en'
+        document.title = texts[lang].title
+        document.querySelector('h1').innerText = texts[lang].h1
+        document.querySelector('h2').innerText = texts[lang].h2
+        document.getElementById('mensaje').innerText = texts[lang].mensaje
+        document.getElementById('creditos').innerText = texts[lang].creditos
+      })
+    </script>
+  </body>
+</html>

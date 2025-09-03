@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Error Token</title>
+    <style>
+      body {
+        background-color: #121212;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background: #1e1e1e;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+      h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 1.2em;
+        margin: 10px 0;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const messages = {
+          es: {
+            error: 'El token es inválido o ha expirado.',
+            instruction: 'Por favor, genere un token nuevo.'
+          },
+          en: {
+            error: 'The token is invalid or has expired.',
+            instruction: 'Please generate a new token.'
+          }
+        }
+        const userLang = navigator.language.startsWith('es') ? 'es' : 'en'
+        document.getElementById('errorMessage').innerText = messages[userLang].error
+        document.getElementById('instruction').innerText = messages[userLang].instruction
+      })
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <img id="icon" src="/public/icons/infinity-icon-dark.png" height="80" width="80" />
+      <h1 id="errorMessage">Cargando...</h1>
+      <p id="instruction">Cargando...</p>
+    </div>
+  </body>
+</html>

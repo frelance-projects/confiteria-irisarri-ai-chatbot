@@ -1,0 +1,60 @@
+//TT MÓDULOS
+import { getFullDateFormatGB, getFullDateFormatUS, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
+import { sendLog } from '#logger/logger.mjs'
+
+//TT CONSTRUIR PROMPTS
+import { buildCatalog } from './buildPrompt/toolCatalog.mjs'
+import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
+import { buildAgenda } from './buildPrompt/toolAppointment.mjs'
+
+//TT CONSTRUIR PROMPTS
+export async function buildPrompt(brain, user) {
+  try {
+    //SS ESTRUCTURA
+    //cargar base
+    const head = brain.headPrompt
+    const body = brain.prompt
+    const footer = brain.footerPrompt
+    let txt = ''
+
+    //construir base
+    if (head) txt += head + '\n'
+    if (body) txt += '\n- - -\n\n' + body + '\n\n- - -\n'
+    if (footer) txt += '\n' + footer
+
+    //SS GENERAL
+    //usuario
+    const userName = user.name || 'unknown'
+    const userNameRegistered = user.registeredName || 'unknown'
+    const userEmail = user.email || 'unknown'
+    txt = txt.replaceAll('{user_name}', userName)
+    txt = txt.replaceAll('{user_name_registered}', userNameRegistered)
+    txt = txt.replaceAll('{user_email}', userEmail)
+    //fecha
+    txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
+    txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
+    txt = txt.replaceAll('{time_now}', getTimeFormat())
+
+    //SS TOOLS
+    //catalog
+    if (brain.toolCatalog && txt.includes('{catalog}')) {
+      const catalog = await buildCatalog(brain.toolCatalog)
+      txt = txt.replaceAll('{catalog}', catalog)
+    }
+    //sendRequest
+    if (brain.toolSendRequest && txt.includes('{request_tags}')) {
+      const requestTags = await buildRequestTags(brain.toolSendRequest)
+      txt = txt.replaceAll('{request_tags}', requestTags)
+    }
+    //appointment
+    if (brain.toolAppointment && txt.includes('{agendas}')) {
+      const agendas = await buildAgenda(brain.toolAppointment)
+      txt = txt.replaceAll('{agendas}', agendas)
+    }
+    return txt
+  } catch (error) {
+    console.error('buildPrompt: Error al construir el prompt', error)
+    sendLog('error', 'ai/openAI/buildPrompt', 'Error creating message:\n' + String(error))
+    return 'Error al construir el prompt'
+  }
+}

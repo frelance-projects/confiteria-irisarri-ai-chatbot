@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Whatsapp Connect</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        text-align: center;
+        padding-top: 50px;
+        margin: 0;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #4a90e2;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-size: 1.2rem;
+        color: #bbbbbb;
+        margin-bottom: 20px;
+      }
+      h3 {
+        font-size: 1.2rem;
+        color: #3ad656;
+        margin-bottom: 30px;
+      }
+      img {
+        cursor: pointer;
+        width: 350px;
+        height: auto;
+        padding: 10px;
+      }
+      #mensaje {
+        font-size: 1rem;
+        color: #aaaaaa;
+        margin-top: 20px;
+        visibility: visible;
+        transition: visibility 0.5s ease, opacity 0.5s ease;
+        opacity: 1;
+      }
+      #creditos {
+        font-size: 1rem;
+        color: #cccccc;
+        margin-top: 20px;
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const messages = {
+          es: {
+            title: 'Whatsapp Conectado',
+            heading1: 'ChatBot Conectado',
+            heading2: 'Conectado al número de teléfono',
+            heading3: '+<%= host %>!',
+            mensaje:
+              'Si deseas conectar el chatbot a otro número, cierra primero la sesión del teléfono <%= host %>',
+            creditos: 'Dev by Johan S.'
+          },
+          en: {
+            title: 'Whatsapp Connected',
+            heading1: 'ChatBot Connected',
+            heading2: 'Connected to phone number',
+            heading3: '+<%= host %>!',
+            mensaje:
+              'If you want to connect the chatbot to a different number, please log out from phone <%= host %>',
+            creditos: 'Dev by Johan S.'
+          }
+        }
+        const lang = navigator.language.startsWith('es') ? 'es' : 'en'
+        document.title = messages[lang].title
+        document.getElementById('heading1').innerText = messages[lang].heading1
+        document.getElementById('heading2').innerText = messages[lang].heading2
+        document.getElementById('heading3').innerText = messages[lang].heading3
+        document.getElementById('mensaje').innerText = messages[lang].mensaje
+        document.getElementById('creditos').innerText = messages[lang].creditos
+      })
+    </script>
+  </head>
+  <body>
+    <h1 id="heading1">ChatBot Conectado</h1>
+    <div class="qr-container">
+      <img id="icon" src="/public/icons/infinity-icon.png" height="300" width="300" />
+    </div>
+    <h2 id="heading2">Conectado al número de teléfono</h2>
+    <h3 id="heading3">+<%= host %>!</h3>
+    <p id="mensaje">
+      Si deseas conectar el chatbot a otro número, cierra primero la sesión del teléfono <%= host %>
+    </p>
+    <p id="creditos">Dev by Johan S.</p>
+  </body>
+</html>

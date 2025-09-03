@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recordatorio de cita</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(135deg, #ececec, #ffffff);
+        color: #333;
+        -webkit-font-smoothing: antialiased;
+      }
+      .container {
+        max-width: 600px;
+        background-color: #fff;
+        margin: 30px auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+        animation: fadeInUp 0.7s ease-out;
+      }
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .header {
+        background: #c7940a;
+        padding: 30px 20px;
+        text-align: center;
+        color: #fff;
+        position: relative;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 0.5px;
+      }
+      .content {
+        padding: 30px 25px;
+        line-height: 1.6;
+        font-size: 16px;
+      }
+      .content p {
+        margin: 15px 0;
+      }
+      .content p strong {
+        color: #000;
+      }
+      .label {
+        display: inline-block;
+        background-color: #e65a5a;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .content hr {
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        margin: 30px 0;
+      }
+      blockquote {
+        background: #f1f1f1;
+        border-left: 5px solid #e65a5a;
+        margin: 0;
+        padding: 15px 20px;
+        font-style: italic;
+        color: #555;
+        border-radius: 4px;
+      }
+      .footer {
+        background-color: #f1f1f1;
+        padding: 15px 10px;
+        text-align: center;
+        font-size: 13px;
+        color: #777;
+        border-top: 1px solid #e0e0e0;
+      }
+      @media (max-width: 600px) {
+        body {
+          padding: 15px;
+        }
+        .container {
+          margin: 20px auto;
+        }
+        .header h1 {
+          font-size: 24px;
+        }
+        .content {
+          padding: 20px;
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Encabezado -->
+      <div class="header">
+        <h1>Recordatorio de cita</h1>
+      </div>
+      <!-- Contenido del mensaje -->
+      <div class="content">
+        <p>Hola {user_name} te recuedo tu cita de dia {appointment_start}</p>
+        <p class="label"><strong>Agenda:</strong> {agenda}</p>
+        <p><strong>Fecha y Hora de la cita:</strong> {appointment_start}</p>
+        <hr />
+        <p><strong>Nota:</strong></p>
+        <blockquote>{appointment_note}</blockquote>
+        <p>
+          Por favor, revisa la informacion y procede según los protocolos
+          establecidos.
+        </p>
+      </div>
+      <!-- Pie de página -->
+      <div class="footer">InfinityAi - Dev by Johan S.</div>
+    </div>
+  </body>
+</html>
