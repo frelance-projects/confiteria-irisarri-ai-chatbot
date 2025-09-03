@@ -3,7 +3,7 @@
 const license = {
   //SS TOOLS
   //brains
-  toolUserRegistration: true,
+  toolUserRegistration: false,
   toolCatalog: false,
   toolSendRequest: true,
   toolAutoTag: false,
