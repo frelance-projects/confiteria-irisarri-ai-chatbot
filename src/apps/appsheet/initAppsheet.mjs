@@ -2,18 +2,10 @@
 import { ENV } from '#config/config.mjs'
 import { patchTable } from './api/patchTable.mjs'
 import { getState } from '#config/license.mjs'
-//import { loadAgent } from './config/agent.mjs'
-//import { loadAssistants } from './config/assistants.mjs'
-import { loadArticles } from './config/articles/articles.mjs'
-import { buildArticles } from '#ai/openAI/buildPrompt/articles.mjs'
 
 //TT INICIALIZAR APPSHEET
 export async function initAppsheet() {
   console.log('appsheet inicializado')
-  //loadAgent('init')
-  //loadAssistants('init')
-  await loadArticles('init')
-  await buildArticles()
   await makeAppConfig()
   return true
 }
@@ -84,7 +76,7 @@ async function makeAppConfig() {
 
   const res = await patchTable('APP_CONFIG', [config])
   if (res) {
-    console.info('Configurarion de appsheet realizada con exito')
+    console.info('Configuraron de appsheet realizada con éxito')
   } else {
     console.error('Error al configurar appsheet')
   }
