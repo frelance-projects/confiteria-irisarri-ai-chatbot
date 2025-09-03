@@ -1,19 +1,19 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { setCatalogTool } from '#config/tools/toolsCatalog.mjs'
 
 export async function loadToolCatalog(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolCatalog)
+  const res = await getTable(appsheetTablesTools.toolCatalog)
   if (res) {
-    console.info('appsheet: configuracion de <tool-catalogs> cargada')
+    console.info('appsheet: configuración de <tool-catalogs> cargada')
     const catalogs = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-catalogs> inicializada: ', catalogs.length)
+      console.info('appsheet: configuración de <tool-catalogs> inicializada: ', catalogs.length)
       return setCatalogTool(catalogs)
     }
     return catalogs
   } else {
-    console.error('appsheet: configuracion de <tool-catalogs> no cargada')
+    console.error('appsheet: configuración de <tool-catalogs> no cargada')
     return null
   }
 }

@@ -1,22 +1,22 @@
-import { appsheeTablesResources } from '../../tablesId.mjs'
+import { appsheetTablesResources } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { setMessagelTemplates } from '#config/resources/messageTemplates.mjs'
 
 export async function loadMessageTemplates(estate = 'init') {
-  const res = await getTable(appsheeTablesResources.resourceMessageTemplates)
+  const res = await getTable(appsheetTablesResources.resourceMessageTemplates)
   if (res) {
-    console.info('appsheet: configuracion de <resouce-messagetemplates> cargada')
+    console.info('appsheet: configuración de <resouce-messagetemplates> cargada')
     const messageTemplates = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <resouce-messagetemplates> inicializada: ',
+        'appsheet: configuración de <resouce-messagetemplates> inicializada: ',
         messageTemplates.length
       )
       return setMessagelTemplates(messageTemplates)
     }
     return messageTemplates
   } else {
-    console.error('appsheet: configuracion de <resouce-messagetemplates> no cargada')
+    console.error('appsheet: configuración de <resouce-messagetemplates> no cargada')
     return null
   }
 }

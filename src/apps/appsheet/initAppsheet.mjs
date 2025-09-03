@@ -4,12 +4,16 @@ import { patchTable } from './api/patchTable.mjs'
 import { getState } from '#config/license.mjs'
 //import { loadAgent } from './config/agent.mjs'
 //import { loadAssistants } from './config/assistants.mjs'
+import { loadArticles } from './config/articles/articles.mjs'
+import { buildArticles } from '#ai/openAI/buildPrompt/articles.mjs'
 
 //TT INICIALIZAR APPSHEET
 export async function initAppsheet() {
   console.log('appsheet inicializado')
   //loadAgent('init')
   //loadAssistants('init')
+  await loadArticles('init')
+  await buildArticles()
   await makeAppConfig()
   return true
 }
@@ -37,7 +41,7 @@ async function makeAppConfig() {
     MULTIPLE_BRAIN: getState('multipleBrain') || false,
     PROCESS_AUDIO: getState('processAudio') || false,
     PROCESS_IMAGE: getState('processImage') || false,
-    PROCESS_PDF: getState('processPdf') || false
+    PROCESS_PDF: getState('processPdf') || false,
   }
   //email
   if (ENV.SMTP_EMAIL && ENV.SMTP_PORT && ENV.SMTP_SERVICE && ENV.SMTP_TOKEN) {

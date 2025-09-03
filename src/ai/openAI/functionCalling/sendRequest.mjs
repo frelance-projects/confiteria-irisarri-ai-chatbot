@@ -22,7 +22,7 @@ export async function sendRequest(args, user, userIdKey) {
     console.error('Error al cargar la etiqueta')
     return { response: 'error: error loading tag' }
   }
-  //cargar configuracion
+  //cargar configuración
   const brain = await getBrainById(user.brain)
 
   //console.log(tag)

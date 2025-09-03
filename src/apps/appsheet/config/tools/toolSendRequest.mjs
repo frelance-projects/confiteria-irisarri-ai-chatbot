@@ -1,21 +1,21 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setSendRequestConfig } from '#config/tools/toolSendRequest.mjs'
 
 //TT CARGAR TOOLS
 export async function loadToolSendRequest(estate = 'init') {
-  const sendRequest = await getTable(appsheeTablesTools.toolSendRequest)
+  const sendRequest = await getTable(appsheetTablesTools.toolSendRequest)
   if (sendRequest) {
-    console.info('appsheet: configuracion de <tool-sendRequest> cargada')
+    console.info('appsheet: configuración de <tool-sendRequest> cargada')
     const sendRequestConfig = buildFormat(sendRequest)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-sendRequest> inicializada', sendRequestConfig.length)
+      console.info('appsheet: configuración de <tool-sendRequest> inicializada', sendRequestConfig.length)
       return setSendRequestConfig(sendRequestConfig)
     }
     return sendRequestConfig
   } else {
-    console.error('appsheet: configuracion de <tool-sendRequest> no cargada')
+    console.error('appsheet: configuración de <tool-sendRequest> no cargada')
     return null
   }
 }

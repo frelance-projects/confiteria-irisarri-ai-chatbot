@@ -12,7 +12,7 @@ export async function updateStatusPlatforms(platform, { accountId, status }) {
         ACCOUNT_ID: accountId,
         STATUS: status
       }
-      table = appsheetTablesConfig.patformWaBaileys
+      table = appsheetTablesConfig.platformWaBaileys
     } else if (ENV.PROV_WHATSAPP === 'meta') {
       data = {
         PLATFORM: platform,

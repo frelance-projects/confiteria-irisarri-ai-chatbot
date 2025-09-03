@@ -1,4 +1,4 @@
-import { appsheeTablesData } from '../../tablesId.mjs'
+import { appsheetTablesData } from '../../tablesId.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
 import { postTable } from '../../api/postTable.mjs'
 
@@ -14,7 +14,7 @@ export async function addRequest(request) {
     STATUS: obj.status
   }))
   try {
-    const res = await postTable(appsheeTablesData.toolSendRequestData, data)
+    const res = await postTable(appsheetTablesData.toolSendRequestData, data)
     console.info(`Solicitud agregada a AppSheet:\n${JSON.stringify(res, null, 2)}`)
     return res
   } catch (error) {

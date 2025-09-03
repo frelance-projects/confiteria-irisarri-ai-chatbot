@@ -1,4 +1,4 @@
-import { appsheeTablesOthers } from './tablesId.mjs'
+import { appsheetTablesOthers } from './tablesId.mjs'
 import { postTable } from './api/postTable.mjs'
 import { urlMedia } from '#storage/urlMedia.mjs'
 import { createId } from '#utilities/createId.mjs'
@@ -71,7 +71,7 @@ export function addToChunk(messages) {
   chunk.push(...newMessages)
 
   if (chunk.length > 10) {
-    postTable(appsheeTablesOthers.messages, chunk).then((res) => {
+    postTable(appsheetTablesOthers.messages, chunk).then((res) => {
       if (!res) {
         console.error('appsheet: error al enviar mensajes')
       }
@@ -85,7 +85,7 @@ export function addToChunk(messages) {
   if (!timeoutId) {
     timeoutId = setTimeout(() => {
       if (chunk.length > 0) {
-        postTable(appsheeTablesOthers.messages, chunk).then((res) => {
+        postTable(appsheetTablesOthers.messages, chunk).then((res) => {
           if (!res) {
             console.error('appsheet: error al enviar mensajes')
           }

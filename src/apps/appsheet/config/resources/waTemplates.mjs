@@ -1,21 +1,21 @@
-import { appsheeTablesResources } from '../../tablesId.mjs'
+import { appsheetTablesResources } from '../../tablesId.mjs'
 import { postTable } from '../../api/postTable.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { setWaTemplates as setWaTemplatesConfig } from '#config/resources/waTemplates.mjs'
 
 //TT OBTENER PLANTILLAS DE WHATSAPP
 export async function loadWaTemplates(estate = 'init') {
-  const res = await getTable(appsheeTablesResources.resourceWaTemplates)
+  const res = await getTable(appsheetTablesResources.resourceWaTemplates)
   if (res) {
-    console.info('appsheet: configuracion de <resouce-waTemplates> cargada')
+    console.info('appsheet: configuración de <resouce-waTemplates> cargada')
     const waTemplates = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <resouce-waTemplates> inicializada: ', waTemplates.length)
+      console.info('appsheet: configuración de <resouce-waTemplates> inicializada: ', waTemplates.length)
       return setWaTemplatesConfig(waTemplates)
     }
     return waTemplates
   } else {
-    console.error('appsheet: configuracion de <resouce-waTemplates> no cargada')
+    console.error('appsheet: configuración de <resouce-waTemplates> no cargada')
     return null
   }
 }
@@ -24,11 +24,11 @@ export async function loadWaTemplates(estate = 'init') {
 export async function updateWaTemplates(templates) {
   const data = revertdFormat(templates)
   try {
-    const res = await postTable(appsheeTablesResources.resourceWaTemplates, data)
-    console.info(`appsheet: configuracion de <resource-waTemplates> actualizada: ${res.length} plantillas`)
+    const res = await postTable(appsheetTablesResources.resourceWaTemplates, data)
+    console.info(`appsheet: configuración de <resource-waTemplates> actualizada: ${res.length} plantillas`)
     return buildFormat(res)
   } catch (error) {
-    console.error('appsheet: error al actualizar la configuracion de <resource-waTemplates>', error)
+    console.error('appsheet: error al actualizar la configuración de <resource-waTemplates>', error)
     return null
   }
 }

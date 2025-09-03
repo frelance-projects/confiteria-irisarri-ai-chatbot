@@ -6,15 +6,15 @@ import { setUsersTags } from '#config/userdTags/userdTags.mjs'
 export async function loadUserTags(estate = 'init') {
   const res = await getTable(appsheetTablesConfig.usersTags)
   if (res) {
-    console.info('appsheet: configuracion de <userstags> cargada')
+    console.info('appsheet: configuración de <userstags> cargada')
     const usersTags = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <userstags> inicializada: ', usersTags.length)
+      console.info('appsheet: configuración de <userstags> inicializada: ', usersTags.length)
       return setUsersTags(usersTags)
     }
     return usersTags
   } else {
-    console.error('appsheet: configuracion de <userstags> no cargada')
+    console.error('appsheet: configuración de <userstags> no cargada')
     return null
   }
 }

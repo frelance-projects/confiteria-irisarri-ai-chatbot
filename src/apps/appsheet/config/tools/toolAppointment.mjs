@@ -1,20 +1,20 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setAppointmentTool } from '#config/tools/toolAppointment.mjs'
 
 export async function loadToolAppointment(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolAppointment)
+  const res = await getTable(appsheetTablesTools.toolAppointment)
   if (res) {
-    console.info('appsheet: configuracion de <tool-appointment> cargada')
+    console.info('appsheet: configuración de <tool-appointment> cargada')
     const toolAppointment = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-appointment> inicializada: ', toolAppointment.length)
+      console.info('appsheet: configuración de <tool-appointment> inicializada: ', toolAppointment.length)
       return setAppointmentTool(toolAppointment)
     }
     return toolAppointment
   } else {
-    console.error('appsheet: configuracion de <tool-appointment> no cargada')
+    console.error('appsheet: configuración de <tool-appointment> no cargada')
     return null
   }
 }

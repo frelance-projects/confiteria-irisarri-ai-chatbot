@@ -1,20 +1,20 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setToolSendRequestTags } from '#config/tools/toolSendRequestTags.mjs'
 
 export async function loadToolSendRequestTags(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolSendRequestTags)
+  const res = await getTable(appsheetTablesTools.toolSendRequestTags)
   if (res) {
-    console.info('appsheet: configuracion de <tool-sendrequesttags> cargada')
+    console.info('appsheet: configuración de <tool-sendrequesttags> cargada')
     const tags = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-sendrequesttags> inicializada: ', tags.length)
+      console.info('appsheet: configuración de <tool-sendrequesttags> inicializada: ', tags.length)
       return setToolSendRequestTags(tags)
     }
     return tags
   } else {
-    console.error('appsheet: configuracion de <tool-sendrequesttags> no cargada')
+    console.error('appsheet: configuración de <tool-sendrequesttags> no cargada')
     return null
   }
 }

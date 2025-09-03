@@ -13,7 +13,7 @@ export async function getMessageHistory(userIdKey, user) {
     const brain = await getBrainById(user.brain)
     if (brain) {
       const text = await buildPrompt(brain, user)
-      messageHistory[userIdKey].push({ role: 'system', content: text })
+      messageHistory[userIdKey].push({ role: 'developer', content: text })
     } else {
       console.error('getMessageHistory: No se ha encontrado el prompt o el cerebro')
     }

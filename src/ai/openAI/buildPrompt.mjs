@@ -6,6 +6,7 @@ import { sendLog } from '#logger/logger.mjs'
 import { buildCatalog } from './buildPrompt/toolCatalog.mjs'
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildAgenda } from './buildPrompt/toolAppointment.mjs'
+import { buildArticles } from './buildPrompt/articles.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -34,6 +35,12 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
     txt = txt.replaceAll('{time_now}', getTimeFormat())
+
+    //artículos
+    if (txt.includes('{articles}')) {
+      const articles = await buildArticles()
+      txt = txt.replaceAll('{articles}', articles)
+    }
 
     //SS TOOLS
     //catalog

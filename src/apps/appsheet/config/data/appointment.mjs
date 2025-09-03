@@ -1,5 +1,5 @@
 //TT MÓDULOS
-import { appsheeTablesData } from '../../tablesId.mjs'
+import { appsheetTablesData } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { ENV } from '#config/config.mjs'
 import { postTable } from '../../api/postTable.mjs'
@@ -16,8 +16,8 @@ export async function loadAppointments(start = null, end = null, agendaId = null
   if (realStart && realEnd) {
     //sin agenda
     if (!agendaId) {
-      events = await getTable(appsheeTablesData.toolAppointmentCalendar, [], {
-        Selector: `FILTER(${appsheeTablesData.toolAppointmentCalendar}, AND([START_DATE] >= "${realStart}", [END_DATE] <= "${realEnd}"))`,
+      events = await getTable(appsheetTablesData.toolAppointmentCalendar, [], {
+        Selector: `FILTER(${appsheetTablesData.toolAppointmentCalendar}, AND([START_DATE] >= "${realStart}", [END_DATE] <= "${realEnd}"))`,
         Locale: 'en-GB',
         Timezone: ENV.TZ,
         UserSettings: { FROM_API: true }
@@ -25,8 +25,8 @@ export async function loadAppointments(start = null, end = null, agendaId = null
     }
     //con agenda
     else {
-      events = await getTable(appsheeTablesData.toolAppointmentCalendar, [], {
-        Selector: `FILTER(${appsheeTablesData.toolAppointmentCalendar}, AND([START_DATE] >= "${realStart}", [END_DATE] <= "${realEnd}", [TOOL_APPOINTMENT_AGENDAS] = "${agendaId}"))`,
+      events = await getTable(appsheetTablesData.toolAppointmentCalendar, [], {
+        Selector: `FILTER(${appsheetTablesData.toolAppointmentCalendar}, AND([START_DATE] >= "${realStart}", [END_DATE] <= "${realEnd}", [TOOL_APPOINTMENT_AGENDAS] = "${agendaId}"))`,
         Locale: 'en-GB',
         Timezone: ENV.TZ,
         UserSettings: { FROM_API: true }
@@ -37,12 +37,12 @@ export async function loadAppointments(start = null, end = null, agendaId = null
   else {
     //sin agenda
     if (!agendaId) {
-      events = await getTable(appsheeTablesData.toolAppointmentCalendar)
+      events = await getTable(appsheetTablesData.toolAppointmentCalendar)
     }
     //con agenda
     else {
-      events = await getTable(appsheeTablesData.toolAppointmentCalendar, [], {
-        Selector: `FILTER(${appsheeTablesData.toolAppointmentCalendar}, [TOOL_APPOINTMENT_AGENDAS] = "${agendaId}")`,
+      events = await getTable(appsheetTablesData.toolAppointmentCalendar, [], {
+        Selector: `FILTER(${appsheetTablesData.toolAppointmentCalendar}, [TOOL_APPOINTMENT_AGENDAS] = "${agendaId}")`,
         Locale: 'en-GB',
         Timezone: ENV.TZ,
         UserSettings: { FROM_API: true }
@@ -60,8 +60,8 @@ export async function loadAppointments(start = null, end = null, agendaId = null
 
 //TT CARGAR CITA POR ID
 export async function loadAppointmentById(id) {
-  const events = await getTable(appsheeTablesData.toolAppointmentCalendar, [], {
-    Selector: `FILTER(${appsheeTablesData.toolAppointmentCalendar}, [ID] = "${id}")`,
+  const events = await getTable(appsheetTablesData.toolAppointmentCalendar, [], {
+    Selector: `FILTER(${appsheetTablesData.toolAppointmentCalendar}, [ID] = "${id}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
     UserSettings: { FROM_API: true }
@@ -77,8 +77,8 @@ export async function loadAppointmentById(id) {
 
 //TT CARGAR CITA POR USUARIO
 export async function loadAppointmentsByUser(userId) {
-  const events = await getTable(appsheeTablesData.toolAppointmentCalendar, [], {
-    Selector: `FILTER(${appsheeTablesData.toolAppointmentCalendar}, [USER] = "${userId}")`,
+  const events = await getTable(appsheetTablesData.toolAppointmentCalendar, [], {
+    Selector: `FILTER(${appsheetTablesData.toolAppointmentCalendar}, [USER] = "${userId}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
     UserSettings: { FROM_API: true }
@@ -95,7 +95,7 @@ export async function loadAppointmentsByUser(userId) {
 export async function addAppointment(appointment) {
   const newAppointment = Array.isArray(appointment) ? appointment : [appointment]
   const data = revetFormat(newAppointment)
-  const res = await postTable(appsheeTablesData.toolAppointmentCalendar, data)
+  const res = await postTable(appsheetTablesData.toolAppointmentCalendar, data)
   if (res) {
     return buildFormat(res)
   } else {
@@ -108,7 +108,7 @@ export async function addAppointment(appointment) {
 export async function updateAppointment(appointment) {
   const newData = Array.isArray(appointment) ? appointment : [appointment]
   const data = revetFormat(newData)
-  const res = await patchTable(appsheeTablesData.toolAppointmentCalendar, data)
+  const res = await patchTable(appsheetTablesData.toolAppointmentCalendar, data)
   if (res) {
     return buildFormat(res)
   } else {

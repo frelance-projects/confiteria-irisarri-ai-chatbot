@@ -1,23 +1,23 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { SetUserRegistrationRequiredData } from '#config/tools/toolUserRegistrationRequiredData.mjs'
 
 export async function loadUserRegistrationRequiredData(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolUserRegistrationRequiredData)
+  const res = await getTable(appsheetTablesTools.toolUserRegistrationRequiredData)
   if (res) {
-    console.info('appsheet: configuracion de <tool-userregistrationrequireddata> cargada')
+    console.info('appsheet: configuración de <tool-userregistrationrequireddata> cargada')
     const toolUserRegistrationRequiredData = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <tool-userregistrationrequireddata> inicializada: ',
+        'appsheet: configuración de <tool-userregistrationrequireddata> inicializada: ',
         toolUserRegistrationRequiredData.length
       )
       return SetUserRegistrationRequiredData(toolUserRegistrationRequiredData)
     }
     return toolUserRegistrationRequiredData
   } else {
-    console.error('appsheet: configuracion de <tool-userregistrationrequireddata> no cargada')
+    console.error('appsheet: configuración de <tool-userregistrationrequireddata> no cargada')
     return null
   }
 }

@@ -1,4 +1,4 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { postTable } from '../../api/postTable.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
@@ -7,20 +7,20 @@ import { setUserRegistrationProfiles } from '#config/tools/toolUserRegistrationP
 
 //TT CARGAR CONFIGURACION DE <tool-userregistrationprofiles>
 export async function loadUserRegistrationProfiles(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolUserRegistrationProfiles)
+  const res = await getTable(appsheetTablesTools.toolUserRegistrationProfiles)
   if (res) {
-    console.info('appsheet: configuracion de <tool-userregistrationprofiles> cargada')
+    console.info('appsheet: configuración de <tool-userregistrationprofiles> cargada')
     const toolUserRegistrationProfiles = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <tool-userregistrationprofiles> inicializada: ',
+        'appsheet: configuración de <tool-userregistrationprofiles> inicializada: ',
         toolUserRegistrationProfiles.length
       )
       return setUserRegistrationProfiles(toolUserRegistrationProfiles)
     }
     return toolUserRegistrationProfiles
   } else {
-    console.error('appsheet: configuracion de <tool-userregistrationprofiles> no cargada')
+    console.error('appsheet: configuración de <tool-userregistrationprofiles> no cargada')
     return null
   }
 }
@@ -29,12 +29,12 @@ export async function loadUserRegistrationProfiles(estate = 'init') {
 export async function addUserRegistrationProfiles(profile) {
   const newProfiles = Array.isArray(profile) ? profile : [profile]
   const data = revetFormat(newProfiles)
-  const res = await postTable(appsheeTablesTools.toolUserRegistrationProfiles, data)
+  const res = await postTable(appsheetTablesTools.toolUserRegistrationProfiles, data)
   if (res) {
     const toolUserRegistrationProfiles = buildFormat(res)
     return toolUserRegistrationProfiles
   } else {
-    console.error('appsheet: configuracion de <tool-userregistrationprofiles> no cargada')
+    console.error('appsheet: configuración de <tool-userregistrationprofiles> no cargada')
     return null
   }
 }

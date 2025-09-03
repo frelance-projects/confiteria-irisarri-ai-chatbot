@@ -1,5 +1,5 @@
 //TT MÓDULOS
-import { appsheeTablesData } from '../../tablesId.mjs'
+import { appsheetTablesData } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { postTable } from '../../api/postTable.mjs'
 import { patchTable } from '../../api/patchTable.mjs'
@@ -8,8 +8,8 @@ import { buildFormatDateTime, revertDateTime } from '#utilities/appsheetTools/fo
 
 //TT CARGAR LOGS DE UN USUARIO
 export async function getFollowUpLogByUser(userId) {
-  const logs = await getTable(appsheeTablesData.toolFollowUpLogs, [], {
-    Selector: `FILTER(${appsheeTablesData.toolFollowUpLogs}, [USER] = "${userId}")`,
+  const logs = await getTable(appsheetTablesData.toolFollowUpLogs, [], {
+    Selector: `FILTER(${appsheetTablesData.toolFollowUpLogs}, [USER] = "${userId}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
     UserSettings: { FROM_API: true }
@@ -25,7 +25,7 @@ export async function addFollowUpLog(followUpLog) {
   const newFollowUpLog = Array.isArray(followUpLog) ? followUpLog : [followUpLog]
   const data = revetFormat(newFollowUpLog)
   //console.info(`Datos de seguimiento a agregar a AppSheet:\n${JSON.stringify(data, null, 2)}`)
-  const res = await postTable(appsheeTablesData.toolFollowUpLogs, data)
+  const res = await postTable(appsheetTablesData.toolFollowUpLogs, data)
   if (res) {
     //console.info(`Datos de seguimiento agregados a AppSheet:\n${JSON.stringify(res, null, 2)}`)
     return buildFormat(res)
@@ -39,7 +39,7 @@ export async function addFollowUpLog(followUpLog) {
 export async function updateFollowUpLog(followUpLog) {
   const newFollowUpLog = Array.isArray(followUpLog) ? followUpLog : [followUpLog]
   const data = revetFormat(newFollowUpLog)
-  const res = await patchTable(appsheeTablesData.toolFollowUpLogs, data)
+  const res = await patchTable(appsheetTablesData.toolFollowUpLogs, data)
   if (res) {
     return buildFormat(res)
   } else {

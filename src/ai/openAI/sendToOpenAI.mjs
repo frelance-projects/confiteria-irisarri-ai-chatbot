@@ -72,6 +72,8 @@ function addLogOpenAi(user, model, response) {
     const output = response.usage.output_tokens || 0
     const cachedInput = response.usage.input_tokens_details?.cached_tokens || 0
     addLog(userId, { provider, model, type, unit, input, output, cachedInput })
+    console.log(response.usage)
+    console.log(response.user)
   } catch (error) {
     sendLog('error', 'ai/openAI/sendToOpenAI', 'Error adding log to OpenAI:\n' + String(error))
     console.error('Error al agregar el log a OpenAI:', error)

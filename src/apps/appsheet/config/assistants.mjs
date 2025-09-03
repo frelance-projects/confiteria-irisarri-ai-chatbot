@@ -5,15 +5,15 @@ import { setAssistants } from '#config/assistants/assistants.mjs'
 export async function loadAssistants(estate = 'init') {
   const res = await getTable(appsheetTablesConfig.assistants)
   if (res) {
-    console.info('appsheet: configuracion de <assistants> cargada')
+    console.info('appsheet: configuración de <assistants> cargada')
     const assistants = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <assistants> inicializada: ', assistants.length)
+      console.info('appsheet: configuración de <assistants> inicializada: ', assistants.length)
       return setAssistants(assistants)
     }
     return assistants
   } else {
-    console.error('appsheet: configuracion de <assistants> no cargada')
+    console.error('appsheet: configuración de <assistants> no cargada')
     return null
   }
 }
@@ -30,6 +30,6 @@ function buildFormat(data = []) {
     detectAssistantMessage: obj.DETECT_ASSISTANT_MESSAGE,
     detectAssistantIdel: parseInt(obj.DETECT_ASSISTANT_IDEL, 10) || 5 // minutos
   }))
-  //console.info('appsheet: configuracion de <assistants> cargada', assistants)
+  //console.info('appsheet: configuración de <assistants> cargada', assistants)
   return assistants
 }

@@ -1,22 +1,22 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { setFollowUpMessages } from '#config/tools/toolFollowUpMessages.mjs'
 
 export async function loadToolFollowUpMessages(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolFollowUpMessages)
+  const res = await getTable(appsheetTablesTools.toolFollowUpMessages)
   if (res) {
-    console.info('appsheet: configuracion de <tool-followUpMessages> cargada')
+    console.info('appsheet: configuración de <tool-followUpMessages> cargada')
     const followUpMessages = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <tool-followUpMessages> inicializada: ',
+        'appsheet: configuración de <tool-followUpMessages> inicializada: ',
         followUpMessages.length
       )
       return setFollowUpMessages(followUpMessages)
     }
     return followUpMessages
   } else {
-    console.error('appsheet: configuracion de <tool-followUpMessages> no cargada')
+    console.error('appsheet: configuración de <tool-followUpMessages> no cargada')
     return null
   }
 }

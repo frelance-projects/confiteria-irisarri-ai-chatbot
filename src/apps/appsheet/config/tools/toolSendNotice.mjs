@@ -1,21 +1,21 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setToolSendNotice } from '#config/tools/toolSendNotice.mjs'
 import { patchTable } from '../../api/patchTable.mjs'
 
 export async function loadToolSendNotice(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolSendNotice)
+  const res = await getTable(appsheetTablesTools.toolSendNotice)
   if (res) {
-    console.info('appsheet: configuracion de <tool-sendnotice> cargada')
+    console.info('appsheet: configuración de <tool-sendnotice> cargada')
     const toolSendNotice = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-sendnotice> inicializada', toolSendNotice.length)
+      console.info('appsheet: configuración de <tool-sendnotice> inicializada', toolSendNotice.length)
       return setToolSendNotice(toolSendNotice)
     }
     return toolSendNotice
   } else {
-    console.error('appsheet: configuracion de <tool-sendnotice> no cargada')
+    console.error('appsheet: configuración de <tool-sendnotice> no cargada')
     return null
   }
 }
@@ -24,7 +24,7 @@ export async function loadToolSendNotice(estate = 'init') {
 export async function updateNoticeProcess(notice) {
   const dataNotice = Array.isArray(notice) ? notice : [notice]
   const data = revertFormat(dataNotice)
-  const res = await patchTable(appsheeTablesTools.toolSendNotice, data)
+  const res = await patchTable(appsheetTablesTools.toolSendNotice, data)
   if (res) {
     console.log('appsheet: usuario actualizado')
     return buildFormat(res)
@@ -53,7 +53,7 @@ function buildFormat(data = []) {
     endTime: obj.END_TIME,
     process: obj.PROCESS
   }))
-  //console.warn('appsheet: configuracion de <tool-sendnotice> formateada: ', toolSendNotice)
+  //console.warn('appsheet: configuración de <tool-sendnotice> formateada: ', toolSendNotice)
   return toolSendNotice
 }
 
@@ -63,6 +63,6 @@ function revertFormat(data = []) {
     ID: obj.id,
     PROCESS: obj.process
   }))
-  //console.warn('appsheet: configuracion de <tool-sendnotice> formateada: ', toolSendNotice)
+  //console.warn('appsheet: configuración de <tool-sendnotice> formateada: ', toolSendNotice)
   return toolSendNotice
 }

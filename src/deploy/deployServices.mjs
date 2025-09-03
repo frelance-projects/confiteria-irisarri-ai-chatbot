@@ -9,11 +9,11 @@ export async function deployServices() {
     const services = await getServices()
     //comprobar servicios
     if (!services) {
-      console.error('Deploy: Error al cargar configuracion de servicios')
+      console.error('Deploy: Error al cargar configuración de servicios')
       return null
     }
     if (!Array.isArray(services)) {
-      console.error('Deploy: Error configuracion de servicios no es un array')
+      console.error('Deploy: Error configuración de servicios no es un array')
       return null
     }
 

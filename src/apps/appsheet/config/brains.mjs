@@ -6,15 +6,15 @@ import { buildBrain } from '#config/license.mjs'
 export async function loadBrains(estate = 'init') {
   const res = await getTable(appsheetTablesConfig.brains)
   if (res) {
-    console.info('appsheet: configuracion de <brains> cargada')
+    console.info('appsheet: configuración de <brains> cargada')
     const brains = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <brains> inicializada: ', brains.length)
+      console.info('appsheet: configuración de <brains> inicializada: ', brains.length)
       return setBrains(brains)
     }
     return brains
   } else {
-    console.error('appsheet: configuracion de <brains> no cargada')
+    console.error('appsheet: configuración de <brains> no cargada')
     return null
   }
 }

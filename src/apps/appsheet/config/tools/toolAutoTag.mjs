@@ -1,20 +1,20 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setAutoTagTool } from '#config/tools/toolAutoTag.mjs'
 
 export async function loadToolAutoTag(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolAutoTag)
+  const res = await getTable(appsheetTablesTools.toolAutoTag)
   if (res) {
-    console.info('appsheet: configuracion de <tool-autotag> cargada')
+    console.info('appsheet: configuración de <tool-autotag> cargada')
     const toolAutoTag = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-autotag> inicializada: ', toolAutoTag.length)
+      console.info('appsheet: configuración de <tool-autotag> inicializada: ', toolAutoTag.length)
       return setAutoTagTool(toolAutoTag)
     }
     return toolAutoTag
   } else {
-    console.error('appsheet: configuracion de <tool-autotag> no cargada')
+    console.error('appsheet: configuración de <tool-autotag> no cargada')
     return null
   }
 }

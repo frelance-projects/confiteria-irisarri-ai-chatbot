@@ -11,15 +11,15 @@ import { ENV } from '#config/config.mjs'
 export async function loadUsers(estate = 'init') {
   const res = await getTable(appsheetTablesConfig.users)
   if (res) {
-    console.info('appsheet: configuracion de <users> cargada')
+    console.info('appsheet: configuración de <users> cargada')
     const users = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <users> inicializada: ', users.length)
+      console.info('appsheet: configuración de <users> inicializada: ', users.length)
       return setUsers(users)
     }
     return users
   } else {
-    console.error('appsheet: configuracion de <users> no cargada')
+    console.error('appsheet: configuración de <users> no cargada')
     return null
   }
 }

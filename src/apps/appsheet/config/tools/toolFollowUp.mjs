@@ -1,20 +1,20 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setFollowUp } from '#config/tools/toolFollowUp.mjs'
 
 export async function loadToolFollowUp(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolFollowUp)
+  const res = await getTable(appsheetTablesTools.toolFollowUp)
   if (res) {
-    console.info('appsheet: configuracion de <tool-followUp> cargada')
+    console.info('appsheet: configuración de <tool-followUp> cargada')
     const followUp = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuracion de <tool-followUp> inicializada: ', followUp.length)
+      console.info('appsheet: configuración de <tool-followUp> inicializada: ', followUp.length)
       return setFollowUp(followUp)
     }
     return followUp
   } else {
-    console.error('appsheet: configuracion de <tool-followUp> no cargada')
+    console.error('appsheet: configuración de <tool-followUp> no cargada')
     return null
   }
 }

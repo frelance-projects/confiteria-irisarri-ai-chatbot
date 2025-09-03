@@ -1,14 +1,14 @@
 import { getTable } from '../../api/getTable.mjs'
 import { postTable } from '../../api/postTable.mjs'
 import { ENV } from '#config/config.mjs'
-import { appsheeTablesData } from '../../tablesId.mjs'
+import { appsheetTablesData } from '../../tablesId.mjs'
 import { revertDateTime, buildFormatDateTime } from '#utilities/appsheetTools/formatDateTime.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
 
 //TT CARGAR LOGS TODOS LOS LOGS POR NOTICIA
 export async function getNoticeLogByNotice(noticeId) {
-  const logs = await getTable(appsheeTablesData.toolSendNoticeLogs, [], {
-    Selector: `FILTER(${appsheeTablesData.toolSendNoticeLogs}, [TOOL_SENDNOTICE] = "${noticeId}")`,
+  const logs = await getTable(appsheetTablesData.toolSendNoticeLogs, [], {
+    Selector: `FILTER(${appsheetTablesData.toolSendNoticeLogs}, [TOOL_SENDNOTICE] = "${noticeId}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
     UserSettings: { FROM_API: true }
@@ -21,8 +21,8 @@ export async function getNoticeLogByNotice(noticeId) {
 
 //TT CARGAR LOGS POR ID
 export async function getNoticeLogById(id) {
-  const logs = await getTable(appsheeTablesData.toolSendNoticeLogs, [], {
-    Selector: `FILTER(${appsheeTablesData.toolSendNoticeLogs}, [ID] = "${id}")`,
+  const logs = await getTable(appsheetTablesData.toolSendNoticeLogs, [], {
+    Selector: `FILTER(${appsheetTablesData.toolSendNoticeLogs}, [ID] = "${id}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
     UserSettings: { FROM_API: true }
@@ -36,7 +36,7 @@ export async function getNoticeLogById(id) {
 export async function addNoticeLog(noticeLog) {
   const newNoticeLog = Array.isArray(noticeLog) ? noticeLog : [noticeLog]
   const data = revetFormat(newNoticeLog)
-  const res = await postTable(appsheeTablesData.toolSendNoticeLogs, data)
+  const res = await postTable(appsheetTablesData.toolSendNoticeLogs, data)
   if (res) {
     return buildFormat(res)
   } else {

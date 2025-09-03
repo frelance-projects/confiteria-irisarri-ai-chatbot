@@ -9,12 +9,12 @@ export const appsheetTablesConfig = {
   users: 'USERS',
   usersTags: 'USERS_TAGS',
   //ss platforms,
-  patformWaBaileys: 'PLATFORM_WA_BAILEYS',
+  platformWaBaileys: 'PLATFORM_WA_BAILEYS',
   platformWaMeta: 'PLATFORM_WA_META'
 }
 
 //TT DATOS DE TABLAS DE HERRAMIENTAS
-export const appsheeTablesTools = {
+export const appsheetTablesTools = {
   //toolCatalog
   toolCatalog: 'TOOL_CATALOG',
   toolCatalogPages: 'TOOL_CATALOG_PAGES',
@@ -46,14 +46,14 @@ export const appsheeTablesTools = {
 }
 
 //TT DATOS DE TABLAS DE RECURSOS
-export const appsheeTablesResources = {
+export const appsheetTablesResources = {
   resourceEmailTemplates: 'RESOURCE_EMAIL_TEMPLATES',
   resourceMessageTemplates: 'RESOURCE_MESSAGE_TEMPLATES',
   resourceWaTemplates: 'RESOURCE_WA_TEMPLATES'
 }
 
 //TT DATOS DE TABLAS
-export const appsheeTablesData = {
+export const appsheetTablesData = {
   //toolSendRequest
   toolSendRequestData: 'TOOL_SENDREQUEST_DATA',
   //toolAppointment
@@ -65,6 +65,10 @@ export const appsheeTablesData = {
   toolSendNoticeLogs: 'TOOL_SENDNOTICE_LOGS'
 }
 
-export const appsheeTablesOthers = {
+export const appsheetTablesOthers = {
   messages: 'MESSAGES'
+}
+
+export const appsheetTablesArticles = {
+  articles: 'ARTICLES'
 }

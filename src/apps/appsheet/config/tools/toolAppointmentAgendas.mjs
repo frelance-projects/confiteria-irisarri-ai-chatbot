@@ -1,23 +1,23 @@
-import { appsheeTablesTools } from '../../tablesId.mjs'
+import { appsheetTablesTools } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
 import { setAppointmentAgendasTool } from '#config/tools/toolAppointmentAgendas.mjs'
 
 export async function loadToolAppointmentAgendas(estate = 'init') {
-  const res = await getTable(appsheeTablesTools.toolAppointmentAgendas)
+  const res = await getTable(appsheetTablesTools.toolAppointmentAgendas)
   if (res) {
-    console.info('appsheet: configuracion de <tool-appointmentagendas> cargada')
+    console.info('appsheet: configuración de <tool-appointmentagendas> cargada')
     const toolAppointmentAgendas = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <tool-appointmentagendas> inicializada: ',
+        'appsheet: configuración de <tool-appointmentagendas> inicializada: ',
         toolAppointmentAgendas.length
       )
       return setAppointmentAgendasTool(toolAppointmentAgendas)
     }
     return toolAppointmentAgendas
   } else {
-    console.error('appsheet: configuracion de <tool-appointmentagendas> no cargada')
+    console.error('appsheet: configuración de <tool-appointmentagendas> no cargada')
     return null
   }
 }
@@ -43,6 +43,6 @@ function buildFormat(data = []) {
       saturday: formatArray(obj.H_SATURDAY)
     }
   }))
-  //console.warn('appsheet: configuracion de <tool-appointmentagendas> formateada: ', toolAppointmentAgendas)
+  //console.warn('appsheet: configuración de <tool-appointmentagendas> formateada: ', toolAppointmentAgendas)
   return toolAppointmentAgendas
 }

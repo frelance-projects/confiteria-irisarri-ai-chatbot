@@ -1,22 +1,22 @@
-import { appsheeTablesResources } from '../../tablesId.mjs'
+import { appsheetTablesResources } from '../../tablesId.mjs'
 import { getTable } from '../../api/getTable.mjs'
 import { setEmailTemplates } from '#config/resources/emailTemplates.mjs'
 
 export async function loadEmailTemplates(estate = 'init') {
-  const res = await getTable(appsheeTablesResources.resourceEmailTemplates)
+  const res = await getTable(appsheetTablesResources.resourceEmailTemplates)
   if (res) {
-    console.info('appsheet: configuracion de <resouce-emailtemplates> cargada')
+    console.info('appsheet: configuración de <resouce-emailtemplates> cargada')
     const emailTemplates = buildFormat(res)
     if (estate === 'init') {
       console.info(
-        'appsheet: configuracion de <resouce-emailtemplates> inicializada: ',
+        'appsheet: configuración de <resouce-emailtemplates> inicializada: ',
         emailTemplates.length
       )
       return setEmailTemplates(emailTemplates)
     }
     return emailTemplates
   } else {
-    console.error('appsheet: configuracion de <resouce-emailtemplates> no cargada')
+    console.error('appsheet: configuración de <resouce-emailtemplates> no cargada')
     return null
   }
 }
