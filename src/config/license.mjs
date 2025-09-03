@@ -4,18 +4,18 @@ const license = {
   //SS TOOLS
   //brains
   toolUserRegistration: true,
-  toolCatalog: true,
+  toolCatalog: false,
   toolSendRequest: true,
-  toolAutoTag: true,
-  toolAppointment: true,
+  toolAutoTag: false,
+  toolAppointment: false,
   //crons
-  toolFollowUp: true,
-  toolSendNotice: true,
+  toolFollowUp: false,
+  toolSendNotice: false,
   //SS AGENTS
-  multipleBrain: true,
+  multipleBrain: false,
   processAudio: true,
   processImage: true,
-  processPdf: true
+  processPdf: false
 }
 
 //TT CARGAR LICENCIA BRAINS
