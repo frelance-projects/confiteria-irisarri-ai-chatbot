@@ -7,6 +7,7 @@ import { buildCatalog } from './buildPrompt/toolCatalog.mjs'
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildAgenda } from './buildPrompt/toolAppointment.mjs'
 import { buildArticles } from './buildPrompt/articles.mjs'
+import { buildArticlesDaily } from './buildPrompt/articlesDaily.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -40,6 +41,11 @@ export async function buildPrompt(brain, user) {
     if (txt.includes('{articles}')) {
       const articles = await buildArticles()
       txt = txt.replaceAll('{articles}', articles)
+    }
+    //artículos diarios
+    if (txt.includes('{articles_daily}')) {
+      const articlesDaily = await buildArticlesDaily()
+      txt = txt.replaceAll('{articles_daily}', articlesDaily)
     }
 
     //SS TOOLS

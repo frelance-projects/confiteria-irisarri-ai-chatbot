@@ -70,5 +70,6 @@ export const appsheetTablesOthers = {
 }
 
 export const appsheetTablesArticles = {
-  articles: 'ARTICLES'
+  articles: 'ARTICLES',
+  articlesDaily: 'ARTICLES_DAILY'
 }

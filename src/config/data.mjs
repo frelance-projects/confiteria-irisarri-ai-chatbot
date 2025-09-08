@@ -36,6 +36,10 @@ import { loadUserRegistrationRequiredData as loadUserRegistrationRequiredDataApp
 //toolSendNotice
 import { loadToolSendNotice as loadToolSendNoticeAppsheet } from '#apps/appsheet/config/tools/toolSendNotice.mjs'
 
+//ss articles
+import { loadArticles as loadArticlesAppsheet } from '#apps/appsheet/config/articles/articles.mjs'
+import { loadArticlesDaily as loadArticlesDailyAppsheet } from '#apps/appsheet/config/articles/articlesDaily.mjs'
+
 //ss resources
 import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
 import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/appsheet/config/resources/messageTemplates.mjs'
@@ -90,9 +94,12 @@ export async function updateData(data) {
       userRegistrationRequiredData: loadUserRegistrationRequiredDataAppsheet,
       //toolSendNotice
       toolSendNotice: loadToolSendNoticeAppsheet,
+      //ss articles
+      articles: loadArticlesAppsheet,
+      articlesDaily: loadArticlesDailyAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,
-      resourceMessageTemplates: loadMessageTemplatesAppsheet
+      resourceMessageTemplates: loadMessageTemplatesAppsheet,
     }
     const loader = handlers[data]
     if (!loader) {
@@ -117,7 +124,7 @@ export async function updateData(data) {
 export async function loadDataPlatform(platform) {
   const data = {
     accountId: 'not available',
-    status: 'not connected'
+    status: 'not connected',
   }
   const services = await getServices()
   const service = services.find((obj) => obj.platform === platform)

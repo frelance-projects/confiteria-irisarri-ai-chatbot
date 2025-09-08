@@ -2,10 +2,14 @@
 import { ENV } from '#config/config.mjs'
 import { patchTable } from './api/patchTable.mjs'
 import { getState } from '#config/license.mjs'
+//import { loadArticlesDaily } from './config/articles/articlesDaily.mjs'
+import { buildArticlesDaily } from '#ai/openAI/buildPrompt/articlesDaily.mjs'
 
 //TT INICIALIZAR APPSHEET
 export async function initAppsheet() {
   console.log('appsheet inicializado')
+  //await loadArticlesDaily('init')
+  await buildArticlesDaily()
   await makeAppConfig()
   return true
 }
