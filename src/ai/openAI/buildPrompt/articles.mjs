@@ -6,7 +6,7 @@ export async function buildArticles() {
   if (!articles) {
     return 'No hay artículos disponibles'
   }
-  const activeArticles = articles.filter((article) => article.active && article.stock > 0)
+  const activeArticles = articles.filter((article) => article.stock > 0)
   if (activeArticles.length === 0) {
     return 'No hay artículos activos disponibles'
   }
@@ -19,6 +19,7 @@ export async function buildArticles() {
     text += `  * Código: ${article.code}\n`
     text += `  * Descripción: ${article.advancedDescription}\n`
     text += `  * Precio de venta: ${article.salePrice}\n`
+    text += `  * Unidad de medida: ${article.unit}\n`
     text += `  * Familia: ${article.family}\n`
     text += `  * Grupo: ${article.group}\n\n`
   }

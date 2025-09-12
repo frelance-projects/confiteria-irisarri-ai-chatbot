@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "node --watch-path=src --env-file=.env src/index.js",
-    "playground": "node playground/playground.js",
+    "playground": "node --env-file=.env playground/playground.mjs",
     "prod": "node --env-file=.env src/index.js"
   },
   "imports": {
@@ -23,7 +23,8 @@
     "#logger/*": "./src/logger/*",
     "#res/*": "./res/*",
     "#pages/*": "./src/pages/*",
-    "#server/*": "./src/server/*"
+    "#server/*": "./src/server/*",
+    "#services/*": "./src/services/*"
   },
   "keywords": [],
   "author": "Johan S",

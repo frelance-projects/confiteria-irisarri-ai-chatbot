@@ -2,6 +2,7 @@
 import { ENV } from '#config/config.mjs'
 //appsheet
 import { loadArticles as loadArticlesAppsheet } from '#apps/appsheet/config/articles/articles.mjs'
+import { loadArticles as loadArticlesFacturapp } from '#apps/facturapp/articles/articles.mjs'
 
 let ARTICLES = null
 let PROMISE = null
@@ -13,7 +14,12 @@ export async function getArticles() {
 
   // Si no hay una promesa en curso, se crea una
   if (!PROMISE) {
-    if (ENV.APP_FRONTEND === 'appsheet') {
+    // facturapp
+    if (ENV.FACTURAPP_ACTIVE) {
+      PROMISE = loadArticlesFacturapp('load')
+    }
+    // appsheet
+    else if (ENV.APP_FRONTEND === 'appsheet') {
       PROMISE = loadArticlesAppsheet('load')
     } else {
       console.error('plataforma de frontend no soportada')

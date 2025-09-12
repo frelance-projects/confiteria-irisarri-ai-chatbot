@@ -76,6 +76,14 @@ export const ENV = {
   SMTP_SERVICE: process.env.SMTP_SERVICE,
   SMTP_PORT: process.env.SMTP_PORT,
   SMTP_TOKEN: process.env.SMTP_TOKEN,
+
+  //FACTURAPP
+  FACTURAPP_USER: process.env.FACTURAPP_USER,
+  FACTURAPP_APIKEY: process.env.FACTURAPP_APIKEY,
+  FACTURAPP_URL: process.env.FACTURAPP_URL,
+
+  //CONFIG
+  FACTURAPP_ACTIVE: process.env.FACTURAPP_ACTIVE === 'true',
 }
 
 //TT ESTADO DE ENTORNO

@@ -22,18 +22,14 @@ function buildFormat(data = []) {
   const articles = data.map((obj) => ({
     code: obj.code,
     description: obj.description,
-    advancedDescription: obj.advancedDescription,
-    iva: obj.iva || '',
-    purchasePrice: obj.purchasePrice || 0,
+    advancedDescription: obj.advancedDescription || '',
     salePrice: obj.salePrice || 0,
     unit: obj.unit || '',
     branch: obj.branch || '',
     family: obj.family || '',
     group: obj.group || '',
     stock: parseFloat(obj.stock) || 0,
-    stockFix: parseFloat(obj.stockFix) || 0,
-    stockMin: parseFloat(obj.stockMin) || 0,
-    active: obj.active === 'S',
+    //image: obj.urlImage || '',
   }))
   return articles
 }
