@@ -11,30 +11,11 @@ import { loadAgent as loadAgentAppsheet } from '#apps/appsheet/config/agent.mjs'
 import { loadAssistants as loadAssistantsAppsheet } from '#apps/appsheet/config/assistants.mjs'
 import { loadBrains as loadBrainsAppsheet } from '#apps/appsheet/config/brains.mjs'
 import { loadUsers as loadUsersAppsheet } from '#apps/appsheet/config/users.mjs'
-import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userdTags.mjs'
+import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
 //toolSendRequest
 import { loadToolSendRequest as loadToolSendRequestAppsheet } from '#apps/appsheet/config/tools/toolSendRequest.mjs'
 import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#apps/appsheet/config/tools/toolSendRequestTags.mjs'
-//toolCatalog
-import { loadToolCatalog as loadToolCatalogAppsheet } from '#apps/appsheet/config/tools/toolCatalog.mjs'
-import { loadToolCatalogPages as loadToolCatalogPagesAppsheet } from '#apps/appsheet/config/tools/toolCatalogPages.mjs'
-//toolAutoTag
-import { loadToolAutoTag as loadToolAutoTagAppsheet } from '#apps/appsheet/config/tools/toolAutoTag.mjs'
-//toolAppointment
-import { loadToolAppointment as loadToolAppointmentAppsheet } from '#apps/appsheet/config/tools/toolAppointment.mjs'
-import { loadToolAppointmentAgendas as loadToolAppointmentAgendasAppsheet } from '#apps/appsheet/config/tools/toolAppointmentAgendas.mjs'
-import { loadToolAppointmentRequiredData as loadToolAppointmentRequiredDataAppsheet } from '#apps/appsheet/config/tools/toolAppointmentRequiredData.mjs'
-//toolFollowUp
-import { loadToolFollowUp as loadToolFollowUpAppsheet } from '#apps/appsheet/config/tools/toolFollowUp.mjs'
-import { loadToolFollowUpMessages as loadToolFollowUpMessagesAppsheet } from '#apps/appsheet/config/tools/toolFollowUpMessages.mjs'
-//toolUserRegistration
-import { loadUserRegistration as loadUserRegistrationAppsheet } from '#apps/appsheet/config/tools/toolUserRegistration.mjs'
-import { loadUserRegistrationProfiles as loadUserRegistrationProfilesAppsheet } from '#apps/appsheet/config/tools/toolUserRegistrationProfiles.mjs'
-import { loadUserRegistrationProfilesData as loadUserRegistrationProfilesDataAppsheet } from '#apps/appsheet/config/tools/toolUserRegistrationProfilesData.mjs'
-import { loadUserRegistrationRequiredData as loadUserRegistrationRequiredDataAppsheet } from '#apps/appsheet/config/tools/toolUserRegistrationRequiredData.mjs'
-//toolSendNotice
-import { loadToolSendNotice as loadToolSendNoticeAppsheet } from '#apps/appsheet/config/tools/toolSendNotice.mjs'
 
 //ss articles
 import { loadArticles as loadArticlesAppsheet } from '#apps/appsheet/config/articles/articles.mjs'
@@ -75,25 +56,6 @@ export async function updateData(data) {
       //toolSendRequest
       toolSendRequest: loadToolSendRequestAppsheet,
       toolSendRequestTags: loadToolSendRequestTagsAppsheet,
-      //toolCatalog
-      toolCatalog: loadToolCatalogAppsheet,
-      toolCatalogPages: loadToolCatalogPagesAppsheet,
-      //toolAutoTag
-      toolAutoTag: loadToolAutoTagAppsheet,
-      //toolAppointment
-      toolAppointment: loadToolAppointmentAppsheet,
-      toolAppointmentAgendas: loadToolAppointmentAgendasAppsheet,
-      toolAppointmentRequiredData: loadToolAppointmentRequiredDataAppsheet,
-      //toolFollowUp
-      toolFollowUp: loadToolFollowUpAppsheet,
-      toolFollowUpMessages: loadToolFollowUpMessagesAppsheet,
-      //toolUserRegistration
-      toolUserRegistration: loadUserRegistrationAppsheet,
-      userRegistrationProfiles: loadUserRegistrationProfilesAppsheet,
-      userRegistrationProfilesData: loadUserRegistrationProfilesDataAppsheet,
-      userRegistrationRequiredData: loadUserRegistrationRequiredDataAppsheet,
-      //toolSendNotice
-      toolSendNotice: loadToolSendNoticeAppsheet,
       //ss articles
       articles: loadArticlesAppsheet,
       articlesDaily: loadArticlesDailyAppsheet,

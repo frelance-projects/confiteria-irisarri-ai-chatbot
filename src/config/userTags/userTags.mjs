@@ -1,13 +1,13 @@
 //TT MÓDULOS
 import { ENV } from '#config/config.mjs'
 //appsheet
-import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userdTags.mjs'
+import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 
 let USERSTAGS = null
 let PROMISE = null
 
 //TT OBTENER ETIQUETAS DE USUARIOS
-export async function getUsersTags() {
+export async function getUserTags() {
   // Si ya se cargó previamente, se retorna inmediatamente
   if (USERSTAGS) return USERSTAGS
 
@@ -27,8 +27,8 @@ export async function getUsersTags() {
 }
 
 //TT OBTENER ETIQUETAS DE USUARIOS POR ID
-export async function getUsersTagsById(tagId) {
-  const usersTags = await getUsersTags()
+export async function getUserTagsById(tagId) {
+  const usersTags = await getUserTags()
   if (!usersTags) {
     return null
   }
@@ -41,7 +41,7 @@ export async function getUsersTagsById(tagId) {
 }
 
 //TT ACTUALIZAR ETIQUETAS DE USUARIOS
-export function setUsersTags(obj) {
+export function setUserTags(obj) {
   USERSTAGS = obj
   // Se actualiza también la promesa para que futuras llamadas la utilicen
   PROMISE = Promise.resolve(obj)

@@ -3,11 +3,10 @@ import { getFullDateFormatGB, getFullDateFormatUS, getTimeFormat } from '#utilit
 import { sendLog } from '#logger/logger.mjs'
 
 //TT CONSTRUIR PROMPTS
-import { buildCatalog } from './buildPrompt/toolCatalog.mjs'
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
-import { buildAgenda } from './buildPrompt/toolAppointment.mjs'
 import { buildArticles } from './buildPrompt/articles.mjs'
 import { buildArticlesDaily } from './buildPrompt/articlesDaily.mjs'
+import { buildFacturappClientProfile } from './buildPrompt/facturappClientProfile.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -37,6 +36,13 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
     txt = txt.replaceAll('{time_now}', getTimeFormat())
 
+    //SS FACTURAPP
+    //perfil cliente
+    if (txt.includes('{facturapp_client_profile}' && user?.whatsapp?.id)) {
+      const facturappClientProfile = await buildFacturappClientProfile(user.whatsapp.id)
+      txt = txt.replaceAll('{facturapp_client_profile}', facturappClientProfile)
+    }
+
     //artículos
     if (txt.includes('{articles}')) {
       const articles = await buildArticles()
@@ -49,21 +55,12 @@ export async function buildPrompt(brain, user) {
     }
 
     //SS TOOLS
-    //catalog
-    if (brain.toolCatalog && txt.includes('{catalog}')) {
-      const catalog = await buildCatalog(brain.toolCatalog)
-      txt = txt.replaceAll('{catalog}', catalog)
-    }
     //sendRequest
     if (brain.toolSendRequest && txt.includes('{request_tags}')) {
       const requestTags = await buildRequestTags(brain.toolSendRequest)
       txt = txt.replaceAll('{request_tags}', requestTags)
     }
-    //appointment
-    if (brain.toolAppointment && txt.includes('{agendas}')) {
-      const agendas = await buildAgenda(brain.toolAppointment)
-      txt = txt.replaceAll('{agendas}', agendas)
-    }
+
     return txt
   } catch (error) {
     console.error('buildPrompt: Error al construir el prompt', error)

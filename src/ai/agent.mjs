@@ -10,8 +10,6 @@ import { groupMessages } from './agentProcess/groupMessages.mjs'
 import { sendResponse } from './agentProcess/sendResponse.mjs'
 import { mediaProcessing } from './agentProcess/mediaProcessing.mjs'
 import { sentToAi } from './agentProcess/sentToAi.mjs'
-//TOOLS
-import { initAutoTag } from '#tools/autoTag/initAutoTag.mjs'
 
 export async function agentResponse(userId, message, origin, platform, originalMessage = null) {
   try {
@@ -59,13 +57,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
       for (const block of chunks) {
         switch (block.message.type) {
           case 'text':
-            await addTextMessageToHistory(
-              userIdKey,
-              block.message.text,
-              agentConfig.ai.provider,
-              'user',
-              user
-            )
+            await addTextMessageToHistory(userIdKey, block.message.text, agentConfig.ai.provider, 'user', user)
             break
 
           case 'media': {
@@ -103,21 +95,11 @@ export async function agentResponse(userId, message, origin, platform, originalM
         if (chunks.length > 0) {
           originalMessages = chunks.map((obj) => obj.originalMessage)
         }
-        const res = await sendResponse(
-          agentConfig,
-          resAi,
-          userId,
-          userIdKey,
-          platform,
-          originalMessages,
-          user
-        )
+        const res = await sendResponse(agentConfig, resAi, userId, userIdKey, platform, originalMessages, user)
         if (res) {
           console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
           console.info('Respuesta enviada al usuario', JSON.stringify(res, null, 2))
           sendToChannels(res)
-          //SS TOOLS
-          initAutoTag(user, userIdKey)
         }
       }
       //FIX enviar mensaje de error

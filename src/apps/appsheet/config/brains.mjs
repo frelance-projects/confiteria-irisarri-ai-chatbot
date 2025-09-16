@@ -24,11 +24,7 @@ function buildFormat(data = []) {
     brainId: obj.ID,
     name: obj.NAME,
     //tools
-    toolUserRegistration: obj.TOOL_USER_REGISTRATION || '',
-    toolCatalog: obj.TOOL_CATALOG || '',
     toolSendRequest: obj.TOOL_SENDREQUEST || '',
-    toolAutoTag: obj.TOOL_AUTOTAG || '',
-    toolAppointment: obj.TOOL_APPOINTMENT || '',
     //prompts
     headPrompt: obj.HEAD_PROMPT,
     prompt: obj.PROMPT,

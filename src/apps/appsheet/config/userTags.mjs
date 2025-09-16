@@ -1,20 +1,20 @@
 import { appsheetTablesConfig } from '../tablesId.mjs'
 import { getTable } from '../api/getTable.mjs'
 import { formatArray } from '#utilities/appsheetTools/formatArray.mjs'
-import { setUsersTags } from '#config/userdTags/userdTags.mjs'
+import { setUserTags } from '#config/userTags/userTags.mjs'
 
 export async function loadUserTags(estate = 'init') {
   const res = await getTable(appsheetTablesConfig.usersTags)
   if (res) {
-    console.info('appsheet: configuración de <userstags> cargada')
+    console.info('appsheet: configuración de <users tags> cargada')
     const usersTags = buildFormat(res)
     if (estate === 'init') {
-      console.info('appsheet: configuración de <userstags> inicializada: ', usersTags.length)
-      return setUsersTags(usersTags)
+      console.info('appsheet: configuración de <users tags> inicializada: ', usersTags.length)
+      return setUserTags(usersTags)
     }
     return usersTags
   } else {
-    console.error('appsheet: configuración de <userstags> no cargada')
+    console.error('appsheet: configuración de <users tags> no cargada')
     return null
   }
 }

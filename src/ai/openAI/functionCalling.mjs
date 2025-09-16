@@ -1,20 +1,8 @@
 //SS FUNCIONES
 import { sendRequest } from './functionCalling/sendRequest.mjs'
-import { sendCatalogPage } from './functionCalling/sendCatalogPage.mjs'
-import { loadAvailabilityCalendar } from './functionCalling/loadAvailabilityCalendar.mjs'
-import { addAppointment } from './functionCalling/addAppointment.mjs'
-import { checkAppointments } from './functionCalling/checkAppointments.mjs'
-import { cancelAppointment } from './functionCalling/cancelAppointment.mjs'
-import { userRegistration } from './functionCalling/userRegistration.mjs'
 
 //SS NOMBRES
-import { functionName as sendCatalogName } from './tools/jsonSendCatalogPage.mjs'
 import { functionName as sendRequestName } from './tools/jsonSendRequest.mjs'
-import { functionName as loadAvailabilityCalendarName } from './tools/jsonLoadAvailabilityCalendar.mjs'
-import { functionName as addAppointmentName } from './tools/jsonAddAppointment.mjs'
-import { functionName as checkAppointmentsName } from './tools/jsonCheckAppointments.mjs'
-import { functionName as cancelAppointmentName } from './tools/jsonCancelAppointment.mjs'
-import { functionName as userRegistrationName } from './tools/jsonUserRegistration.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
 export async function functionCalling(aiFunction, user, userIdKey) {
@@ -24,20 +12,7 @@ export async function functionCalling(aiFunction, user, userIdKey) {
   console.log(`🔹 se llamo a una function para ${user.name} desde IA: ${functionName}`, functionArgs)
 
   const handlers = {
-    //registrar usuario
-    [userRegistrationName]: userRegistration,
-    //enviar solicitud
     [sendRequestName]: sendRequest,
-    //enviar catalogo
-    [sendCatalogName]: sendCatalogPage,
-    //cargar calendario de disponibilidad
-    [loadAvailabilityCalendarName]: loadAvailabilityCalendar,
-    //agregar cita
-    [addAppointmentName]: addAppointment,
-    //comprobar citas
-    [checkAppointmentsName]: checkAppointments,
-    //cancelar cita
-    [cancelAppointmentName]: cancelAppointment
   }
 
   let result
