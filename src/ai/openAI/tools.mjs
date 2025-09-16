@@ -2,6 +2,7 @@ import { getBrainById } from '#config/brain/brain.mjs'
 
 //tools
 import { getJson as jsonSendRequest } from './tools/jsonSendRequest.mjs'
+import { getJson as jsonLoadClientProfile } from './tools/clients/jsonLoadClientProfile.mjs'
 
 export async function getToolsOpenAi(brainId) {
   const tools = []
@@ -9,6 +10,12 @@ export async function getToolsOpenAi(brainId) {
   if (!brain) {
     console.error('getToolsOpenAi: No se ha encontrado el cerebro')
     return tools
+  }
+
+  //clients
+  const clientProfileJson = await jsonLoadClientProfile()
+  if (clientProfileJson) {
+    tools.push(clientProfileJson)
   }
 
   //sendRequest

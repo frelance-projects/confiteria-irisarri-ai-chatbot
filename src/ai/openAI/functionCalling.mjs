@@ -1,8 +1,10 @@
 //SS FUNCIONES
 import { sendRequest } from './functionCalling/sendRequest.mjs'
+import { loadClientProfile } from './functionCalling/clients/loadClientProfile.mjs'
 
 //SS NOMBRES
 import { functionName as sendRequestName } from './tools/jsonSendRequest.mjs'
+import { functionName as loadClientProfileName } from './tools/clients/jsonLoadClientProfile.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
 export async function functionCalling(aiFunction, user, userIdKey) {
@@ -13,6 +15,7 @@ export async function functionCalling(aiFunction, user, userIdKey) {
 
   const handlers = {
     [sendRequestName]: sendRequest,
+    [loadClientProfileName]: loadClientProfile,
   }
 
   let result

@@ -6,7 +6,6 @@ import { sendLog } from '#logger/logger.mjs'
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildArticles } from './buildPrompt/articles.mjs'
 import { buildArticlesDaily } from './buildPrompt/articlesDaily.mjs'
-import { buildFacturappClientProfile } from './buildPrompt/facturappClientProfile.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -35,13 +34,6 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
     txt = txt.replaceAll('{time_now}', getTimeFormat())
-
-    //SS FACTURAPP
-    //perfil cliente
-    if (txt.includes('{facturapp_client_profile}' && user?.whatsapp?.id)) {
-      const facturappClientProfile = await buildFacturappClientProfile(user.whatsapp.id)
-      txt = txt.replaceAll('{facturapp_client_profile}', facturappClientProfile)
-    }
 
     //artículos
     if (txt.includes('{articles}')) {

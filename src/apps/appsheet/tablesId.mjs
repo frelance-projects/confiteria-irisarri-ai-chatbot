@@ -10,7 +10,7 @@ export const appsheetTablesConfig = {
   usersTags: 'USERS_TAGS',
   //ss platforms,
   platformWaBaileys: 'PLATFORM_WA_BAILEYS',
-  platformWaMeta: 'PLATFORM_WA_META'
+  platformWaMeta: 'PLATFORM_WA_META',
 }
 
 //TT DATOS DE TABLAS DE HERRAMIENTAS
@@ -42,14 +42,14 @@ export const appsheetTablesTools = {
   toolUserRegistrationProfilesData: 'TOOL_USER_REGISTRATION_PROFILE_DATA',
 
   //toolSendNotice
-  toolSendNotice: 'TOOL_SENDNOTICE'
+  toolSendNotice: 'TOOL_SENDNOTICE',
 }
 
 //TT DATOS DE TABLAS DE RECURSOS
 export const appsheetTablesResources = {
   resourceEmailTemplates: 'RESOURCE_EMAIL_TEMPLATES',
   resourceMessageTemplates: 'RESOURCE_MESSAGE_TEMPLATES',
-  resourceWaTemplates: 'RESOURCE_WA_TEMPLATES'
+  resourceWaTemplates: 'RESOURCE_WA_TEMPLATES',
 }
 
 //TT DATOS DE TABLAS
@@ -62,14 +62,18 @@ export const appsheetTablesData = {
   //toolFollowUp
   toolFollowUpLogs: 'TOOL_FOLLOWUP_LOGS',
   //toolSendNotice
-  toolSendNoticeLogs: 'TOOL_SENDNOTICE_LOGS'
+  toolSendNoticeLogs: 'TOOL_SENDNOTICE_LOGS',
 }
 
 export const appsheetTablesOthers = {
-  messages: 'MESSAGES'
+  messages: 'MESSAGES',
 }
 
 export const appsheetTablesArticles = {
   articles: 'ARTICLES',
-  articlesDaily: 'ARTICLES_DAILY'
+  articlesDaily: 'ARTICLES_DAILY',
+}
+
+export const appsheetTablesClients = {
+  clients: 'CLIENTS',
 }

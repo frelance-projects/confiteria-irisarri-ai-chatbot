@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { formatData } from './formatData.mjs'
 import { ENV } from '#config/config.mjs'
 
 export async function postTable(
@@ -8,13 +9,13 @@ export async function postTable(
 ) {
   const url = `https://www.appsheet.com/api/v2/apps/${ENV.APPSHEET_ID}/tables/${table}/Action?applicationAccessKey=${ENV.APPSHEET_TOKEN}`
   const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
   const values = ensureArray(rows)
   const data = {
     Action: 'Add',
     Properties: properties,
-    Rows: values
+    Rows: values,
   }
 
   try {
@@ -24,7 +25,7 @@ export async function postTable(
       console.error(`Error en la respuesta: ${response.status} ${response.statusText}`)
       return null
     }
-    const formatedData = response.data.Rows
+    const formatedData = formatData(response.data.Rows)
     return formatedData
   } catch (error) {
     console.error('Error al realizar la petición:', error.message)

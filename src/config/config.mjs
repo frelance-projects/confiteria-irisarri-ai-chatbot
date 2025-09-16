@@ -83,10 +83,17 @@ export const ENV = {
   FACTURAPP_URL: process.env.FACTURAPP_URL,
 
   //CONFIG
-  FACTURAPP_ACTIVE: process.env.FACTURAPP_ACTIVE === 'true',
+  FACTURAPP_ACTIVE: process.env.FACTURAPP_ACTIVE || '',
 }
 
 //TT ESTADO DE ENTORNO
 export function isProductionEnv() {
   return ENV.NODE_ENV === 'production'
+}
+
+export function isFacturappActive(key) {
+  if (ENV.FACTURAPP_ACTIVE && ENV.FACTURAPP_ACTIVE.includes(key)) {
+    return true
+  }
+  return false
 }

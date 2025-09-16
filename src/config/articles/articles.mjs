@@ -1,5 +1,5 @@
 //TT MÓDULOS
-import { ENV } from '#config/config.mjs'
+import { ENV, isFacturappActive } from '#config/config.mjs'
 //appsheet
 import { loadArticles as loadArticlesAppsheet } from '#apps/appsheet/config/articles/articles.mjs'
 import { loadArticles as loadArticlesFacturapp } from '#apps/facturapp/articles/articles.mjs'
@@ -15,7 +15,7 @@ export async function getArticles() {
   // Si no hay una promesa en curso, se crea una
   if (!PROMISE) {
     // facturapp
-    if (ENV.FACTURAPP_ACTIVE) {
+    if (isFacturappActive('articles')) {
       PROMISE = loadArticlesFacturapp('load')
     }
     // appsheet
