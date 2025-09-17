@@ -32,6 +32,14 @@ export async function getArticles() {
   return ARTICLES
 }
 
+export async function getArticleByCode(code) {
+  const articles = await getArticles()
+  if (!articles) {
+    return null
+  }
+  return articles.find((article) => String(article.code) === String(code)) || null
+}
+
 export function setArticles(obj) {
   ARTICLES = obj
   // Se actualiza también la promesa para que futuras llamadas la utilicen

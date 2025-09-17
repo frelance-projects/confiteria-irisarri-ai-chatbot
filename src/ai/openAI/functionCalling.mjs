@@ -2,11 +2,13 @@
 import { sendRequest } from './functionCalling/sendRequest.mjs'
 import { loadClientProfile } from './functionCalling/clients/loadClientProfile.mjs'
 import { addClientProfile } from './functionCalling/clients/addClientProfile.mjs'
+import { addOrder } from './functionCalling/orders/addOrder.mjs'
 
 //SS NOMBRES
 import { functionName as sendRequestName } from './tools/jsonSendRequest.mjs'
 import { functionName as loadClientProfileName } from './tools/clients/jsonLoadClientProfile.mjs'
 import { functionName as addClientProfileName } from './tools/clients/jsonAddClientProfile.mjs'
+import { functionName as addOrderName } from './tools/orders/jsonAddOrder.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
 export async function functionCalling(aiFunction, user, userIdKey) {
@@ -19,6 +21,7 @@ export async function functionCalling(aiFunction, user, userIdKey) {
     [sendRequestName]: sendRequest,
     [loadClientProfileName]: loadClientProfile,
     [addClientProfileName]: addClientProfile,
+    [addOrderName]: addOrder,
   }
 
   let result

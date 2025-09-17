@@ -28,7 +28,7 @@ function buildFormat(data = []) {
     family: obj.family || '',
     group: obj.group || '',
     brand: obj.brand || '',
-    stock: obj.stock || '',
+    stock: parseFloat(obj.stock) || 0,
     available: obj.available || false,
     restriction: obj.restriction || false,
     minimumQuantity: parseFloat(obj.minimumQuantity) || 0,

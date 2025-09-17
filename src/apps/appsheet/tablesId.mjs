@@ -77,3 +77,8 @@ export const appsheetTablesArticles = {
 export const appsheetTablesClients = {
   clients: 'CLIENTS',
 }
+
+export const appsheetTablesOrders = {
+  orders: 'ORDERS',
+  ordersItems: 'ORDERS_ITEMS',
+}

@@ -45,7 +45,7 @@ export async function addClient(clientData) {
     }
   } catch (error) {
     console.error('Error al añadir clientes:', error)
-    throw error
+    return null
   }
 }
 

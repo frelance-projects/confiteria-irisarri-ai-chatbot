@@ -26,6 +26,14 @@ export async function getArticlesDaily() {
   return ARTICLES_DAILY
 }
 
+export async function getArticleDailyByCode(code) {
+  const articles = await getArticlesDaily()
+  if (!articles) {
+    return null
+  }
+  return articles.find((article) => String(article.code) === String(code)) || null
+}
+
 export function setArticlesDaily(obj) {
   ARTICLES_DAILY = obj
   // Se actualiza también la promesa para que futuras llamadas la utilicen
