@@ -1,4 +1,5 @@
 import { getClientByDni, getClientByPhone } from '#config/clients/clients.mjs'
+import { cleanDataClient } from '#utilities/clients/cleanDataClient.mjs'
 
 const ACTION = {
   dni: getClientByDni,
@@ -28,11 +29,5 @@ export async function loadClientProfile(args, user, userIdKey) {
     console.error('No se ha encontrado el cliente')
     return { response: 'error: client not found' }
   }
-  return { response: 'success: client found', client: cleanData(client) }
-}
-
-function cleanData(client) {
-  // Eliminar campos innecesarios
-  const { id, description, observations, active, finalConsumer, ...rest } = client
-  return rest
+  return { response: 'success: client found', client: cleanDataClient(client) }
 }

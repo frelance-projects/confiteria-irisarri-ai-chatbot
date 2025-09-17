@@ -2,6 +2,7 @@ import { ENV, isFacturappActive } from '#config/config.mjs'
 import {
   getClientByPhone as getClientByPhoneAppsheet,
   getClientByDni as getClientByDniAppsheet,
+  addClient as addClientAppsheet,
 } from '#apps/appsheet/config/clients/clients.mjs'
 import {
   getClientByPhone as getClientByPhoneFacturapp,
@@ -32,6 +33,17 @@ export async function getClientByDni(dni) {
     return request
   } else {
     console.error('getClientByDni: frontend no soportado')
+    return null
+  }
+}
+
+export async function addClient(clientData) {
+  //TODO: facturapp
+  if (ENV.APP_FRONTEND === 'appsheet') {
+    const request = await addClientAppsheet(clientData)
+    return request
+  } else {
+    console.error('addClient: frontend no soportado')
     return null
   }
 }

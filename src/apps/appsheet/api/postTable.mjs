@@ -28,7 +28,7 @@ export async function postTable(
     const formatedData = formatData(response.data.Rows)
     return formatedData
   } catch (error) {
-    console.error('Error al realizar la petición:', error.message)
+    console.error('Error al realizar la petición:', error)
     return null
   }
 }
