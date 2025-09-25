@@ -50,6 +50,9 @@ export async function postData(req, res) {
 
 // Reenvía a Chatwoot (o endpoint configurado). Usa ENV.CHATWOOT_WEBHOOK_URL para evitar hardcodear.
 async function eco(payload) {
+  if (!ENV.CHATWOOT_WEBHOOK_URL) {
+    return
+  }
   const url = ENV.CHATWOOT_WEBHOOK_URL
 
   const headers = buildEcoHeaders(ENV.CHATWOOT_ECHO_TOKEN)
@@ -68,8 +71,11 @@ async function eco(payload) {
 
 // Reenvío para la verificación GET: usa token distinto y mismo conjunto de headers
 async function ecoAuth(payload) {
-  const url = ENV.CHATWOOT_WEBHOOK_URL || 'https://confiteria-irisarri.up.railway.app/webhooks/whatsapp/+15551586693'
-  const authToken = ENV.CHATWOOT_AUTH_TOKEN || ENV.CHATWOOT_ECHO_TOKEN || ''
+  if (!ENV.CHATWOOT_WEBHOOK_URL) {
+    return
+  }
+  const url = ENV.CHATWOOT_WEBHOOK_URL
+  const authToken = ENV.CHATWOOT_ECHO_TOKEN
   const headers = buildEcoHeaders(authToken)
 
   try {

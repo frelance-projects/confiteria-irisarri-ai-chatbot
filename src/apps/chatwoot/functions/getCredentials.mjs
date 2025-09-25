@@ -7,7 +7,7 @@ export async function getCredentials(inboxid) {
     console.error('Chatwoot - eventMessages: No se encontraron servicios de chatwoot')
     return null
   }
-  const inbox = chatwoot.messagebox.find((messagebox) => String(messagebox.inboxid) === String(inboxid))
+  const inbox = chatwoot.messageBox.find((messageBox) => String(messageBox.inboxid) === String(inboxid))
   if (!inbox) {
     console.error('Chatwoot - getCredentials: No se encontro la bandeja de entrada')
     return null

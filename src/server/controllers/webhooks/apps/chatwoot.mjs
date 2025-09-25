@@ -9,8 +9,8 @@ export async function postDataWhatsapp(req, res) {
     return res.status(400).send('No se encontraron servicios')
   }
   console.log('Post de Chatwoot-whatsapp')
-  const envent = await events(req.body)
-  if (!envent) {
+  const event = await events(req.body)
+  if (!event) {
     return res.status(400).send('Evento no procesado')
   }
   res.status(200).send('Evento recibido')

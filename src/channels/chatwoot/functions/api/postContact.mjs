@@ -2,14 +2,14 @@ import axios from 'axios'
 import { getCredentials } from '../getCredentials.mjs'
 
 export async function postContact(
-  inboxid,
+  inboxId,
   name = 'new contact',
   email = '',
   phone = '',
   customAttributes = {}
 ) {
-  if (!inboxid) {
-    console.error('postConversation: Faltan parametros: ' + inboxid)
+  if (!inboxId) {
+    console.error('postConversation: Faltan parameters: ' + inboxId)
     return null
   }
   const credentials = await getCredentials()
@@ -19,12 +19,13 @@ export async function postContact(
   }
 
   const url = `${credentials.url}/api/v1/accounts/${credentials.accountid}/contacts`
+  console.warn('chatwoot: URL: ' + url)
   const headers = {
     api_access_token: credentials.token,
     'Content-Type': 'application/json'
   }
   const data = {
-    inbox_id: inboxid,
+    inbox_id: inboxId,
     name,
     email,
     phone_number: phone,

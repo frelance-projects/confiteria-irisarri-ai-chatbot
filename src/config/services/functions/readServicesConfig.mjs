@@ -61,13 +61,14 @@ export async function readServicesConfig() {
 
   //chatwoot
   if (ENV.CHATWOOT_URL && ENV.CHATWOOT_TOKEN && ENV.CHATWOOT_COUNT_ID && ENV.CHATWOOT_AGENT_ID) {
+    
     const chatwoot = {
       platform: 'chatwoot',
       url: ENV.CHATWOOT_URL,
       accountid: ENV.CHATWOOT_COUNT_ID,
       agentid: ENV.CHATWOOT_AGENT_ID,
       token: ENV.CHATWOOT_TOKEN,
-      messagebox: []
+      messageBox: []
     }
     //inbox whatsapp
     if (ENV.CHATWOOT_WHATSAPP_ID && ENV.CHATWOOT_WHATSAPP_TOKEN) {
@@ -76,7 +77,7 @@ export async function readServicesConfig() {
         inboxid: ENV.CHATWOOT_WHATSAPP_ID,
         token: ENV.CHATWOOT_WHATSAPP_TOKEN
       }
-      chatwoot.messagebox.push(whatsappInbox)
+      chatwoot.messageBox.push(whatsappInbox)
     }
     //inbox messenger
     if (ENV.CHATWOOT_MESSENGER_ID && ENV.CHATWOOT_MESSENGER_TOKEN) {
@@ -85,7 +86,7 @@ export async function readServicesConfig() {
         inboxid: ENV.CHATWOOT_MESSENGER_ID,
         token: ENV.CHATWOOT_MESSENGER_TOKEN
       }
-      chatwoot.messagebox.push(messenger)
+      chatwoot.messageBox.push(messenger)
     }
     //inbox instagram
     if (ENV.CHATWOOT_INSTAGRAM_ID && ENV.CHATWOOT_INSTAGRAM_TOKEN) {
@@ -94,9 +95,10 @@ export async function readServicesConfig() {
         inboxid: ENV.CHATWOOT_INSTAGRAM_ID,
         token: ENV.CHATWOOT_INSTAGRAM_TOKEN
       }
-      chatwoot.messagebox.push(instagram)
+      chatwoot.messageBox.push(instagram)
     }
     services.push(chatwoot)
+    //console.log('Configurando chatwoot', JSON.stringify(chatwoot, null, 2))
   }
   //console.log('servicios creados', JSON.stringify(services, null, 2))
   return services

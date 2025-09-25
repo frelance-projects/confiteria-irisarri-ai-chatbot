@@ -5,22 +5,23 @@ import { createContact } from './functions/createContact.mjs'
 import { createConversation } from './functions/createConversation.mjs'
 import { checkAttributes } from './functions/checkAttributes.mjs'
 
-export async function sendToChatwoot(mesagges, chatwoot) {
-  console.log('Mensajes a canal de chatwoot: ' + mesagges.length)
-  for (const message of mesagges) {
+export async function sendToChatwoot(messages, chatwoot) {
+  console.log('Mensajes a canal de chatwoot: ' + messages.length)
+  for (const message of messages) {
     //verificar sentido de canal
-    let userid = 'xxx'
+    let userId = 'xxx'
     if (message.channel === 'incoming') {
-      userid = message.transmitter
+      userId = message.transmitter
     } else if (message.channel === 'outgoing') {
-      userid = message.receiver
+      userId = message.receiver
     } else {
       console.error('sentido de canal de chatwoot desconocida: ' + message.channel)
       return null
     }
 
+    console.warn('chatwoot: Procesando mensaje para usuario: ' + userId)
     //buscar bandeja
-    const inbox = chatwoot.messagebox.find((obj) => obj.platform === message.platform)
+    const inbox = chatwoot.messageBox.find((obj) => obj.platform === message.platform)
     if (!inbox) {
       console.error('bandeja de chatwoot no encontrado: ' + message.platform)
       return null
@@ -33,27 +34,28 @@ export async function sendToChatwoot(mesagges, chatwoot) {
     }
 
     //buscar contacto
-    let contact = await findContact(message.platform, userid)
+    let contact = await findContact(message.platform, userId)
     if (!contact) {
-      contact = await createContact(userid, message.platform, inbox.inboxid)
+      console.warn('contacto no encontrado, creando: ' + userId)
+      contact = await createContact(userId, message.platform, inbox.inboxid)
       if (!contact) {
-        console.error('contacto no creado: ' + userid)
+        console.error('contacto no creado: ' + userId)
         return null
       }
     }
 
-    //buscar conversacion de usuario
+    //buscar conversation de usuario
     let userConversation = await findContactConversation(contact.id, inbox.inboxid, 'open')
     if (!userConversation) {
-      //crear conversacion de usuario
+      //crear conversation de usuario
       userConversation = await createConversation(inbox.inboxid, inbox.token, contact.id, message)
       if (!userConversation) {
-        console.error('conversacion no creada: ' + userid)
+        console.error('chatwoot: conversation no creada: ' + userId)
         return null
       }
     }
-    //enviar mensaje a conversacion de usuario
-    console.log('Enviando mensaje a conversacion de usuario: ' + userid)
+    //enviar mensaje a conversation de usuario
+    console.log('Enviando mensaje a conversation de usuario: ' + userId)
     sendMessage(message, userConversation)
   }
 }
