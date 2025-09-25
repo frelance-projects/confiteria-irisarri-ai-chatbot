@@ -52,6 +52,7 @@ export async function addClient(clientData) {
 function buildFormat(data = []) {
   const clients = data.map((obj) => ({
     id: obj.id,
+    createBy: obj.createBy || '',
     company: obj.company || false,
     dni: obj.dni || '',
     name: obj.name || '',
@@ -74,6 +75,7 @@ function buildFormat(data = []) {
 function reverseFormat(clients = []) {
   const formattedClient = clients.map((obj) => ({
     id: obj.id,
+    createBy: obj.createBy || '',
     company: obj.company || false,
     dni: obj.dni || '',
     name: obj.name || '',

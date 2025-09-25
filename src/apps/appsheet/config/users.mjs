@@ -58,7 +58,7 @@ export async function getLastContactById(userId) {
     Selector: `FILTER(${appsheetTablesConfig.users}, [ID] = "${userId}")`,
     Locale: 'en-GB',
     Timezone: ENV.TZ,
-    UserSettings: { FROM_API: true }
+    UserSettings: { FROM_API: true },
   })
   if (res && res.length > 0) {
     return buildFormatDateTime(res[0].LAST_CONTACT)
@@ -80,7 +80,10 @@ function buildFormat(data = []) {
     messenger: { id: obj.MESSENGER_ID },
     instagram: { id: obj.INSTAGRAM_ID },
     brain: obj.BRAIN,
-    blacklist: obj.BLACKLIST
+    blacklist: obj.BLACKLIST,
+    //datos de cliente
+    dni: obj.DNI || '',
+    clientPhone: obj.CLIENT_PHONE || '',
   }))
   //console.log('appsheet: usuarios', users)
   return users
@@ -97,7 +100,7 @@ export function revertFormat(data = []) {
     MESSENGER_ID: obj.messenger.id,
     INSTAGRAM_ID: obj.instagram.id,
     BRAIN: obj.brain,
-    BLACKLIST: obj.blacklist
+    BLACKLIST: obj.blacklist,
   }))
   return users
 }

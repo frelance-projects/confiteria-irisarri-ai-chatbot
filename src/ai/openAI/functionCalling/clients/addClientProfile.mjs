@@ -19,6 +19,9 @@ export async function addClientProfile(args, user, userIdKey) {
     console.warn('El cliente ya existe con el teléfono:', phone)
     return { response: 'error: client already exists with phone' }
   }
+  // Añadir create By
+  args.createBy = user.userId
+  // Añadir nuevo cliente
 
   const result = await addClient(args)
   if (!result) {

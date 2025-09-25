@@ -24,12 +24,18 @@ export async function buildPrompt(brain, user) {
 
     //SS GENERAL
     //usuario
-    const userName = user.name || 'unknown'
-    const userNameRegistered = user.registeredName || 'unknown'
-    const userEmail = user.email || 'unknown'
+    const userName = user.name || 'desconocido'
+    const userNameRegistered = user.registeredName || 'desconocido'
+    const userEmail = user.email || 'desconocido'
     txt = txt.replaceAll('{user_name}', userName)
     txt = txt.replaceAll('{user_name_registered}', userNameRegistered)
     txt = txt.replaceAll('{user_email}', userEmail)
+
+    // datos de cliente
+    const clientDni = user.dni || 'desconocido'
+    const clientPhone = user.clientPhone || 'desconocido'
+    txt = txt.replaceAll('{client_dni}', clientDni)
+    txt = txt.replaceAll('{client_phone}', clientPhone)
     //fecha
     txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
