@@ -37,7 +37,7 @@ export async function sendToChatwoot(messages, chatwoot) {
     let contact = await findContact(message.platform, userId)
     if (!contact) {
       console.warn('contacto no encontrado, creando: ' + userId)
-      contact = await createContact(userId, message.platform, inbox.inboxid)
+      contact = await createContact(userId, message.platform, inbox.inboxId)
       if (!contact) {
         console.error('contacto no creado: ' + userId)
         return null
@@ -45,10 +45,10 @@ export async function sendToChatwoot(messages, chatwoot) {
     }
 
     //buscar conversation de usuario
-    let userConversation = await findContactConversation(contact.id, inbox.inboxid, 'open')
+    let userConversation = await findContactConversation(contact.id, inbox.inboxId, 'open')
     if (!userConversation) {
       //crear conversation de usuario
-      userConversation = await createConversation(inbox.inboxid, inbox.token, contact.id, message)
+      userConversation = await createConversation(inbox.inboxId, inbox.token, contact.id, message)
       if (!userConversation) {
         console.error('chatwoot: conversation no creada: ' + userId)
         return null

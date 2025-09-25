@@ -74,7 +74,7 @@ export async function readServicesConfig() {
     if (ENV.CHATWOOT_WHATSAPP_ID && ENV.CHATWOOT_WHATSAPP_TOKEN) {
       const whatsappInbox = {
         platform: 'whatsapp',
-        inboxid: ENV.CHATWOOT_WHATSAPP_ID,
+        inboxId: ENV.CHATWOOT_WHATSAPP_ID,
         token: ENV.CHATWOOT_WHATSAPP_TOKEN
       }
       chatwoot.messageBox.push(whatsappInbox)
@@ -83,7 +83,7 @@ export async function readServicesConfig() {
     if (ENV.CHATWOOT_MESSENGER_ID && ENV.CHATWOOT_MESSENGER_TOKEN) {
       const messenger = {
         platform: 'messenger',
-        inboxid: ENV.CHATWOOT_MESSENGER_ID,
+        inboxId: ENV.CHATWOOT_MESSENGER_ID,
         token: ENV.CHATWOOT_MESSENGER_TOKEN
       }
       chatwoot.messageBox.push(messenger)
@@ -92,7 +92,7 @@ export async function readServicesConfig() {
     if (ENV.CHATWOOT_INSTAGRAM_ID && ENV.CHATWOOT_INSTAGRAM_TOKEN) {
       const instagram = {
         platform: 'instagram',
-        inboxid: ENV.CHATWOOT_INSTAGRAM_ID,
+        inboxId: ENV.CHATWOOT_INSTAGRAM_ID,
         token: ENV.CHATWOOT_INSTAGRAM_TOKEN
       }
       chatwoot.messageBox.push(instagram)

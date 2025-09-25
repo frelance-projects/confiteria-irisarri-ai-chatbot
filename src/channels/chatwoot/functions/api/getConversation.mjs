@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { getCredentials } from '../getCredentials.mjs'
 
-export async function getConversation(inboxid, status = 'open') {
+export async function getConversation(inboxId, status = 'open') {
   const credentials = await getCredentials()
   if (!credentials) {
     console.error('Error al obtener credenciales')
@@ -15,7 +15,7 @@ export async function getConversation(inboxid, status = 'open') {
   }
   const params = {
     status,
-    inbox_id: inboxid
+    inbox_id: inboxId
   }
 
   try {

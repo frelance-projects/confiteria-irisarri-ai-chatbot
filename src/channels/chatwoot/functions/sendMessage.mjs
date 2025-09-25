@@ -3,10 +3,10 @@ import { postMedia } from './api/postMedia.mjs'
 import { downloadFile } from '#storage/dowloadFile.mjs'
 import { createId } from '#utilities/createId.mjs'
 
-export async function sendMessage(message, conversacion) {
+export async function sendMessage(message, conversación) {
   //texto
   if (message.message.type === 'text') {
-    const conversationId = conversacion.id
+    const conversationId = conversación.id
     const content = message.message.text
     const channel = message.channel
     const res = await postMessage(conversationId, content, channel)
@@ -32,7 +32,7 @@ export async function sendMessage(message, conversacion) {
     } else {
       attachments = message.message.media.path
     }
-    const conversationId = conversacion.id
+    const conversationId = conversación.id
     const channel = message.channel
     const caption = message.message.media.caption ? message.message.media.caption : ''
     const fileType = message.message.media.fileType

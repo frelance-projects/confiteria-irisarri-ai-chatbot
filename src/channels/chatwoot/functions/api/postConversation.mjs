@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { getCredentials } from '../getCredentials.mjs'
 
-export async function postConversation(inboxid, inboxToken, contactId, status = 'open') {
-  if (!inboxid || !inboxToken || !contactId) {
-    console.error('postConversation: Faltan parametros')
+export async function postConversation(inboxId, inboxToken, contactId, status = 'open') {
+  if (!inboxId || !inboxToken || !contactId) {
+    console.error('postConversation: Faltan parámetros')
     return null
   }
   const credentials = await getCredentials()
@@ -19,7 +19,7 @@ export async function postConversation(inboxid, inboxToken, contactId, status = 
   }
   const data = {
     source_id: inboxToken,
-    inbox_id: inboxid,
+    inbox_id: inboxId,
     contact_id: contactId,
     status
   }
@@ -46,7 +46,7 @@ export async function postConversation(inboxid, inboxToken, contactId, status = 
     }
     return response.data
   } catch (error) {
-    console.error('Error al realizar la petición:', error.message)
+    console.error('postConversation: Error al realizar la petición:', error)
     return null
   }
 }

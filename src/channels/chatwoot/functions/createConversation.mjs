@@ -1,12 +1,12 @@
 import { postConversation } from './api/postConversation.mjs'
 
-export async function createConversation(inboxid, inboxToken, contactId) {
-  console.log('creando conversacion: ' + contactId)
-  const res = await postConversation(inboxid, inboxToken, contactId, 'open')
+export async function createConversation(inboxId, inboxToken, contactId) {
+  console.log('creando conversación: ' + contactId)
+  const res = await postConversation(inboxId, inboxToken, contactId, 'open')
   if (!res) {
-    console.error('Error al crear conversacion')
+    console.error('Error al crear conversación')
     return null
   }
-  console.log('conversacion creada', res)
+  console.log('conversación creada', res)
   return res
 }

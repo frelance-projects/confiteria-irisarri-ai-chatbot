@@ -2,13 +2,13 @@ import { revertPhoneNumber } from '#utilities/revertPhoneNumber.mjs'
 import { postContact } from './api/postContact.mjs'
 import { getUserName } from '#provider/provider.mjs'
 
-export async function createContact(userId, platform, inboxid) {
+export async function createContact(userId, platform, inboxId) {
   const userName = await getUserName(userId, platform)
   //whatsapp
   if (platform === 'whatsapp') {
     const formattedNumber = revertPhoneNumber(userId)
     console.log('chatwoot: creando contacto en whatsapp: ' + formattedNumber)
-    const res = await postContact(inboxid, userName, '', formattedNumber, {
+    const res = await postContact(inboxId, userName, '', formattedNumber, {
       id_whatsapp: userId
     })
     if (!res) {
@@ -25,7 +25,7 @@ export async function createContact(userId, platform, inboxid) {
   //messenger
   else if (platform === 'messenger') {
     console.log('creando contacto en messenger: ' + userId)
-    const res = await postContact(inboxid, userName, '', '', { id_messenger: userId })
+    const res = await postContact(inboxId, userName, '', '', { id_messenger: userId })
     if (!res) {
       console.error('createContact: Error al crear contacto en messenger')
       return null
@@ -39,7 +39,7 @@ export async function createContact(userId, platform, inboxid) {
   } //instagram
   else if (platform === 'instagram') {
     console.log('creando contacto en instagram: ' + userId)
-    const res = await postContact(inboxid, userName, '', '', { id_instagram: userId })
+    const res = await postContact(inboxId, userName, '', '', { id_instagram: userId })
     if (!res) {
       console.error('createContact: Error al crear contacto en instagram')
       return null
