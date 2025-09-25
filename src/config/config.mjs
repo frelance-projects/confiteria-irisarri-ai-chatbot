@@ -55,6 +55,8 @@ export const ENV = {
   APPSHEET_INBOX: process.env.APPSHEET_INBOX,
 
   //BANDEJAS
+  CHATWOOT_WEBHOOK_URL: process.env.CHATWOOT_WEBHOOK_URL,
+  CHATWOOT_ECHO_TOKEN: process.env.CHATWOOT_ECHO_TOKEN, //token para el eco de verificación
   //CHATWOOT
   CHATWOOT_URL: process.env.CHATWOOT_URL,
   CHATWOOT_COUNT_ID: process.env.CHATWOOT_COUNT_ID,
