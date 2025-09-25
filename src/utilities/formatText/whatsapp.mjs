@@ -17,6 +17,8 @@ export function convertMarkdownToWhatsapp(markdown) {
       .replace(/^\s*#+\s*(.*)/gm, '$1')
       // Eliminar reglas horizontales (---, ***)
       .replace(/^-{3,}\s*$/gm, '')
+      .replace(/https?:\/\/[^\s]+\.png/g, '')
+      .replace(/https?:\/\/[^\s]+\.jpg/g, '')
   )
 
   // Los códigos inline (entre `) y listas, citas, etc. se mantienen igual.
