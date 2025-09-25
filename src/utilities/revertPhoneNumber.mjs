@@ -4,6 +4,7 @@ export function revertPhoneNumber(formattedNumber) {
     const countryRules = {
       521: { countryCode: '+52', length: 12 }, // México
       549: { countryCode: '+54', length: 13 }, // Argentina
+      598: { countryCode: '+598', length: 13 }, // Uruguay
       57: { countryCode: '+57', length: 12 }, // Colombia
       1: { countryCode: '+1', length: 11 } // EE. UU./Canadá
       // Agrega más reglas según sea necesario
