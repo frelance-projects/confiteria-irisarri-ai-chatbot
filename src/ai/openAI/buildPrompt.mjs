@@ -6,6 +6,7 @@ import { sendLog } from '#logger/logger.mjs'
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildArticles } from './buildPrompt/articles.mjs'
 import { buildArticlesDaily } from './buildPrompt/articlesDaily.mjs'
+import { buildPromotions } from './buildPrompt/promotions.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -41,6 +42,7 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
     txt = txt.replaceAll('{time_now}', getTimeFormat())
 
+    //SS ARTÍCULOS Y PROMOCIONES
     //artículos
     if (txt.includes('{articles}')) {
       const articles = await buildArticles()
@@ -50,6 +52,11 @@ export async function buildPrompt(brain, user) {
     if (txt.includes('{articles_daily}')) {
       const articlesDaily = await buildArticlesDaily()
       txt = txt.replaceAll('{articles_daily}', articlesDaily)
+    }
+    //promociones
+    if (txt.includes('{promotions}')) {
+      const promotions = await buildPromotions()
+      txt = txt.replaceAll('{promotions}', promotions)
     }
 
     //SS TOOLS

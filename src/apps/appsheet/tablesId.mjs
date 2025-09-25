@@ -72,6 +72,7 @@ export const appsheetTablesOthers = {
 export const appsheetTablesArticles = {
   articles: 'ARTICLES',
   articlesDaily: 'ARTICLES_DAILY',
+  promotions: 'PROMOTIONS',
 }
 
 export const appsheetTablesClients = {
