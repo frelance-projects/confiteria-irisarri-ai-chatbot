@@ -25,7 +25,7 @@ function buildFormat(data = []) {
     id: obj.id,
     order: obj.order || '',
     product: obj.product || '',
-    quantity: parseInt(obj.quantity, 10) || 0,
+    quantity: parseFloat(obj.quantity) || 0,
     note: obj.note || '',
     price: parseFloat(obj.price) || 0,
   }))
@@ -37,7 +37,7 @@ function reverseFormat(data = []) {
     id: obj.id,
     order: obj.order || '',
     product: obj.product || '',
-    quantity: parseInt(obj.quantity, 10) || 0,
+    quantity: parseFloat(obj.quantity) || 0,
     note: obj.note || '',
   }))
   return orders
