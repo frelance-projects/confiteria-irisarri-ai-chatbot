@@ -26,6 +26,7 @@ export async function getMessageHistory(userIdKey, user) {
 function hasMessageHistory(history) {
   const developerMessages = history.filter((msg) => msg.role === 'developer')
   if (developerMessages.length > 1) {
+    console.warn('Se han encontrado mensajes duplicados de developer en el historial. Se eliminarán los duplicados.')
     const firstDeveloperMessage = developerMessages[0]
     const filteredHistory = history.filter((msg) => msg.role !== 'developer')
     filteredHistory.unshift(firstDeveloperMessage)
