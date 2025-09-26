@@ -18,7 +18,20 @@ export async function getMessageHistory(userIdKey, user) {
       console.error('getMessageHistory: No se ha encontrado el prompt o el cerebro')
     }
   }
+  messageHistory[userIdKey] = hasMessageHistory(messageHistory[userIdKey])
   return messageHistory[userIdKey]
+}
+
+//SS eliminar mensajes duplidado de developer
+function hasMessageHistory(history) {
+  const developerMessages = history.filter((msg) => msg.role === 'developer')
+  if (developerMessages.length > 1) {
+    const firstDeveloperMessage = developerMessages[0]
+    const filteredHistory = history.filter((msg) => msg.role !== 'developer')
+    filteredHistory.unshift(firstDeveloperMessage)
+    return filteredHistory
+  }
+  return history
 }
 
 //TT AGREGAR MENSAJE AL HISTORIAL
