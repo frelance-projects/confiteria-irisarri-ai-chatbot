@@ -18,7 +18,7 @@ export async function postConversation(inboxId, inboxToken, contactId, status = 
     'Content-Type': 'application/json'
   }
   const data = {
-    source_id: inboxToken,
+    source_id: Date.now(), //inboxToken,
     inbox_id: inboxId,
     contact_id: contactId,
     status
