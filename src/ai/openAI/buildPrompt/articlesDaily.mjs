@@ -7,7 +7,7 @@ export async function buildArticlesDaily() {
   if (!articles) {
     return 'No hay artículos diarios disponibles'
   }
-  const activeArticles = articles.filter((article) => article.available)
+  const activeArticles = articles.filter((article) => article.available && article.stock > 0)
   if (activeArticles.length === 0) {
     console.warn('No hay artículos diarios activos disponibles')
     return 'No hay artículos diarios activos disponibles'

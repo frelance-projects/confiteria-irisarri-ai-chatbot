@@ -29,6 +29,7 @@ function buildFormat(data = []) {
     family: obj.family || '',
     group: obj.group || '',
     stock: parseFloat(obj.stock) || 0,
+    active: obj.active || false,
     //image: obj.urlImage || '',
   }))
   return articles
