@@ -10,6 +10,7 @@ import { groupMessages } from './agentProcess/groupMessages.mjs'
 import { sendResponse } from './agentProcess/sendResponse.mjs'
 import { mediaProcessing } from './agentProcess/mediaProcessing.mjs'
 import { sentToAi } from './agentProcess/sentToAi.mjs'
+import { Clients } from './agentProcess/clientAction.mjs'
 
 export async function agentResponse(userId, message, origin, platform, originalMessage = null) {
   try {
@@ -85,6 +86,19 @@ export async function agentResponse(userId, message, origin, platform, originalM
             console.error('Tipo de mensaje no soportado')
             return null
         }
+      }
+
+      // Validar si es un cliente de compañía
+      const client = Clients.getClient(user.whatsapp?.id)
+      if (client && client.company) {
+        console.log('Cliente de compañía detectado:', client)
+        const message = { type: 'text', text: 'Hola, en un momento un representante se pondrá en contacto contigo.' }
+        let originalMessages = []
+        if (chunks.length > 0) {
+          originalMessages = chunks.map((obj) => obj.originalMessage)
+        }
+        await sendResponse(agentConfig, message, userId, userIdKey, platform, originalMessages, user)
+        return
       }
 
       // Enviar petición a OpenAI

@@ -7,6 +7,7 @@ import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildArticles } from './buildPrompt/articles.mjs'
 import { buildArticlesDaily } from './buildPrompt/articlesDaily.mjs'
 import { buildPromotions } from './buildPrompt/promotions.mjs'
+import { buildClientProfile } from './buildPrompt/clientProfile.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -32,11 +33,6 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{user_name_registered}', userNameRegistered)
     txt = txt.replaceAll('{user_email}', userEmail)
 
-    // datos de cliente
-    const clientDni = user.dni || 'desconocido'
-    const clientPhone = user.clientPhone || 'desconocido'
-    txt = txt.replaceAll('{client_dni}', clientDni)
-    txt = txt.replaceAll('{client_phone}', clientPhone)
     //fecha
     txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
     txt = txt.replaceAll('{date_now_us}', getFullDateFormatUS())
@@ -57,6 +53,12 @@ export async function buildPrompt(brain, user) {
     if (txt.includes('{promotions}')) {
       const promotions = await buildPromotions()
       txt = txt.replaceAll('{promotions}', promotions)
+    }
+
+    //SS CLIENTE
+    if (txt.includes('{client_profile}')) {
+      const clientProfile = await buildClientProfile(user.whatsapp?.id)
+      txt = txt.replaceAll('{client_profile}', clientProfile)
     }
 
     //SS TOOLS
