@@ -30,6 +30,20 @@ export async function getClientByDni(dni) {
   }
 }
 
+export async function getClientByRut(rut) {
+  const res = await getTable(appsheetTablesClients.clients, [], {
+    Selector: `Filter(CLIENTS, [rut] = "${rut}")`,
+  })
+  if (res && res.length > 0) {
+    console.info('Cliente encontrado con el RUT:', rut)
+    const client = buildFormat(res)
+    return client[0]
+  } else {
+    console.warn('No se ha encontrado el cliente con el RUT:', rut)
+    return null
+  }
+}
+
 export async function addClient(clientData) {
   const clients = Array.isArray(clientData) ? clientData : [clientData]
   const formattedClients = reverseFormat(clients)

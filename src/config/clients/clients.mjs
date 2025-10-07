@@ -3,6 +3,7 @@ import {
   getClientByPhone as getClientByPhoneAppsheet,
   getClientByDni as getClientByDniAppsheet,
   addClient as addClientAppsheet,
+  getClientByRut as getClientByRutAppsheet,
 } from '#apps/appsheet/config/clients/clients.mjs'
 import {
   getClientByPhone as getClientByPhoneFacturapp,
@@ -33,6 +34,22 @@ export async function getClientByDni(dni) {
     return request
   } else {
     console.error('getClientByDni: frontend no soportado')
+    return null
+  }
+}
+
+export async function getClientByRut(rut) {
+  // facturapp
+  if (isFacturappActive('clients')) {
+    console.error('getClientByRut: facturapp no soporta rut')
+    return null
+  }
+  // solo appsheet
+  else if (ENV.APP_FRONTEND === 'appsheet') {
+    const request = await getClientByRutAppsheet(rut)
+    return request
+  } else {
+    console.error('getClientByRut: frontend no soportado')
     return null
   }
 }

@@ -10,12 +10,12 @@ export async function getJson() {
       properties: {
         number: {
           type: 'string',
-          description: 'Numero de telefono o cedula del cliente',
+          description: 'Numero de telefono, cedula o rut del cliente',
         },
         dataType: {
           type: 'string',
-          enum: ['dni', 'phone'],
-          description: 'Tipo de dato para buscar el cliente: dni (cedula) o phone (telefono)',
+          enum: ['dni', 'phone', 'rut'],
+          description: 'Tipo de dato para buscar el cliente: dni (cedula), phone (telefono) o rut de la empresa',
         },
       },
       required: ['number', 'dataType'],

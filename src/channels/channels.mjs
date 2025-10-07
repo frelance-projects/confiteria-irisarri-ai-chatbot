@@ -26,7 +26,7 @@ export async function sendToChannels(messages) {
 
   //SS CHATWOOT
   const chatwoot = services.find((service) => service.platform === 'chatwoot')
-  if (chatwoot) {
+  if (chatwoot && isProductionEnv()) {
     console.log('Canal de chatwoot activo')
     const chatwootMessages = filterByChannel(messages, 'chatwoot')
     if (chatwootMessages.length > 0) {

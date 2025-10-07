@@ -2,8 +2,8 @@ import { getClientByPhone } from '#config/clients/clients.mjs'
 import { Clients } from '#ai/agentProcess/clientAction.mjs'
 
 //TT CONSTRUIR ARTÍCULOS
-export async function buildClientProfile(userPhone) {
-  const client = await getClientByPhone(userPhone)
+export async function buildClientProfile(userId) {
+  const client = await getClientByPhone(userId)
   if (!client) {
     return 'No hay perfil de cliente registrado'
   }
@@ -11,7 +11,7 @@ export async function buildClientProfile(userPhone) {
   // si es cliente empresa, retornar key
   if (client.company) {
     console.log('Cliente de empresa detectado:', client)
-    Clients.addClient(userPhone, client)
+    Clients.addClient(userId, client)
     return 'company'
   }
 

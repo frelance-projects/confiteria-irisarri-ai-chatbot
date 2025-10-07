@@ -1,9 +1,11 @@
-import { getClientByDni, getClientByPhone } from '#config/clients/clients.mjs'
+import { getClientByDni, getClientByPhone, getClientByRut } from '#config/clients/clients.mjs'
 import { cleanDataClient } from '#utilities/clients/cleanDataClient.mjs'
+import { Clients } from '#ai/agentProcess/clientAction.mjs'
 
 const ACTION = {
   dni: getClientByDni,
   phone: getClientByPhone,
+  rut: getClientByRut,
 }
 
 export async function loadClientProfile(args, user, userIdKey) {
@@ -28,6 +30,11 @@ export async function loadClientProfile(args, user, userIdKey) {
   if (!client) {
     console.error('No se ha encontrado el cliente')
     return { response: 'error: client not found' }
+  }
+  if (client.company) {
+    console.log('Cliente de empresa detectado:', client)
+    console.log('userIdKey:', user.whatsapp?.id)
+    Clients.addClient(user.whatsapp?.id, client)
   }
   return { response: 'success: client found', client: cleanDataClient(client) }
 }

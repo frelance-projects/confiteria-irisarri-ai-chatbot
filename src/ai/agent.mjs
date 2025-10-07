@@ -89,21 +89,17 @@ export async function agentResponse(userId, message, origin, platform, originalM
       }
 
       // Validar si es un cliente de compañía
-      const client = Clients.getClient(user.whatsapp?.id)
-      if (client && client.company) {
-        console.log('Cliente de compañía detectado:', client)
-        const message = { type: 'text', text: 'Hola, en un momento un representante se pondrá en contacto contigo.' }
-        let originalMessages = []
-        if (chunks.length > 0) {
-          originalMessages = chunks.map((obj) => obj.originalMessage)
-        }
-        await sendResponse(agentConfig, message, userId, userIdKey, platform, originalMessages, user)
+      const isClientHandled = await isClient(userId, chunks, agentConfig, user, userIdKey, platform)
+      if (isClientHandled) {
         return
       }
-
       // Enviar petición a OpenAI
       const resAi = await sentToAi(agentConfig.ai.provider, userIdKey, user, agentConfig)
       if (resAi) {
+        const isClientHandled = await isClient(userId, chunks, agentConfig, user, userIdKey, platform)
+        if (isClientHandled) {
+          return
+        }
         // Enviar respuesta al usuario
         let originalMessages = []
         if (chunks.length > 0) {
@@ -125,5 +121,25 @@ export async function agentResponse(userId, message, origin, platform, originalM
   } catch (error) {
     console.error('Error en agentResponse:', error)
     return null
+  }
+}
+
+async function isClient(userId, chunks, agentConfig, user, userIdKey, platform) {
+  // Validar si es un cliente de compañía
+  const client = Clients.getClient(userId)
+  if (client && client.company) {
+    console.log('Cliente de compañía detectado:', client)
+    const message = { type: 'text', text: 'Hola, en un momento un representante se pondrá en contacto contigo.' }
+    let originalMessages = []
+    if (chunks.length > 0) {
+      originalMessages = chunks.map((obj) => obj.originalMessage)
+    }
+    const res = await sendResponse(agentConfig, message, userId, userIdKey, platform, originalMessages, user)
+    if (res) {
+      sendToChannels(res)
+      console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
+      console.info('Respuesta estática enviada al usuario', JSON.stringify(res, null, 2))
+    }
+    return true
   }
 }
