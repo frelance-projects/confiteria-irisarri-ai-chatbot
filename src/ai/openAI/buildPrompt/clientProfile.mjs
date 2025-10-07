@@ -5,7 +5,7 @@ import { Clients } from '#ai/agentProcess/clientAction.mjs'
 export async function buildClientProfile(userId) {
   const client = await getClientByPhone(userId)
   if (!client) {
-    return 'No hay perfil de cliente registrado'
+    return 'No hay perfil de cliente asociado al número de teléfono desde el cual escribe el cliente.'
   }
 
   // si es cliente empresa, retornar key
