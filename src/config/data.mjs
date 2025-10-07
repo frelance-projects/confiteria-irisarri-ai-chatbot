@@ -4,6 +4,8 @@ import { sendLog } from '#logger/logger.mjs'
 import { getServices } from '#config/services/services.mjs'
 import { getProviderHost, provider } from '#provider/provider.mjs'
 import { startCronJobs } from './cronJobs.mjs'
+import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
+
 //TT APPSHEET
 //ss config
 import { initAppsheet } from '#apps/appsheet/initAppsheet.mjs'
@@ -70,6 +72,10 @@ export async function updateData(data) {
     }
     try {
       const result = await loader('init')
+
+      if (data === 'brains') {
+        await deleteAllHistory()
+      }
       return result || null
     } catch (error) {
       console.error(`updateData - Error al cargar "${data}":`, error)
