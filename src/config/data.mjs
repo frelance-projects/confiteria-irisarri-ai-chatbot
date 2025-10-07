@@ -74,6 +74,7 @@ export async function updateData(data) {
       const result = await loader('init')
 
       if (data === 'brains') {
+        console.log('updateData - Se actualizó "brains", se eliminará el historial de conversaciones.')
         await deleteAllHistory()
       }
       return result || null
