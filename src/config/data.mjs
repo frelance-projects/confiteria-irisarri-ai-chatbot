@@ -75,7 +75,7 @@ export async function updateData(data) {
 
       if (data === 'brains') {
         console.log('updateData - Se actualizó "brains", se eliminará el historial de conversaciones.')
-        await deleteAllHistory()
+        await deleteAllHistory('openai')
       }
       return result || null
     } catch (error) {
