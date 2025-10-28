@@ -9,7 +9,7 @@ export async function sendRequest(user, request, platform, tag, brain) {
   //crear solicitud
   const newRequest = {
     id: 'req-' + createIdNumber(),
-    userId: user.userId,
+    userId: user.id,
     tag: tag ? tag.id : '',
     request,
     platform,

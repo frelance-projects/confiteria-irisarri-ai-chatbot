@@ -13,6 +13,10 @@ export const ENV = {
   SERVICE_ID: process.env.SERVICE_ID,
   SERVICE_TOKEN: process.env.SERVICE_TOKEN,
 
+  // BASE DE DATOS
+  DB_HOST: process.env.DB_HOST || 'appsheet',
+  CACHE_TIME: process.env.CACHE_TIME,
+
   //TOKENS JWT
   JWT_BAILEYS_CONNECT: process.env.JWT_BAILEYS_CONNECT || 'jwt-access-token-baileys-connect',
 
@@ -93,9 +97,25 @@ export function isProductionEnv() {
   return ENV.NODE_ENV === 'production'
 }
 
+//TT FACTURAPP ACTIVO
 export function isFacturappActive(key) {
   if (ENV.FACTURAPP_ACTIVE && ENV.FACTURAPP_ACTIVE.includes(key)) {
     return true
   }
   return false
+}
+
+//TT ESTADO DE TEST
+export function isTestEnv() {
+  return ENV.NODE_ENV === 'test'
+}
+
+//TT DURACIÓN DE CACHE EN MILISEGUNDOS
+export function getCacheDuration() {
+  const defaultDuration = 1 * 60 * 60 * 1000 // 1 hora en milisegundos
+  if (!ENV.CACHE_TIME) {
+    console.warn('CACHE_TIME no está definido, se usará el valor por defecto de 1 hora')
+    return defaultDuration
+  }
+  return Number(ENV.CACHE_TIME) * 1000 // convertir a milisegundos
 }

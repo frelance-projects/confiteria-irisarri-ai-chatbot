@@ -12,7 +12,6 @@ import { initAppsheet } from '#apps/appsheet/initAppsheet.mjs'
 import { loadAgent as loadAgentAppsheet } from '#apps/appsheet/config/agent.mjs'
 import { loadAssistants as loadAssistantsAppsheet } from '#apps/appsheet/config/assistants.mjs'
 import { loadBrains as loadBrainsAppsheet } from '#apps/appsheet/config/brains.mjs'
-import { loadUsers as loadUsersAppsheet } from '#apps/appsheet/config/users.mjs'
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
 //toolSendRequest
@@ -52,7 +51,6 @@ export async function updateData(data) {
       agent: loadAgentAppsheet,
       assistants: loadAssistantsAppsheet,
       brains: loadBrainsAppsheet,
-      users: loadUsersAppsheet,
       userTags: loadUserTagsAppsheet,
       //ss tools
       //toolSendRequest

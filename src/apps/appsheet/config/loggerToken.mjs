@@ -15,7 +15,7 @@ export async function sendLogsToken(data) {
     INPUT: log.input,
     OUTPUT: log.output,
     CACHED_INPUT: log.cachedInput,
-    USER: log.userId
+    USER: log.id
   }))
   try {
     const res = await postTable(appsheetTablesConfig.logsToken, logs)

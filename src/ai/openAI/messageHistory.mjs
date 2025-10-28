@@ -1,7 +1,7 @@
 //TT MÓDULOS
 import { getBrainById } from '#config/brain/brain.mjs'
 import { buildPrompt } from './buildPrompt.mjs'
-import { getUserByPlatform } from '#config/users/users.mjs'
+import { getUserByPlatform } from '#db/users/getUserByPlatform.mjs'
 
 //TT HISTORIAL DE MENSAJES
 const messageHistory = {}

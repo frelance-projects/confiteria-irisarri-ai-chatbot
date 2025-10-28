@@ -64,7 +64,7 @@ export async function sendToOpenAI(userIdKey, user, aiModel, aiMaxTokens, aiTemp
 //SS AGREGAR LOGS
 function addLogOpenAi(user, model, response) {
   try {
-    const userId = user.userId
+    const userId = user.id
     const provider = 'openai'
     const type = 'text'
     const unit = 'tokens'

@@ -7,7 +7,7 @@ export async function addRequest(request) {
   const data = newRequest.map((obj) => ({
     ID: obj.id,
     DATE: getFullDateFormatGB() + ' ' + getTimeFormat(),
-    USER: obj.userId,
+    USER: obj.id,
     TAG: obj.tag,
     REQUEST: obj.request,
     PLATFORM: obj.platform,

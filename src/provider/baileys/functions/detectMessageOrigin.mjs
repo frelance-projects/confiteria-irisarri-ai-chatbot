@@ -2,7 +2,7 @@ import { getContentType } from 'baileys'
 
 //import { getLastMessage } from './updateState/lastBotMessage.mjs'
 import { getAssistants } from '#config/assistants/assistants.mjs'
-import { getUserByPlatform } from '#config/users/users.mjs'
+import { getUserByPlatform } from '#db/users/getUserByPlatform.mjs'
 import { addToBlacklist, setSleep } from '#ai/agentProcess/userState.mjs'
 
 export async function detectMessageOrigin(message) {
@@ -30,7 +30,7 @@ export async function detectMessageOrigin(message) {
     return null
   }
   console.log('detectMessageOrigin: Mensaje soportado >>>', textMessage)
-  const user = await getUserByPlatform(textMessage.userId, 'whatsapp')
+  const user = await getUserByPlatform(textMessage.id, 'whatsapp')
   if (!user) {
     console.log('detectMessageOrigin: Usuario no encontrado')
     return null
@@ -43,12 +43,12 @@ export async function detectMessageOrigin(message) {
   }
   console.log('detectMessageOrigin: Mensaje de asistente: ', assistant.id)
   if (assistant.detectAssistantCondition === 'always') {
-    console.info('detectMessageOrigin: usuario agregado a lista negra', user.userId)
+    console.info('detectMessageOrigin: usuario agregado a lista negra', user.id)
     addToBlacklist(user)
     return true
   } else if (assistant.detectAssistantCondition === 'delay') {
     const time = assistant.detectAssistantIdel * 60000 || 60000 // 1 min
-    console.info(`detectMessageOrigin: usuario en espera por : ${time / 60000} min, usuario: ${user.userId}`)
+    console.info(`detectMessageOrigin: usuario en espera por : ${time / 60000} min, usuario: ${user.id}`)
     setSleep(user, time)
     return true
   } else {
