@@ -16,6 +16,8 @@ import loadDataPlatform from './loadDataPlatform.mjs'
 import sendMessage from './sendMessage.mjs'
 import tools from './tools.mjs'
 import updateData from './updateData.mjs'
+//SS API
+import api from './api/routes.mjs'
 
 export default [
   //SS PROVEEDORES
@@ -35,5 +37,7 @@ export default [
   loadDataPlatform,
   sendMessage,
   tools,
-  updateData
+  updateData,
+  //SS API
+  ...api,
 ]

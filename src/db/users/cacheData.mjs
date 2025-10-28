@@ -1,4 +1,5 @@
 import { getCacheDuration } from '#config/config.mjs'
+import { CacheManager } from '#db/cache/cacheManager.mjs'
 
 const CACHE_TTL = getCacheDuration()
 export class CacheData {
@@ -17,7 +18,7 @@ export class CacheData {
   // Obtener dato de la caché por plataforma
   static getByPlatform(id, platform) {
     const currentTime = Date.now()
-    
+
     for (const cached of this.cache.values()) {
       // Solo verificar validez del cache sin eliminarlo
       if (currentTime - cached.timestamp < CACHE_TTL) {
@@ -48,3 +49,5 @@ export class CacheData {
     this.cache.clear()
   }
 }
+
+CacheManager.addData('users', CacheData)

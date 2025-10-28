@@ -17,14 +17,18 @@ export async function loadUser(userId, platform) {
 }
 
 async function addNewUser(userId, platform) {
+  // obtener configuración del agente
   const agentConfig = await getAgent()
   if (!agentConfig) {
     console.error('addUser: Error al obtener la configuración del agente')
     sendLog('error', 'ai/agentProcess/validateUser', 'Error getting agent configuration')
     return null
   }
+
+  // obtener nombre del usuario desde el proveedor
   const userName = await getUserName(userId, platform)
 
+  // datos del nuevo usuario
   const data = {
     id: `user-${crypto.randomUUID()}`,
     name: userName || 'Usuario sin nombre',
@@ -34,6 +38,8 @@ async function addNewUser(userId, platform) {
     brain: agentConfig.defaultBrain,
     blacklist: agentConfig.defaultBlacklist,
   }
+
+  // crear nuevo usuario
   const newUser = await addUser(data)
   console.log('usuario nuevo creado', newUser)
   if (!newUser) {
@@ -41,6 +47,6 @@ async function addNewUser(userId, platform) {
     sendLog('error', 'ai/agentProcess/validateUser', 'Error creating user')
     return null
   }
-  sendLog('info', 'ai/agentProcess/validateUser', `New user created: ${newUser.id} - ${newUser.userName}`)
+  sendLog('info', 'ai/agentProcess/validateUser', `New user created: ${newUser.id} - ${newUser.name}`)
   return newUser
 }
