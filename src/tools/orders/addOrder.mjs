@@ -8,7 +8,7 @@ import { cleanDataArticlesItems } from '#utilities/articles/cleanDataArticles.mj
 export async function addOrder({ client, address, note, products }) {
   // validar que los productos existan
   for (const product of products) {
-    let  article = await getArticleDailyByCode(product.product)
+    let article = await getArticleDailyByCode(product.product)
     if (!article) {
       article = await getArticleByCode(product.product)
     }
@@ -17,12 +17,12 @@ export async function addOrder({ client, address, note, products }) {
       return { error: `Producto con código ${product.product} no encontrado.` }
     }
     // validar stock
-    if (article.stock !== undefined && article.stock < product.quantity) {
+    if (article.stockActual && article.stockActual < product.quantity) {
       console.warn(
-        `Stock insuficiente para el producto ${product.product}. Disponible: ${article.stock}, Requerido: ${product.quantity}`
+        `Stock insuficiente para el producto ${product.product}. Disponible: ${article.stockActual}, Requerido: ${product.quantity}`
       )
       return {
-        error: `Stock insuficiente para el producto ${product.product}. Disponible: ${article.stock}, Requerido: ${product.quantity}`,
+        error: `Stock insuficiente para el producto ${product.product}. Disponible: ${article.stockActual}, Requerido: ${product.quantity}`,
       }
     }
   }
