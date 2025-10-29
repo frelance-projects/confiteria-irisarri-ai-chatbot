@@ -18,7 +18,7 @@ export async function getAllArticles() {
 
     return articles
   } catch (error) {
-    console.error('getLastContactById: Error al obtener el último contacto por ID:', error.message)
+    console.error('getAllArticles: Error al obtener todos los artículos:', error.message)
     return null
   }
 }

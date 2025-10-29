@@ -1,17 +1,17 @@
 import { getData } from '#utilities/appsheet/getData.mjs'
 import { revertFormatDateTime } from '#utilities/appsheet/formatDateTime.mjs'
 
-const NAME_TABLE = 'ARTICLES'
+const NAME_TABLE = 'ARTICLES_DAILY'
 
-export class ArticlesAppsheet {
+export class DailyArticlesAppsheet {
   // ss obtener todos los artículos
-  static async getAllArticles() {
+  static async getAllDailyArticles() {
     const res = await getData(NAME_TABLE)
     return DataFormatter.buildData(res)
   }
 
   //ss obtener artículo por código
-  static async getArticleByCode(code) {
+  static async getDailyArticleByCode(code) {
     const res = await getData(NAME_TABLE, {
       Selector: `Filter(${NAME_TABLE}, [code] = "${code}")`,
     })
@@ -19,7 +19,7 @@ export class ArticlesAppsheet {
   }
 
   //ss obtener artículos actualizados desde una fecha
-  static async getUpdatedArticles(sinceDate) {
+  static async getUpdatedDailyArticles(sinceDate) {
     const dateValid = revertFormatDateTime(sinceDate)
     const res = await getData(NAME_TABLE, {
       Selector: `Filter(${NAME_TABLE}, [updateDate] > "${dateValid}")`,
@@ -42,10 +42,20 @@ class DataFormatter {
       ramo: item.branch,
       familia: item.family,
       grupo: item.group,
-      precioVenta: parseFloat(item.salePrice),
-      unidadMedida: item.unit,
-      fotoPortada: item.coverPhoto,
+      precioVenta: parseFloat(item.salePrice), //fix: se debe actualizar desde la lista de articulos o no
+      unidadMedida: item.unit, //fix: se debe actualizar desde la lista de articulos o no
+      fotoPortada: item.urlImage,
       fechaUpdate: item.updateDate,
+      // adiciones
+      restricciones: item.restriction,
+      cantidadMinima: parseFloat(item.minimumQuantity) || 0,
+      multipleDe: parseFloat(item.multipleOf) || 1,
+      horasDeAnticipacion: parseInt(item.hoursInAdvance) || 0,
+      libreDeAzucar: item.sugarFree,
+      aptoParaCeliacos: item.suitableForCeliacs,
+      esVegano: item.vegan,
+      remitirHumano: item.goToHuman,
+      commentario: item.comment,
       // otros campos
       active: item.active,
     }))

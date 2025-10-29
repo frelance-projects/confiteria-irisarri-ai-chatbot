@@ -1,7 +1,7 @@
 import { CacheData } from './cacheData.mjs'
 
-export async function findArticlesByWord(word) {
-  const cacheArticles = CacheData.getAllArticles()
+export async function findDailyArticlesByWord(word) {
+  const cacheArticles = CacheData.getAllDailyArticles()
   if (!cacheArticles) {
     console.error('findArticlesByWord: No hay artículos en caché para obtener filtros')
     return null
@@ -40,7 +40,7 @@ export async function findArticlesByWord(word) {
   })
 
   if (articles.length === 0) {
-    console.log('findArticlesByWord: No se encontró artículos con la palabra ' + word)
+    console.log('findDailyArticlesByWord: No se encontró artículos con la palabra ' + word)
   }
 
   return articles

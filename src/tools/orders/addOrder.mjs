@@ -2,13 +2,13 @@ import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dat
 import { addOrder as addOrderTool } from '#config/orders/orders.mjs'
 import { addOrderItems as addOrderItemsTool } from '#config/orders/ordersItems.mjs'
 import { getArticleByCode } from '#db/articles/getArticleByCode.mjs'
-import { getArticleDailyByCode } from '#config/articles/articlesDaily.mjs'
+import { getDailyArticleByCode } from '#db/dailyArticles/getDailyArticleByCode.mjs'
 import { cleanDataArticlesItems } from '#utilities/articles/cleanDataArticles.mjs'
 
 export async function addOrder({ client, address, note, products }) {
   // validar que los productos existan
   for (const product of products) {
-    let article = await getArticleDailyByCode(product.product)
+    let article = await getDailyArticleByCode(product.product)
     if (!article) {
       article = await getArticleByCode(product.product)
     }

@@ -6,11 +6,12 @@ export async function getArticleByCode(code) {
     // validar caché
     const cacheArticle = CacheData.get(code)
     if (cacheArticle) {
-      console.info('Artículo obtenido de la caché')
+      //console.info('Artículo obtenido de la caché')
       return cacheArticle
     }
     // obtener datos desde la base de datos
     const article = await ArticlesDb.getArticleByCode(code)
+    console.log('Artículo obtenido de la base de datos: ', code)
 
     // almacenar en caché
     CacheData.set(article.codigo, article)

@@ -1,10 +1,14 @@
+import { isFacturappActive } from '#config/config.mjs'
+
+const IS_FACTURAPP_ACTIVE = isFacturappActive('articles')
+
 export function formatToAi(articles) {
   const data = []
 
   for (const article of articles) {
     //TODO: agregar mas filtros según necesidad
     // validar stock
-    if (article.stockActual && article.stockActual > 0) {
+    if (article.stockActual && article.stockActual > 0 && isActive(article)) {
       const obj = {
         codigo: article.codigo,
         nombre: article.descripcion,
@@ -19,4 +23,13 @@ export function formatToAi(articles) {
     }
   }
   return data
+}
+
+function isActive(article) {
+  // si está activa la integración con Facturapp, todos los artículos se consideran activos
+  if (IS_FACTURAPP_ACTIVE) {
+    return true
+  }
+  // de lo contrario, se valida el campo active del artículo
+  return article.active === true
 }

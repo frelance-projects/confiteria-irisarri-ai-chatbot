@@ -108,7 +108,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
         const res = await sendResponse(agentConfig, resAi, userId, userIdKey, platform, originalMessages, user)
         if (res) {
           console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
-          console.info('Respuesta enviada al usuario', JSON.stringify(res, null, 2))
+          console.info('Respuesta enviada al usuario', JSON.stringify(res[0].message, null, 2))
           sendToChannels(res)
         }
       }

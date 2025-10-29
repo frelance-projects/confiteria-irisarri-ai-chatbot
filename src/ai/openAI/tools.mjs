@@ -6,6 +6,7 @@ import { getJson as jsonLoadClientProfile } from './tools/clients/jsonLoadClient
 import { getJson as jsonAddClientProfile } from './tools/clients/jsonAddClientProfile.mjs'
 import { getJson as jsonAddOrder } from './tools/orders/jsonAddOrder.mjs'
 import { getJson as getArticles } from './tools/articles/getArticles.mjs'
+import { getJson as getDailyArticles } from './tools/dailyArticles/getDailyArticles.mjs'
 
 export async function getToolsOpenAi(brainId) {
   const tools = []
@@ -35,6 +36,11 @@ export async function getToolsOpenAi(brainId) {
   const articlesJson = await getArticles()
   if (articlesJson) {
     tools.push(articlesJson)
+  }
+  //dailyArticles
+  const dailyArticlesJson = await getDailyArticles()
+  if (dailyArticlesJson) {
+    tools.push(dailyArticlesJson)
   }
 
   //sendRequest

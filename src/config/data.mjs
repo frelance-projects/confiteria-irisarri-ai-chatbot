@@ -6,6 +6,7 @@ import { getProviderHost, provider } from '#provider/provider.mjs'
 import { startCronJobs } from './cronJobs.mjs'
 import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
 import { getAllArticles } from '#db/articles/getAllArticles.mjs'
+import { getAllDailyArticles } from '#db/dailyArticles/getAllDailyArticles.mjs'
 
 //TT APPSHEET
 //ss config
@@ -19,9 +20,6 @@ import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/user
 import { loadToolSendRequest as loadToolSendRequestAppsheet } from '#apps/appsheet/config/tools/toolSendRequest.mjs'
 import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#apps/appsheet/config/tools/toolSendRequestTags.mjs'
 
-//ss articles
-import { loadArticlesDaily as loadArticlesDailyAppsheet } from '#apps/appsheet/config/articles/articlesDaily.mjs'
-
 //ss resources
 import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
 import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/appsheet/config/resources/messageTemplates.mjs'
@@ -33,6 +31,9 @@ export async function initData() {
   // cargar lista de artículos inicial
   const articles = await getAllArticles()
   console.info(`initData - Artículos cargados en caché: ${articles ? articles.length : 0}`)
+  // cargar lista de artículos inicial de artículos diarios
+  const dailyArticles = await getAllDailyArticles()
+  console.info(`initData - Artículos diarios cargados en caché: ${dailyArticles ? dailyArticles.length : 0}`)
 
   if (ENV.APP_FRONTEND === 'appsheet') {
     console.log('Inicializando aplicación de frontend appsheet')
@@ -59,8 +60,6 @@ export async function updateData(data) {
       //toolSendRequest
       toolSendRequest: loadToolSendRequestAppsheet,
       toolSendRequestTags: loadToolSendRequestTagsAppsheet,
-      //ss articles
-      articlesDaily: loadArticlesDailyAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,
       resourceMessageTemplates: loadMessageTemplatesAppsheet,
