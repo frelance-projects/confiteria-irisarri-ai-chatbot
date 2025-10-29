@@ -13,6 +13,8 @@ export async function getArticles(args, user, userIdKey) {
   // Usar un Set para evitar artículos duplicados
   const articlesSet = new Set()
 
+  //TODO: Agregar función para actualizar cache con la función getUpdatedArticles()
+
   // filtrar por familia
   if (family) {
     const articlesByFamily = await getArticlesByFilter('familia', family)
@@ -37,7 +39,9 @@ export async function getArticles(args, user, userIdKey) {
     }
   }
 
+  // Convertir el Set de nuevo a un array
   const articles = Array.from(articlesSet)
+  // Formatear los artículos para la respuesta de la IA
   const formattedArticles = formatToAi(articles)
 
   console.info(`getArticles: Se encontraron ${formattedArticles.length} artículos con los filtros proporcionados.`)

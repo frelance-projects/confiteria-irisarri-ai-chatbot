@@ -6,14 +6,16 @@ const NAME_TABLE = 'ARTICLES'
 export class ArticlesAppsheet {
   // ss obtener todos los artículos
   static async getAllArticles() {
-    const res = await getData(NAME_TABLE)
+    const res = await getData(NAME_TABLE, {
+      Selector: `Filter(${NAME_TABLE}, [active] = true)`,
+    })
     return DataFormatter.buildData(res)
   }
 
   //ss obtener artículo por código
   static async getArticleByCode(code) {
     const res = await getData(NAME_TABLE, {
-      Selector: `Filter(${NAME_TABLE}, [code] = "${code}")`,
+      Selector: `Filter(${NAME_TABLE}, And([code] = "${code}", [active] = true))`,
     })
     return DataFormatter.buildData(res[0])
   }
@@ -22,7 +24,7 @@ export class ArticlesAppsheet {
   static async getUpdatedArticles(sinceDate) {
     const dateValid = revertFormatDateTime(sinceDate)
     const res = await getData(NAME_TABLE, {
-      Selector: `Filter(${NAME_TABLE}, [updateDate] > "${dateValid}")`,
+      Selector: `Filter(${NAME_TABLE}, And([updateDate] > "${dateValid}", [active] = true))`,
     })
     return DataFormatter.buildData(res)
   }
