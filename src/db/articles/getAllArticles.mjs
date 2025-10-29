@@ -3,7 +3,6 @@ import { CacheData } from './cacheData.mjs'
 
 export async function getAllArticles() {
   try {
-    
     // validar caché
     const cacheArticles = CacheData.getAllArticles()
     if (cacheArticles) {
@@ -16,7 +15,7 @@ export async function getAllArticles() {
 
     // actualizar caché de todos los artículos
     CacheData.hasAllArticles(articles)
-    
+
     return articles
   } catch (error) {
     console.error('getLastContactById: Error al obtener el último contacto por ID:', error.message)
