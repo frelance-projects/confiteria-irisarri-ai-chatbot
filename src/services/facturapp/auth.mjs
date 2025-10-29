@@ -2,7 +2,7 @@ import { ENV } from '#config/config.mjs'
 
 export function getAuth() {
   return {
-    usuario: ENV.FACTURAPP_USER,
-    clave: ENV.FACTURAPP_APIKEY,
+    Usuario: ENV.FACTURAPP_USER,
+    Clave: ENV.FACTURAPP_APIKEY,
   }
 }

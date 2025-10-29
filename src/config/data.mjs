@@ -5,6 +5,7 @@ import { getServices } from '#config/services/services.mjs'
 import { getProviderHost, provider } from '#provider/provider.mjs'
 import { startCronJobs } from './cronJobs.mjs'
 import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
+import { getAllArticles } from '#db/articles/getAllArticles.mjs'
 
 //TT APPSHEET
 //ss config
@@ -19,7 +20,6 @@ import { loadToolSendRequest as loadToolSendRequestAppsheet } from '#apps/appshe
 import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#apps/appsheet/config/tools/toolSendRequestTags.mjs'
 
 //ss articles
-import { loadArticles as loadArticlesAppsheet } from '#apps/appsheet/config/articles/articles.mjs'
 import { loadArticlesDaily as loadArticlesDailyAppsheet } from '#apps/appsheet/config/articles/articlesDaily.mjs'
 
 //ss resources
@@ -30,9 +30,12 @@ import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/apps
 export async function initData() {
   //iniciar cronjobs
   startCronJobs()
-  //iniciar datos
+  // cargar lista de artículos inicial
+  const articles = await getAllArticles()
+  console.info(`initData - Artículos cargados en caché: ${articles ? articles.length : 0}`)
+
   if (ENV.APP_FRONTEND === 'appsheet') {
-    console.log('aplicacion de frontend appshet')
+    console.log('Inicializando aplicación de frontend appsheet')
     const appsheet = await initAppsheet()
     return appsheet
   }
@@ -57,7 +60,6 @@ export async function updateData(data) {
       toolSendRequest: loadToolSendRequestAppsheet,
       toolSendRequestTags: loadToolSendRequestTagsAppsheet,
       //ss articles
-      articles: loadArticlesAppsheet,
       articlesDaily: loadArticlesDailyAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,

@@ -1,7 +1,7 @@
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
 import { addOrder as addOrderTool } from '#config/orders/orders.mjs'
 import { addOrderItems as addOrderItemsTool } from '#config/orders/ordersItems.mjs'
-import { getArticleByCode } from '#config/articles/articles.mjs'
+import { getArticleByCode } from '#db/articles/getArticleByCode.mjs'
 import { getArticleDailyByCode } from '#config/articles/articlesDaily.mjs'
 import { cleanDataArticlesItems } from '#utilities/articles/cleanDataArticles.mjs'
 
