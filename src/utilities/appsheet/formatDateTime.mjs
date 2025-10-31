@@ -1,5 +1,6 @@
 //TT CREAR FORMATO DE FECHA Y HORA
 export function buildFormatDateTime(dateTime) {
+  if (!dateTime) return null
   const [date, time] = dateTime.split(' ')
   const [month, day, year] = date.split('/').map(Number)
   const [hours, minutes, seconds] = time.split(':').map(Number)
@@ -8,6 +9,7 @@ export function buildFormatDateTime(dateTime) {
 
 //TT REVERSAR FORMATO DE FECHA Y HORA
 export function revertFormatDateTime(dateObj) {
+  if (!dateObj) return null
   const year = dateObj.getFullYear()
   const month = String(dateObj.getMonth() + 1).padStart(2, '0')
   const day = String(dateObj.getDate()).padStart(2, '0')

@@ -1,4 +1,4 @@
-import { getClientByPhone } from '#config/clients/clients.mjs'
+import { getClientByPhone } from '#db/clients/getClientByPhone.mjs'
 import { Clients } from '#ai/agentProcess/clientAction.mjs'
 
 //TT CONSTRUIR ARTÍCULOS
@@ -9,9 +9,9 @@ export async function buildClientProfile(userId) {
   }
 
   // si es cliente empresa, retornar key
-  if (client.company) {
+  if (client.empresa) {
     console.log('Cliente de empresa detectado:', client)
-    Clients.addClient(userId, client)
+    Clients.addClientCompany(userId, client)
     return 'company'
   }
 

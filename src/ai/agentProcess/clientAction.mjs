@@ -1,12 +1,12 @@
 const CLIENTS = new Map()
 
 export class Clients {
-  static addClient(key, client) {
+  static addClientCompany(key, client) {
     CLIENTS.set(key, client)
     return client
   }
 
-  static getClient(key) {
+  static getClientCompany(key) {
     return CLIENTS.get(key) || null
   }
 }

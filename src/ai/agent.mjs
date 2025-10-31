@@ -89,15 +89,15 @@ export async function agentResponse(userId, message, origin, platform, originalM
       }
 
       // Validar si es un cliente de compañía
-      const isClientHandled = await isClient(userId, chunks, agentConfig, user, userIdKey, platform)
-      if (isClientHandled) {
+      const isCompany = await isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform)
+      if (isCompany) {
         return
       }
       // Enviar petición a OpenAI
       const resAi = await sentToAi(agentConfig.ai.provider, userIdKey, user, agentConfig)
       if (resAi) {
-        const isClientHandled = await isClient(userId, chunks, agentConfig, user, userIdKey, platform)
-        if (isClientHandled) {
+        const isClientCompanyHandled = await isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform)
+        if (isClientCompanyHandled) {
           return
         }
         // Enviar respuesta al usuario
@@ -124,10 +124,10 @@ export async function agentResponse(userId, message, origin, platform, originalM
   }
 }
 
-async function isClient(userId, chunks, agentConfig, user, userIdKey, platform) {
+async function isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform) {
   // Validar si es un cliente de compañía
-  const client = Clients.getClient(userId)
-  if (client && client.company) {
+  const client = Clients.getClientCompany(userId)
+  if (client && client.empresa) {
     console.log('Cliente de compañía detectado:', client)
     const message = { type: 'text', text: 'Hola, en un momento un representante se pondrá en contacto contigo.' }
     let originalMessages = []

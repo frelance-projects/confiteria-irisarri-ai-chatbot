@@ -2,10 +2,10 @@ export function clearPhoneNumber(phoneNumber) {
   try {
     // Mapa de configuraciones por país con longitud esperada
     const countryRules = {
-      52: { prefix: '521', length: 12 }, // México (10 dígitos + código de país)
+      52: { prefix: '521', length: 13 }, // México (10 dígitos + código de país)
       54: { prefix: '549', length: 13 }, // Argentina (10 dígitos + código de país y "9")
       57: { prefix: '57', length: 12 }, // Colombia (10 dígitos + código de país)
-      1: { prefix: '1', length: 11 } // EE. UU./Canadá (10 dígitos + código de país)
+      1: { prefix: '1', length: 11 }, // EE. UU./Canadá (10 dígitos + código de país)
       // Agrega más reglas según sea necesario
     }
 

@@ -1,4 +1,6 @@
-import { getClientByDni, getClientByPhone, addClient } from '#config/clients/clients.mjs'
+import { addNewClient } from '#db/clients/addNewClient.mjs'
+import { getClientByDni } from '#db/clients/getClientByDni.mjs'
+import { getClientByPhone } from '#db/clients/getClientByPhone.mjs'
 import { cleanDataClient } from '#utilities/clients/cleanDataClient.mjs'
 
 export async function addClientProfile(args, user, userIdKey) {
@@ -19,11 +21,9 @@ export async function addClientProfile(args, user, userIdKey) {
     console.warn('El cliente ya existe con el teléfono:', phone)
     return { response: 'error: client already exists with phone' }
   }
-  // Añadir create By
-  args.createBy = user.id
-  // Añadir nuevo cliente
 
-  const result = await addClient(args)
+  // Añadir nuevo cliente
+  const result = await addNewClient(args)
   if (!result) {
     console.error('addClientProfile: error al añadir el cliente')
     return { response: 'error: failed to add client' }

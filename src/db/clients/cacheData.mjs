@@ -1,6 +1,5 @@
 import { getCacheDuration } from '#config/config.mjs'
 import { CacheManager } from '#db/cache/cacheManager.mjs'
-import { getArticleByCode } from '#db/articles/getArticleByCode.mjs'
 
 const CACHE_TTL = getCacheDuration()
 
@@ -17,22 +16,22 @@ export class CacheData {
     return null
   }
 
-  // Obtener todos los artículos en caché
-  static getAllArticles() {
-    const articles = []
+  // Obtener todos los clientes en caché
+  static getAllClients() {
+    const clients = []
 
-    // Recopilar artículos válidos e identificar claves expiradas
+    // Recopilar clientes válidos e identificar claves expiradas
     for (const cached of this.cache.values()) {
-      articles.push(cached.value)
+      clients.push(cached.value)
     }
 
-    // Si no hay artículos válidos, limpiar el timestamp
-    if (articles.length === 0) {
+    // Si no hay clientes válidos, limpiar el timestamp
+    if (clients.length === 0) {
       this.clear()
       return null
     }
 
-    return articles
+    return clients
   }
 
   // Establecer dato en la caché
@@ -41,13 +40,6 @@ export class CacheData {
       value,
       timestamp: Date.now(),
     })
-  }
-
-  // establecer todos los artículos en caché
-  static hasAllArticles(data) {
-    for (const article of data) {
-      this.set(article.codigo, article)
-    }
   }
 
   // Eliminar dato de la caché
@@ -59,15 +51,6 @@ export class CacheData {
   static clear() {
     this.cache.clear()
   }
-
-  // Recargar dato específico
-  static async reload(key) {
-    const article = await getArticleByCode(key)
-    if (article) {
-      console.info(`Articulo recargado en caché para código ${key}`)
-    }
-  }
 }
 
-CacheManager.addData('articles', CacheData)
-
+CacheManager.addData('clients', CacheData)

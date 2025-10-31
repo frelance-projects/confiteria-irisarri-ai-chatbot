@@ -1,6 +1,6 @@
 import { DailyArticlesDb } from './data.mjs'
 import { CacheData } from './cacheData.mjs'
-import { updateDailyArticleParameters } from './utils.mjs'
+//import { updateDailyArticleParameters } from './utils.mjs'
 
 export async function getDailyArticleByCode(code) {
   try {
@@ -14,12 +14,12 @@ export async function getDailyArticleByCode(code) {
     const article = await DailyArticlesDb.getDailyArticleByCode(code)
 
     //fix: actualizar parámetros de artículo diario
-    const updatedArticle = await updateDailyArticleParameters(article)
+    //const updatedArticle = await updateDailyArticleParameters(article)
 
     // almacenar en caché
-    CacheData.set(updatedArticle.codigo, updatedArticle)
+    CacheData.set(article.codigo, article)
 
-    return updatedArticle
+    return article
   } catch (error) {
     console.error('getDailyArticleByCode: Error al obtener el artículo por código:', error.message)
     return null
