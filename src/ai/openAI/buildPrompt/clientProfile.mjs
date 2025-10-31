@@ -17,11 +17,11 @@ export async function buildClientProfile(userId) {
 
   // si es cliente particular, retornar datos
   let text = ''
-  text += `- Nombre: ${client.name} ${client.lastName}\n`
-  text += `- Cedula: ${client.dni}\n`
-  text += `- Teléfono: ${client.phone}\n`
-  text += `- Email: ${client.email}\n`
-  text += `- Dirección: ${client.address}\n`
+  text += `- Nombre: ${client.nombre} ${client.apellidos}\n`
+  text += `- Cedula: ${client.cedula}\n`
+  text += `- Teléfono: ${client.telefono}\n`
+  text += `- Correo: ${client.mail}\n`
+  text += `- Dirección: ${client.direccion}\n`
   console.log(text)
   return text
 }

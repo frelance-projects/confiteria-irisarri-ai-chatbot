@@ -44,6 +44,8 @@ export async function getArticles(args, user, userIdKey) {
   // Formatear los artículos para la respuesta de la IA
   const formattedArticles = formatToAi(articles)
 
-  console.info(`getArticles: Se encontraron ${formattedArticles.length} artículos con los filtros proporcionados.`)
+  console.info(
+    `🧩 Respuesta de función: Se encontraron ${formattedArticles.length} artículos con los filtros proporcionados.`
+  )
   return formattedArticles
 }

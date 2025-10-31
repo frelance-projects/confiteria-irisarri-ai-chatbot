@@ -16,6 +16,5 @@ export function deletePhoneExtension(phone) {
     }
   }
 
-  console.warn(`No se detecto extension para el numero de telefono: ${phone}`)
   return cleanedNumber
 }

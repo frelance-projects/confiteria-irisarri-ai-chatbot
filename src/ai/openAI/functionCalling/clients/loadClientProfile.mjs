@@ -39,5 +39,8 @@ export async function loadClientProfile(args, user, userIdKey) {
     console.log('userIdKey:', user.whatsapp?.id)
     Clients.addClientCompany(user.whatsapp?.id, client)
   }
-  return { response: 'success: client found', client: cleanDataClient(client) }
+
+  const cleanData = cleanDataClient(client)
+  console.info('🧩 Respuesta de función: ', JSON.stringify(cleanData, null, 2))
+  return { response: 'success: client found', client: cleanData }
 }

@@ -28,5 +28,8 @@ export async function addClientProfile(args, user, userIdKey) {
     console.error('addClientProfile: error al añadir el cliente')
     return { response: 'error: failed to add client' }
   }
-  return { response: 'success: client added', client: cleanDataClient(result) }
+
+  const cleanData = cleanDataClient(result)
+  console.info('🧩 Respuesta de función: ', JSON.stringify(cleanData, null, 2))
+  return { response: 'success: client added', client: cleanData }
 }
