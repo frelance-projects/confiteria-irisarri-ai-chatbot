@@ -1,6 +1,5 @@
 import { getClientByDni } from '#db/clients/getClientByDni.mjs'
 import { getClientByPhone } from '#db/clients/getClientByPhone.mjs'
-import { getClientByRut } from '#db/clients/getClientByRut.mjs'
 
 import { cleanDataClient } from '#utilities/clients/cleanDataClient.mjs'
 import { Clients } from '#ai/agentProcess/clientAction.mjs'
@@ -8,7 +7,7 @@ import { Clients } from '#ai/agentProcess/clientAction.mjs'
 const ACTION = {
   dni: getClientByDni,
   phone: getClientByPhone,
-  rut: getClientByRut,
+  rut: getClientByDni,
 }
 
 export async function loadClientProfile(args, user, userIdKey) {
@@ -41,6 +40,6 @@ export async function loadClientProfile(args, user, userIdKey) {
   }
 
   const cleanData = cleanDataClient(client)
-  console.info('🧩 Respuesta de función: ', JSON.stringify(cleanData, null, 2))
-  return { response: 'success: client found', client: cleanData }
+  console.info('🧩 Respuesta de función <loadClientProfile>:\n', JSON.stringify(cleanData, null, 2))
+  return { status: 'success', client: cleanData }
 }

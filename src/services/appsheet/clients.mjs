@@ -49,10 +49,13 @@ export class ClientsAppsheet {
     // preparar datos para AppSheet
     const data = DataFormatter.revertData(clientData)
 
+    console.log('Datos a enviar a AppSheet para nuevo cliente:', data)
+
     // enviar datos a AppSheet
     const res = await addData(NAME_TABLE, {}, data)
 
-    return DataFormatter.buildData(res[0])
+    console.log('Respuesta de AppSheet al agregar nuevo cliente:', res)
+    return DataFormatter.buildData(res)
   }
 }
 
@@ -97,7 +100,7 @@ class DataFormatter {
 
     // mapear datos al formato requerido
     const result = allData.map((item) => ({
-      code: item.code || createIdNumber(),
+      code: parseInt(item.code, 10) || parseInt(createIdNumber(), 10),
       dni: item.dni,
       name: item.name,
       lastName: item.lastName,

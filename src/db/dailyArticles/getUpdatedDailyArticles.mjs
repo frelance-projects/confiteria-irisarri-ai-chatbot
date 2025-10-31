@@ -18,6 +18,6 @@ export async function getUpdatedDailyArticles(sinceDate) {
     return CacheData.getAllDailyArticles() || []
   } catch (error) {
     console.error('getUpdatedDailyArticles: Error al obtener artículos actualizados:', error.message)
-    return null
+    return []
   }
 }

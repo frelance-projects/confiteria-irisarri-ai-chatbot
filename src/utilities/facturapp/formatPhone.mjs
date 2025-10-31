@@ -6,7 +6,7 @@ const FORMAT = {
 
 export function deletePhoneExtension(phone) {
   // Limpia el número, eliminando caracteres no numéricos
-  let cleanedNumber = phone.replace(/\D+/g, '')
+  let cleanedNumber = String(phone).replace(/\D+/g, '')
 
   // eliminar extension
   for (const [countryCode, { slice }] of Object.entries(FORMAT)) {

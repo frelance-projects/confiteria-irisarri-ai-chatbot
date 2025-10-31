@@ -11,9 +11,10 @@ export function events(data) {
             if (change.value.messages) {
               eventMessages(change.value.messages)
             } else if (change.value.statuses) {
-              console.log('Estados recibidos')
+              continue
             } else {
               console.log('No hay mensajes')
+              continue
             }
           } else {
             console.log('No hay cambios')

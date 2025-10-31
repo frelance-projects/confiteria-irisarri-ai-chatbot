@@ -1,5 +1,5 @@
 import { sendRequest as sendRequestTool } from '#tools/sendRequest/sendRequest.mjs'
-import { getBrainById } from '#config/brain/brain.mjs'
+import { getBrainById } from '#db/brains/getBrainById.mjs'
 import { getToolSendRequestTagsById } from '#config/tools/toolSendRequestTags.mjs'
 
 export async function sendRequest(args, user, userIdKey) {

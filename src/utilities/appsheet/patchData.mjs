@@ -38,7 +38,7 @@ export async function patchData(table, properties = {}, rows = []) {
     // Devolver los datos formateados
     return data
   } catch (error) {
-    console.error('Error al realizar la petición:', error.message)
+    console.error('Error al realizar la petición:', error.response?.data || error.message)
     throw error
   }
 }

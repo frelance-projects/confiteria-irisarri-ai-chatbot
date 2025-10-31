@@ -19,6 +19,6 @@ export async function getAllArticles() {
     return articles
   } catch (error) {
     console.error('getAllArticles: Error al obtener todos los artículos:', error.message)
-    return null
+    return []
   }
 }

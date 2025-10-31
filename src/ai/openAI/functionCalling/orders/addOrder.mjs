@@ -27,7 +27,7 @@ export async function addOrder(args, user, userIdKey) {
     }
     //verificar si hay respuesta
     else {
-      console.info('🧩 Respuesta de función: ', JSON.stringify(res, null, 2))
+      console.info('🧩 Respuesta de función <addOrder>: ', JSON.stringify(res, null, 2))
       return { response: 'success: order created', order: res }
     }
   }

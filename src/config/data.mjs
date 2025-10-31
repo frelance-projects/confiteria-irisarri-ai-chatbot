@@ -13,7 +13,6 @@ import { getAllDailyArticles } from '#db/dailyArticles/getAllDailyArticles.mjs'
 import { initAppsheet } from '#apps/appsheet/initAppsheet.mjs'
 import { loadAgent as loadAgentAppsheet } from '#apps/appsheet/config/agent.mjs'
 import { loadAssistants as loadAssistantsAppsheet } from '#apps/appsheet/config/assistants.mjs'
-import { loadBrains as loadBrainsAppsheet } from '#apps/appsheet/config/brains.mjs'
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
 //toolSendRequest
@@ -54,7 +53,6 @@ export async function updateData(data) {
       //ss config
       agent: loadAgentAppsheet,
       assistants: loadAssistantsAppsheet,
-      brains: loadBrainsAppsheet,
       userTags: loadUserTagsAppsheet,
       //ss tools
       //toolSendRequest

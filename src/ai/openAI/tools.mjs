@@ -1,4 +1,4 @@
-import { getBrainById } from '#config/brain/brain.mjs'
+import { getBrainById } from '#db/brains/getBrainById.mjs'
 
 //tools
 import { getJson as jsonSendRequest } from './tools/jsonSendRequest.mjs'

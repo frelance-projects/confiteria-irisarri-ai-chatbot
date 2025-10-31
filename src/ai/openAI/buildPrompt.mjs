@@ -1,11 +1,11 @@
 //TT MÓDULOS
 import { getFullDateFormatGB, getFullDateFormatUS, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
 import { sendLog } from '#logger/logger.mjs'
+import { deletePhoneExtension } from '#utilities/facturapp/formatPhone.mjs'
 
 //TT CONSTRUIR PROMPTS
 import { buildRequestTags } from './buildPrompt/toolSendRequest.mjs'
 import { buildPromotions } from './buildPrompt/promotions.mjs'
-import { buildClientProfile } from './buildPrompt/clientProfile.mjs'
 
 //TT CONSTRUIR PROMPTS
 export async function buildPrompt(brain, user) {
@@ -30,6 +30,7 @@ export async function buildPrompt(brain, user) {
     txt = txt.replaceAll('{user_name}', userName)
     txt = txt.replaceAll('{user_name_registered}', userNameRegistered)
     txt = txt.replaceAll('{user_email}', userEmail)
+    txt = txt.replaceAll('{user_phone}', deletePhoneExtension(user.whatsapp?.id || 'desconocido'))
 
     //fecha
     txt = txt.replaceAll('{date_now}', getFullDateFormatGB())
@@ -41,12 +42,6 @@ export async function buildPrompt(brain, user) {
     if (txt.includes('{promotions}')) {
       const promotions = await buildPromotions()
       txt = txt.replaceAll('{promotions}', promotions)
-    }
-
-    //SS CLIENTE
-    if (txt.includes('{client_profile}')) {
-      const clientProfile = await buildClientProfile(user.whatsapp?.id)
-      txt = txt.replaceAll('{client_profile}', clientProfile)
     }
 
     //SS TOOLS

@@ -1,5 +1,5 @@
 //TT MÓDULOS
-import { getBrainById } from '#config/brain/brain.mjs'
+import { getBrainById } from '#db/brains/getBrainById.mjs'
 import { buildPrompt } from './buildPrompt.mjs'
 import { getUserByPlatform } from '#db/users/getUserByPlatform.mjs'
 

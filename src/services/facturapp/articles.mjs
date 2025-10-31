@@ -46,7 +46,7 @@ export class ArticlesFacturapp {
       return allArticles
     } catch (error) {
       console.error('ArticlesFacturapp: Error fetching all articles', error.message)
-      return []
+      throw new Error(`ArticlesFacturapp: Error fetching all articles`)
     }
   }
 
@@ -85,7 +85,7 @@ export class ArticlesFacturapp {
       return res.data
     } catch (error) {
       console.error('ArticlesFacturapp: Error fetching updated articles', error.message)
-      return []
+      throw new Error(`ArticlesFacturapp: Error fetching updated articles`)
     }
   }
 }

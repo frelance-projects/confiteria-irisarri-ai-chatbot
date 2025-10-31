@@ -16,5 +16,5 @@ export function revertFormatDateTime(dateObj) {
   const hours = String(dateObj.getHours()).padStart(2, '0')
   const minutes = String(dateObj.getMinutes()).padStart(2, '0')
   const seconds = String(dateObj.getSeconds()).padStart(2, '0')
-  return `${month}/${day}/${year} ${hours}:${minutes}:${seconds}`
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
 }

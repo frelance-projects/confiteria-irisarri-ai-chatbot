@@ -8,7 +8,7 @@ export async function addData(table, properties = {}, rows = []) {
 
   // Configurar los encabezados
   const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
   }
 
   // Construir el cuerpo de la solicitud
@@ -18,9 +18,9 @@ export async function addData(table, properties = {}, rows = []) {
       Locale: 'en-GB',
       Timezone: ENV.TZ,
       UserSettings: { FROM_API: true },
-      ...properties
+      ...properties,
     },
-    Rows: !Array.isArray(rows) ? [rows] : rows
+    Rows: !Array.isArray(rows) ? [rows] : rows,
   }
 
   try {
@@ -32,13 +32,14 @@ export async function addData(table, properties = {}, rows = []) {
       console.error(`appsheet - patchData: Error en la petición, código de estado ${response.status}`)
       throw new Error(`appsheet - patchData: Error en la petición, código de estado ${response.status}`)
     }
+
     // Formatear los datos recibidos
     const data = formatData(response.data.Rows)
 
     // Devolver los datos formateados
     return data
   } catch (error) {
-    console.error('Error al realizar la petición:', error.message)
+    console.error('Error al realizar la petición:', error.response?.data || error.message)
     throw error
   }
 }

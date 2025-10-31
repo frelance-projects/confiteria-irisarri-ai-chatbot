@@ -14,6 +14,6 @@ export async function getUpdatedArticles(sinceDate) {
     return CacheData.getAllArticles() || []
   } catch (error) {
     console.error('getUpdatedArticles: Error al obtener artículos actualizados:', error.message)
-    return null
+    return []
   }
 }

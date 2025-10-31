@@ -19,7 +19,7 @@ export async function functionCalling(aiFunction, user, userIdKey) {
   //Cargar argumentos
   const functionName = aiFunction.name
   const functionArgs = JSON.parse(aiFunction.arguments)
-  console.log(`🔹 se llamo a una function para ${user.name} desde IA: ${functionName}`, functionArgs)
+  console.info(`🔹 Se llamo a una function para ${user.name} desde IA: ${functionName}`, functionArgs)
 
   const handlers = {
     [sendRequestName]: sendRequest,

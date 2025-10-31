@@ -43,7 +43,7 @@ export async function getDailyArticles(args, user, userIdKey) {
   const formattedArticles = formatToAi(articles)
 
   console.info(
-    `🧩 Respuesta de función: Se encontraron ${formattedArticles.length} artículos diarios con los filtros proporcionados.`
+    `🧩 Respuesta de función <getDailyArticles>: Se encontraron ${formattedArticles.length} artículos diarios con los filtros proporcionados.`
   )
   return formattedArticles
 }

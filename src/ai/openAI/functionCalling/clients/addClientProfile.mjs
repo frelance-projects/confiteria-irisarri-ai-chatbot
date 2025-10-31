@@ -30,6 +30,6 @@ export async function addClientProfile(args, user, userIdKey) {
   }
 
   const cleanData = cleanDataClient(result)
-  console.info('🧩 Respuesta de función: ', JSON.stringify(cleanData, null, 2))
-  return { response: 'success: client added', client: cleanData }
+  console.info('🧩 Respuesta de función <addClientProfile>:\n', JSON.stringify(cleanData, null, 2))
+  return { status: 'success', client: cleanData }
 }

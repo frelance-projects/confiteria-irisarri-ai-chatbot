@@ -23,6 +23,6 @@ export async function getAllDailyArticles() {
     return updatedArticles
   } catch (error) {
     console.error('getAllDailyArticles: Error al obtener todos los artículos:', error.message)
-    return null
+    return []
   }
 }
