@@ -11,7 +11,6 @@ import { getAllDailyArticles } from '#db/dailyArticles/getAllDailyArticles.mjs'
 //TT APPSHEET
 //ss config
 import { initAppsheet } from '#apps/appsheet/initAppsheet.mjs'
-import { loadAgent as loadAgentAppsheet } from '#apps/appsheet/config/agent.mjs'
 import { loadAssistants as loadAssistantsAppsheet } from '#apps/appsheet/config/assistants.mjs'
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
@@ -51,7 +50,6 @@ export async function updateData(data) {
   if (ENV.APP_FRONTEND === 'appsheet') {
     const handlers = {
       //ss config
-      agent: loadAgentAppsheet,
       assistants: loadAssistantsAppsheet,
       userTags: loadUserTagsAppsheet,
       //ss tools

@@ -1,5 +1,5 @@
 //TT MÓDULOS IA
-import { getAgent } from '#config/agent/agent.mjs'
+import { getAgent } from '#db/agent/getAgent.mjs'
 import { sendToChannels } from '#channels/channels.mjs'
 //AGENT PROCESS
 import { resetUserSession } from './agentProcess/userSessionHistoryTiming.mjs'
@@ -38,7 +38,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
     updatedLastMessage(user)
 
     // Comprobar estado del agente
-    if (agentConfig.state !== 'active') {
+    if (agentConfig.status !== 'active') {
       console.error('Agente desactivado')
       return null
     }

@@ -1,5 +1,5 @@
 import { deleteUserHistoryByBrain, deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
-import { getAgent } from '#config/agent/agent.mjs'
+import { getAgent } from '#db/agent/getAgent.mjs'
 
 export async function getData(req, res) {
   try {

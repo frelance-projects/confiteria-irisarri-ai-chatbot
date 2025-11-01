@@ -1,9 +1,9 @@
 import { ENV } from '#config/config.mjs'
 
 export function serviceAuthenticate(req, res, next) {
-  const { servicetoken, serviceid, userid } = req.headers
+  const { servicetoken, serviceid } = req.headers
   try {
-    if (ENV.SERVICE_ID === serviceid && ENV.SERVICE_TOKEN === servicetoken && ENV.USER_ID === userid) {
+    if (ENV.SERVICE_ID === serviceid && ENV.SERVICE_TOKEN === servicetoken) {
       console.info('service autenticado')
       next()
     } else {

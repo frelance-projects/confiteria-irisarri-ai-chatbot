@@ -1,7 +1,7 @@
 import crypto from 'crypto'
 import { getUserByPlatform } from '#db/users/getUserByPlatform.mjs'
 import { addUser } from '#db/users/addUser.mjs'
-import { getAgent } from '#config/agent/agent.mjs'
+import { getAgent } from '#db/agent/getAgent.mjs'
 import { getUserName } from '#provider/provider.mjs'
 import { sendLog } from '#logger/logger.mjs'
 

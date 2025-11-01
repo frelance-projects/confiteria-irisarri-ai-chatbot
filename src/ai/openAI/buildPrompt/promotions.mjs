@@ -1,9 +1,9 @@
-import { getPromotions } from '#config/articles/promotions.mjs'
+import { getAllPromotions } from '#db/promotions/getAllPromotions.mjs'
 
 //TT CONSTRUIR ARTÍCULOS
 export async function buildPromotions() {
-  const promotions = await getPromotions()
-  if (!promotions) {
+  const promotions = await getAllPromotions()
+  if (!promotions || promotions.length === 0) {
     return 'No hay promociones disponibles'
   }
   const activePromotions = promotions.filter((promotion) => promotion.status)
