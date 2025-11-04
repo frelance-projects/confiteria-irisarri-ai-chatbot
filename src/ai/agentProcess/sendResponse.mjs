@@ -51,8 +51,8 @@ export async function sendResponse(
             type: 'media',
             media: {
               fileType: url.fileType,
-              fileUrl: url.fileUrl
-            }
+              fileUrl: url.fileUrl,
+            },
           }))
           totalMessages.push(...mediaMessages)
         }
@@ -71,7 +71,8 @@ export async function sendResponse(
             }
             resolve(estate) // Resolver la promesa con el estado
           } else {
-            console.error('Agente: Error al enviar el mensaje.')
+            console.error('Agente: No se pudo enviar el mensaje.', totalMessages)
+            console.error('Agente: Error al enviar el mensaje.', estate)
             resolve(null) // Resolver la promesa con null en caso de error
           }
         } catch (error) {
