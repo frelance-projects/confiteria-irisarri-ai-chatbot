@@ -1,5 +1,5 @@
 import { loadTemplates as loadTemplatesProvider } from '#provider/whatsapp-meta/templates/loadTemplates.mjs'
-import { updateWaTemplates } from '#config/resources/waTemplates.mjs'
+import { addTemplates } from '#db/whatsappTemplates/addTemplates.mjs'
 
 export async function getData(req, res) {
   try {
@@ -8,7 +8,7 @@ export async function getData(req, res) {
       console.error('No se pudieron cargar las plantillas de WhatsApp Meta.')
       return null
     }
-    const response = await updateWaTemplates(templates.data)
+    const response = await addTemplates(templates.data)
     if (response) {
       console.info('Plantillas de WhatsApp Meta cargadas correctamente.')
       return res.status(200).json({

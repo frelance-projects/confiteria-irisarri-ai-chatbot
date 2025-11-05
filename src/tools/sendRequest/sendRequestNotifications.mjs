@@ -10,7 +10,7 @@ import { sendRequestWhatsappBaileys } from './functions/send/sendRequestWhatsapp
 import { sendRequestWhatsappMeta } from './functions/send/sendRequestWhatsappMeta.mjs'
 import { getTemplateById as getEmailTemplateById } from '#db/emailTemplates/getTemplateById.mjs'
 import { getTemplateById as getMessageTemplateById } from '#db/messageTemplates/getTemplateById.mjs'
-import { getWaTemplatesById } from '#config/resources/waTemplates.mjs'
+import { getTemplateById as getWaTemplatesById } from '#db/whatsappTemplates/getTemplateById.mjs'
 
 //TT CONSTANTES
 const templatePath = './res/html/templates/templateRequest.html'
