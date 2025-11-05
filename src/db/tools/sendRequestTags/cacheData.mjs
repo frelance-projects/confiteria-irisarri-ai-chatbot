@@ -13,7 +13,7 @@ export class CacheData {
       return cached.value
     }
     this.cache.delete(key)
-    return null                                 
+    return null
   }
 
   // Obtener todos los asistentes en caché
@@ -44,7 +44,8 @@ export class CacheData {
 
   // establecer todos los asistentes en caché
   static hasAllSendRequestTags(data) {
-    for (const sendRequestTag of data) {
+    const all = Array.isArray(data) ? data : []
+    for (const sendRequestTag of all) {
       this.set(sendRequestTag.id, sendRequestTag)
     }
   }

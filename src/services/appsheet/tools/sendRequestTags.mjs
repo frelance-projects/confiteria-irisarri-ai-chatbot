@@ -7,7 +7,8 @@ export class SendRequestTagsAppsheet {
   // ss obtener todos las etiquetas de solicitud
   static async getAllSendRequestTags() {
     const res = await getData(NAME_TABLE)
-    return DataFormatter.buildData(res)
+    const result = DataFormatter.buildData(res)
+    return Array.isArray(result) ? result : [result]
   }
 
   //ss obtener herramienta por id

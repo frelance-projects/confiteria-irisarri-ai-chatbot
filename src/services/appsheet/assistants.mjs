@@ -6,7 +6,8 @@ export class AssistantsAppsheet {
   // ss obtener todos los asistentes
   static async getAllAssistants() {
     const res = await getData(NAME_TABLE)
-    return DataFormatter.buildData(res)
+    const result = DataFormatter.buildData(res)
+    return Array.isArray(result) ? result : [result]
   }
 
   //ss obtener asistente por id

@@ -17,7 +17,7 @@ export async function getAllSendRequestTags() {
     // actualizar caché de todos los sendRequestTags
     CacheData.hasAllSendRequestTags(sendRequestTags)
 
-    return sendRequestTags
+    return Array.isArray(sendRequestTags) ? sendRequestTags : []
   } catch (error) {
     console.error('getAllSendRequestTags: Error al obtener todos los sendRequestTags:', error.message)
     return []

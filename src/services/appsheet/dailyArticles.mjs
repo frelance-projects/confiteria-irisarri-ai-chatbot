@@ -7,7 +7,8 @@ export class DailyArticlesAppsheet {
   // ss obtener todos los artículos
   static async getAllDailyArticles() {
     const res = await getData(NAME_TABLE)
-    return DataFormatter.buildData(res)
+    const result = DataFormatter.buildData(res)
+    return Array.isArray(result) ? result : [result]
   }
 
   //ss obtener artículo por código

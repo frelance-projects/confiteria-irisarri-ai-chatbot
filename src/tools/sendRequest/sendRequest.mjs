@@ -2,7 +2,7 @@ import { isProductionEnv } from '#config/config.mjs'
 
 import { sendRequestNotifications } from './sendRequestNotifications.mjs'
 import { createIdNumber } from '#utilities/createId.mjs'
-import { addRequest } from '#config/data/request.mjs'
+import { addRequest } from '#db/tools/sendRequestData/addRequest.mjs'
 import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
 
 export async function sendRequest(user, request, platform, tag, brain) {
