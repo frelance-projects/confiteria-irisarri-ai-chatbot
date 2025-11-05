@@ -4,7 +4,7 @@ import { ENV } from '#config/config.mjs'
 import { requestMessageFormat } from './functions/format/requestMessageFormat.mjs'
 import { requestEmailFormat } from './functions/format/requestEmailFormat.mjs'
 import { requestWaTemplate } from './functions/format/requestWaTemplate.mjs'
-import { getAssistantById } from '#config/assistants/assistants.mjs'
+import { getAssistantById } from '#db/assistants/getAssistantById.mjs'
 import { sendRequestEmail } from './functions/send/sendRequestEmail.mjs'
 import { sendRequestWhatsappBaileys } from './functions/send/sendRequestWhatsappBaileys.mjs'
 import { sendRequestWhatsappMeta } from './functions/send/sendRequestWhatsappMeta.mjs'
@@ -36,31 +36,30 @@ export async function sendRequestNotifications(user, request, platform, tag, sen
   //SS EMAIL
   if (sendRequestConfig.channels.includes('email')) {
     console.info('enviado consulta por email')
-    const emailTemplate = { suject: '', text: '', html: '' }
+    const emailTemplate = { subject: '', text: '', html: '' }
     //leer plantilla
     try {
-      if (!sendRequestConfig.emailTamplate) {
-        emailTemplate.suject = 'Nueva solicitud {tag}'
+      if (!sendRequestConfig.emailTemplate) {
+        emailTemplate.subject = 'Nueva solicitud {tag}'
         emailTemplate.text = 'Nueva solicitud {tag}'
         emailTemplate.html = await fs.readFile(templatePath, 'utf8')
       }
       //leer platilla de codigo
       else {
-        const template = await getEmailTemplateById(sendRequestConfig.emailTamplate)
+        const template = await getEmailTemplateById(sendRequestConfig.emailTemplate)
         //verificar si la plantilla existe
         if (!template) {
           console.error(
-            'addAppointmentNotifications: No se encontro la plantilla de email ' +
-              sendRequestConfig.emailTamplate
+            'addAppointmentNotifications: No se encontro la plantilla de email ' + sendRequestConfig.emailTemplate
           )
           //asignar plantilla por defecto
-          emailTemplate.suject = 'Nueva solicitud {tag}'
+          emailTemplate.subject = 'Nueva solicitud {tag}'
           emailTemplate.text = 'Nueva solicitud {tag}'
           emailTemplate.html = await fs.readFile(templatePath, 'utf8')
         }
         //asignar plantilla
         else {
-          emailTemplate.suject = template.suject
+          emailTemplate.subject = template.subject
           emailTemplate.text = template.text
           emailTemplate.html = template.html
         }
@@ -71,7 +70,7 @@ export async function sendRequestNotifications(user, request, platform, tag, sen
         .filter((email) => email !== '' && email !== null && email !== undefined)
 
       //formatear asunto
-      emailTemplate.suject = requestMessageFormat(user, platform, emailTemplate.suject, request, tag.name)
+      emailTemplate.subject = requestMessageFormat(user, platform, emailTemplate.subject, request, tag.name)
       //formatear mensaje
       emailTemplate.text = requestMessageFormat(user, platform, emailTemplate.text, request, tag.name)
       //formatear email
@@ -80,7 +79,7 @@ export async function sendRequestNotifications(user, request, platform, tag, sen
       //enviar email
       if (assistantsEmail && assistantsEmail.length > 0) {
         //enviar email
-        sendRequestEmail(emailTemplate.html, emailTemplate.text, emailTemplate.suject, assistantsEmail)
+        sendRequestEmail(emailTemplate.html, emailTemplate.text, emailTemplate.subject, assistantsEmail)
       } else {
         console.warn('sendRequestNotifications: No se encontraron emails para enviar la notificación')
       }

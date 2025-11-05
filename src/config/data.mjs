@@ -3,15 +3,10 @@ import { ENV } from '#config/config.mjs'
 import { sendLog } from '#logger/logger.mjs'
 import { getServices } from '#config/services/services.mjs'
 import { getProviderHost, provider } from '#provider/provider.mjs'
-import { startCronJobs } from './cronJobs.mjs'
 import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
-import { getAllArticles } from '#db/articles/getAllArticles.mjs'
-import { getAllDailyArticles } from '#db/dailyArticles/getAllDailyArticles.mjs'
 
 //TT APPSHEET
 //ss config
-import { initAppsheet } from '#apps/appsheet/initAppsheet.mjs'
-import { loadAssistants as loadAssistantsAppsheet } from '#apps/appsheet/config/assistants.mjs'
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
 //toolSendRequest
@@ -22,24 +17,6 @@ import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#app
 import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
 import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/appsheet/config/resources/messageTemplates.mjs'
 
-//TT INICIAR DATOS
-export async function initData() {
-  //iniciar cronjobs
-  startCronJobs()
-  // cargar lista de artículos inicial
-  const articles = await getAllArticles()
-  console.info(`initData - Artículos cargados en caché: ${articles ? articles.length : 0}`)
-  // cargar lista de artículos inicial de artículos diarios
-  const dailyArticles = await getAllDailyArticles()
-  console.info(`initData - Artículos diarios cargados en caché: ${dailyArticles ? dailyArticles.length : 0}`)
-
-  if (ENV.APP_FRONTEND === 'appsheet') {
-    console.log('Inicializando aplicación de frontend appsheet')
-    const appsheet = await initAppsheet()
-    return appsheet
-  }
-  return null
-}
 
 // TT ACTUALIZAR DATOS
 export async function updateData(data) {
@@ -50,7 +27,6 @@ export async function updateData(data) {
   if (ENV.APP_FRONTEND === 'appsheet') {
     const handlers = {
       //ss config
-      assistants: loadAssistantsAppsheet,
       userTags: loadUserTagsAppsheet,
       //ss tools
       //toolSendRequest

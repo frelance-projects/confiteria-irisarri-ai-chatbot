@@ -4,11 +4,10 @@ import { urlMedia } from '#storage/urlMedia.mjs'
 import { createId } from '#utilities/createId.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
 
-export async function sendToAppsheet(mesagges) {
-  console.log('Mensajes a canal de appsheet: ' + mesagges.length)
-  //NEXT: creasr sistema de lotes para enviar mensajes a appsheet
-  for (const message of mesagges) {
-    //console.log('Mensajes a canal de chatwoot', userid)
+export async function sendToAppsheet(messages) {
+  console.log('Mensajes a canal de appsheet: ' + messages.length)
+  for (const message of messages) {
+    //console.log('Mensajes a canal de chatwoot', userId)
     const list = []
     //SS TEXTO
     if (message.message.type === 'text') {
@@ -25,7 +24,7 @@ export async function sendToAppsheet(mesagges) {
         TRANSMITTER: message.transmitter,
         RECEIVER: message.receiver,
         TYPE: message.message.type,
-        TEXT: message.message.text
+        TEXT: message.message.text,
       }
       list.push(textMessage)
     }
@@ -53,7 +52,7 @@ export async function sendToAppsheet(mesagges) {
           RECEIVER: message.receiver,
           TYPE: message.message.media.fileType,
           TEXT: message.message.media.caption ? message.message.media.caption : '',
-          MEDIA_ULR: fileUrl
+          MEDIA_ULR: fileUrl,
         }
         list.push(textMessage)
       }

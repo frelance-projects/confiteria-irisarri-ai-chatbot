@@ -2,7 +2,6 @@
 // meta whatsapp
 import loadWhatsappTemplatesMeta from './provider/whatsapp-meta/loadTemplates.mjs'
 // baileys whatsapp
-import createTokenConnectBaileys from './provider/baileys/createTokenConnect.mjs'
 import connectToBaileys from './provider/baileys/connectToBaileys.mjs'
 import deleteSessionBaileys from './provider/baileys/deleteSession.mjs'
 //SS WEBHOOKS
@@ -24,7 +23,6 @@ export default [
   //meta whatsapp
   loadWhatsappTemplatesMeta,
   //baileys whatsapp
-  createTokenConnectBaileys,
   connectToBaileys,
   deleteSessionBaileys,
   //SS WEBHOOKS

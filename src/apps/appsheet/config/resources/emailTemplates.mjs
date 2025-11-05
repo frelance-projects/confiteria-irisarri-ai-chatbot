@@ -26,7 +26,7 @@ function buildFormat(data = []) {
     id: obj.ID,
     name: obj.NAME,
     description: obj.DESCRIPTION,
-    suject: obj.SUBJECT,
+    subject: obj.SUBJECT,
     text: obj.TEXT,
     html: obj.HTML
   }))

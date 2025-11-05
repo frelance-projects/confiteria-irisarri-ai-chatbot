@@ -29,7 +29,7 @@ export function buildFormat(data) {
     channels: formatArray(obj.CHANNELS),
     messageTemplate: obj.MESSAGE_TEMPLATE,
     tamplateId: obj.TEMPLATE_ID,
-    emailTamplate: obj.EMAIL_TEMPLATE,
+    emailTemplate: obj.EMAIL_TEMPLATE,
     tags: formatArray(obj.TAGS)
   }))
   return sendRequestConfig
@@ -40,7 +40,7 @@ export const sendRequestConfig = {
   status: true,
   messageTemplate: 'Hola {user_name}, gracias por contactarnos. Tu consulta es: {user_request}', //mensaje o id plantilla,
   tamplateId: '', //id plantilla para meta
-  emailTamplate: '', // plantilla para email
+  emailTemplate: '', // plantilla para email
   tags: ['buy', 'sell', 'pqr', 'support', 'other'], //platillas personalizadas
   channels: ['email'], // email | whatsapp | sms
   emailId: ['johan12361@gmail.com', 'johan12361.pay@gmail.com'],

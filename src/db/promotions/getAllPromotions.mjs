@@ -1,7 +1,7 @@
 import { PromotionsDb } from './data.mjs'
 import { CacheData } from './cacheData.mjs'
 
-export async function getAllPromotions(brainId) {
+export async function getAllPromotions() {
   try {
     // validar caché
     const cachePromotions = CacheData.getAll()

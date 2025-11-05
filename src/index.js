@@ -2,7 +2,7 @@ import express from 'express'
 import { existsSync, mkdirSync } from 'fs'
 //TT MÓDULOS
 import { ENV, isProductionEnv } from '#config/config.mjs'
-import { initData } from '#config/data.mjs'
+import { initData } from '#initData/initData.mjs'
 import { publicPath, storagePath } from '#config/paths.mjs'
 import { deployServices } from './deploy/deployServices.mjs'
 //SS RUTAS
@@ -28,6 +28,9 @@ if (isProductionEnv()) {
 } else {
   console.warn('*** DEVELOPMENT MODE ***')
 }
+
+//TT INICIALIZAR DATOS
+await initData()
 
 //TT INICIAR API REST
 const app = express()
@@ -55,18 +58,14 @@ if (!isProductionEnv()) {
     if (middleware.route) {
       // Ruta normal
       console.log(
-        `${ENV.SERVICE_URL}${middleware.route.path} ${Object.keys(middleware.route.methods)
-          .join(', ')
-          .toUpperCase()} `
+        `${ENV.SERVICE_URL}${middleware.route.path} ${Object.keys(middleware.route.methods).join(', ').toUpperCase()} `
       )
     } else if (middleware.name === 'router') {
       // Router modular
       middleware.handle.stack.forEach((handler) => {
         if (handler.route) {
           console.log(
-            `${ENV.SERVICE_URL}${handler.route.path} ${Object.keys(handler.route.methods)
-              .join(', ')
-              .toUpperCase()} `
+            `${ENV.SERVICE_URL}${handler.route.path} ${Object.keys(handler.route.methods).join(', ').toUpperCase()} `
           )
         }
       })
@@ -78,9 +77,6 @@ if (!isProductionEnv()) {
 app.listen(port, () => {
   console.log(`Servidor escuchando en el puerto ${port}`)
 })
-
-//TT INICIALIZAR DATOS
-await initData()
 
 //TT DESPLEGAR SERVICIOS
 deployServices()
