@@ -6,8 +6,6 @@ import { getProviderHost, provider } from '#provider/provider.mjs'
 import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
 
 //TT APPSHEET
-//ss config
-import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 
 //ss resources
 import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
@@ -21,8 +19,6 @@ export async function updateData(data) {
   }
   if (ENV.APP_FRONTEND === 'appsheet') {
     const handlers = {
-      //ss config
-      userTags: loadUserTagsAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,
       resourceMessageTemplates: loadMessageTemplatesAppsheet,
