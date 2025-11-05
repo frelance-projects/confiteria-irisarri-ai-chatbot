@@ -75,7 +75,7 @@ class DataFormatter {
         CATEGORY: template.category || '',
         SUB_CATEGORY: template.sub_category || '',
       }
-      data.push(obj)
+      result.push(obj)
     }
 
     // validar si es un solo objeto o un array

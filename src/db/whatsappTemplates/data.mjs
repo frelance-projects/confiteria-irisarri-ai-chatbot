@@ -30,4 +30,14 @@ export class WhatsappTemplatesDb {
       throw error
     }
   }
+
+  //ss agregar nuevas plantillas
+  static async addTemplates(templates) {
+    try {
+      return await this.getProvider().addTemplates(templates)
+    } catch (error) {
+      console.error('WhatsappTemplatesDb: Error al agregar las plantillas:', error.message)
+      throw error
+    }
+  }
 }
