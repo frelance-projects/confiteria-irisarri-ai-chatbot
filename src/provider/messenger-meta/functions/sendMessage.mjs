@@ -2,7 +2,6 @@
 import { sendText } from './send/sendText.mjs'
 import { sendMedia } from './send/sendMedia.mjs'
 import { getCredentials } from './getCredentials.mjs'
-import { sendLog } from '#logger/logger.mjs'
 
 //TT ENVIAR MENSAJE
 export async function sendMessageMessengerMeta(userId, messageContent, role, channel, app) {
@@ -95,11 +94,9 @@ export async function sendMessageMessengerMeta(userId, messageContent, role, cha
       return sentMsgs
     } else {
       console.error('No se pudo enviar ningún mensaje')
-      sendLog('error', 'provider/messenger-meta/functions/sendMessage', 'No messages sent')
       return null
     }
   } catch (error) {
-    sendLog('error', 'provider/messenger-meta/functions/sendMessage', 'Error sending messages')
     console.error('Error al enviar los mensajes:', error)
     return null
   }

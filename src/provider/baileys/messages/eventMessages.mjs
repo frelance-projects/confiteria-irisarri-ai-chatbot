@@ -1,7 +1,6 @@
 import { getContentType } from 'baileys'
 
 //TT MÓDULOS
-import { sendLog } from '#logger/logger.mjs'
 import { setUserName } from '../functions/userName.mjs'
 import { sendToChannels } from '#channels/channels.mjs'
 import { getProviderHost } from '#provider/provider.mjs'
@@ -86,22 +85,12 @@ export async function eventMessages(data) {
         await MESSAGE_HANDLER[contentType](message, userId, host, messageOriginType, list)
       } catch (error) {
         console.error(`Error al procesar mensaje tipo ${contentType}:`, error)
-        sendLog(
-          'error',
-          'provider/baileys/messages/eventMessages',
-          `Error processing ${contentType}: ${error.message}`
-        )
       }
     }
     // TIPO DESCONOCIDO
     else {
       console.log('Mensaje de tipo desconocido:', contentType)
       console.log(JSON.stringify(message, null, 2))
-      sendLog(
-        'error',
-        'provider/baileys/messages/eventMessages',
-        'Unknown message type:\n' + JSON.stringify(message, null, 2)
-      )
     }
   }
   if (list.length > 0) {

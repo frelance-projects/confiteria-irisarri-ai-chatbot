@@ -1,51 +1,6 @@
 //TT MÓDULOS
-import { ENV } from '#config/config.mjs'
-import { sendLog } from '#logger/logger.mjs'
 import { getServices } from '#config/services/services.mjs'
 import { getProviderHost, provider } from '#provider/provider.mjs'
-import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
-
-//TT APPSHEET
-
-//ss resources
-import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
-import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/appsheet/config/resources/messageTemplates.mjs'
-
-// TT ACTUALIZAR DATOS
-export async function updateData(data) {
-  if (!data) {
-    console.error('updateData - Error: No se ha especificado el tipo de dato a actualizar')
-    return null
-  }
-  if (ENV.APP_FRONTEND === 'appsheet') {
-    const handlers = {
-      //ss resources
-      resourceEmailTemplates: loadEmailTemplatesAppsheet,
-      resourceMessageTemplates: loadMessageTemplatesAppsheet,
-    }
-    const loader = handlers[data]
-    if (!loader) {
-      console.error(`updateData - Error: Tipo de dato no válido "${data}"`)
-      return null
-    }
-    try {
-      const result = await loader('init')
-
-      if (data === 'brains') {
-        console.log('updateData - Se actualizó "brains", se eliminará el historial de conversaciones.')
-        await deleteAllHistory('openai')
-      }
-      return result || null
-    } catch (error) {
-      console.error(`updateData - Error al cargar "${data}":`, error)
-      sendLog('error', 'config/data', `updateData: Error loading "${data}":\n${error}`)
-      return null
-    }
-  } else {
-    console.error('updateData - Error: No se ha especificado la pataforma de dato a actualizar')
-    return null
-  }
-}
 
 // TT CARGAR DATOS DE PLATAFORMA
 export async function loadDataPlatform(platform) {

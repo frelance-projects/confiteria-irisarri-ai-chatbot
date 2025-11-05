@@ -8,12 +8,12 @@ import { getAssistantById } from '#db/assistants/getAssistantById.mjs'
 import { sendRequestEmail } from './functions/send/sendRequestEmail.mjs'
 import { sendRequestWhatsappBaileys } from './functions/send/sendRequestWhatsappBaileys.mjs'
 import { sendRequestWhatsappMeta } from './functions/send/sendRequestWhatsappMeta.mjs'
-import { getEmailTemplateById } from '#config/resources/emailTemplates.mjs'
-import { getMessageTemplateById } from '#config/resources/messageTemplates.mjs'
+import { getTemplateById as getEmailTemplateById } from '#db/emailTemplates/getTemplateById.mjs'
+import { getTemplateById as getMessageTemplateById } from '#db/messageTemplates/getTemplateById.mjs'
 import { getWaTemplatesById } from '#config/resources/waTemplates.mjs'
 
 //TT CONSTANTES
-const templatePath = './res/html/tamplates/templateRequest.html'
+const templatePath = './res/html/templates/templateRequest.html'
 
 //TT ENVIAR CONSULTA
 export async function sendRequestNotifications(user, request, platform, tag, sendRequestConfig) {

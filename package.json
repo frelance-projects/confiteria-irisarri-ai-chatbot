@@ -32,8 +32,11 @@
   "author": "Johan S",
   "license": "ISC",
   "devDependencies": {
+    "depcheck": "^1.4.7",
+    "eslint": "^9.39.1",
     "eslint-config-prettier": "10.1.8",
-    "standard": "17.1.2"
+    "standard": "17.1.2",
+    "unimported": "^1.31.1"
   },
   "eslintConfig": {
     "extends": "./eslintrc.json"

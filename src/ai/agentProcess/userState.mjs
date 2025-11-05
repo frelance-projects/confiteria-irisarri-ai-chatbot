@@ -1,5 +1,4 @@
 import { updateUser } from '#db/users/updateUser.mjs'
-import { sendLog } from '#logger/logger.mjs'
 
 const temporalState = {}
 
@@ -10,14 +9,11 @@ export async function addToBlacklist(user) {
     const res = await updateUser(user)
     if (!res) {
       console.error('addToBlacklist: Error al agregar usuario a la lista negra')
-      sendLog('error', 'ai/agentProcess/userState', 'Error adding user to blacklist')
       return null
     }
-    sendLog('info', 'ai/agentProcess/userState', `User added to blacklist: ${user.id} - ${user.userName}`)
     console.info('addToBlacklist: Usuario agregado a la lista negra: ' + user.id)
     return res
   } catch (error) {
-    sendLog('error', 'ai/agentProcess/userState', `Unexpected error adding user to blacklist: ${error}`)
     console.error('addToBlacklist: Error inesperado', error)
     return null
   }

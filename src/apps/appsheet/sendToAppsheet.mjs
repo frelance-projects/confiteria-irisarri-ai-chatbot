@@ -1,8 +1,12 @@
-import { appsheetTablesOthers } from './tablesId.mjs'
 import { postTable } from './api/postTable.mjs'
 import { urlMedia } from '#storage/urlMedia.mjs'
 import { createId } from '#utilities/createId.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
+
+const CHUNK = []
+let TIME_OUT = null
+
+const TABLE = 'MESSAGES'
 
 export async function sendToAppsheet(messages) {
   console.log('Mensajes a canal de appsheet: ' + messages.length)
@@ -61,37 +65,34 @@ export async function sendToAppsheet(messages) {
   }
 }
 
-const chunk = []
-let timeoutId = null
-
 //SS ENVIA MENSAJES A APPSHEET EN LOTE
 export function addToChunk(messages) {
   const newMessages = Array.isArray(messages) ? messages : [messages]
-  chunk.push(...newMessages)
+  CHUNK.push(...newMessages)
 
-  if (chunk.length > 10) {
-    postTable(appsheetTablesOthers.messages, chunk).then((res) => {
+  if (CHUNK.length > 10) {
+    postTable(TABLE, CHUNK).then((res) => {
       if (!res) {
         console.error('appsheet: error al enviar mensajes')
       }
     })
-    chunk.length = 0
-    clearTimeout(timeoutId)
-    timeoutId = null
+    CHUNK.length = 0
+    clearTimeout(TIME_OUT)
+    TIME_OUT = null
     return
   }
 
-  if (!timeoutId) {
-    timeoutId = setTimeout(() => {
-      if (chunk.length > 0) {
-        postTable(appsheetTablesOthers.messages, chunk).then((res) => {
+  if (!TIME_OUT) {
+    TIME_OUT = setTimeout(() => {
+      if (CHUNK.length > 0) {
+        postTable(TABLE, CHUNK).then((res) => {
           if (!res) {
             console.error('appsheet: error al enviar mensajes')
           }
         })
-        chunk.length = 0
+        CHUNK.length = 0
       }
-      timeoutId = null
+      TIME_OUT = null
     }, 10000)
   }
 }

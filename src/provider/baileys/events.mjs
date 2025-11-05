@@ -1,7 +1,6 @@
 import { DisconnectReason } from 'baileys'
 //TT MÓDULOS
 import { updateStatusPlatforms } from '#config/statusPlatforms/statusPlatforms.mjs'
-import { sendLog } from '#logger/logger.mjs'
 import { eventMessages } from './messages/eventMessages.mjs'
 import { deployProvider } from './functions/deployProvider.mjs'
 import { generateQrCode } from './functions/generateQrCode.mjs'
@@ -59,7 +58,6 @@ export async function events(provider) {
       const host = provider.whatsapp.sock?.user?.id?.split(':')[0]
       console.info(`¡Conexión exitosa con WhatsApp Baileys, count ${host} !`)
       updateStatusPlatforms(PLATFORM, { accountId: host, status: 'online' })
-      sendLog('info', 'provider/baileys/events', `Successful connection to WhatsApp account: ${host}`)
     }
   })
 

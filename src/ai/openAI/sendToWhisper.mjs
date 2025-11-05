@@ -2,8 +2,6 @@ import fs from 'fs'
 import { OpenAI } from 'openai'
 
 //TT MÓDULOS
-import { sendLog } from '#logger/logger.mjs'
-
 import { getCredentialsOpenAI } from './credentials.mjs'
 import { convertToMp3 } from '#utilities/convertToMp3.mjs'
 import { addLog } from '#logger/loggerToken.mjs'
@@ -29,7 +27,6 @@ export async function sendToWhisper(audioPath) {
     return { type: 'text', text: transcription.text }
   } catch (error) {
     console.error('Error al enviar el audio a OpenAI:', error)
-    sendLog('error', 'ai/openAI/sendToWhisper', 'Error sending audio to OpenAI:\n' + String(error))
     return null
   }
 }
@@ -68,7 +65,6 @@ function addLogOpenAi(model, transcription) {
     const cachedInput = 0
     addLog(userId, { provider, model, type, unit, input, output, cachedInput })
   } catch (error) {
-    sendLog('error', 'ai/openAI/sendToWhisper', 'Error adding log to OpenAI:\n' + String(error))
     console.error('Error al agregar el log a OpenAI:', error)
   }
 }

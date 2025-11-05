@@ -1,5 +1,4 @@
 import { providerSendMessage } from '#provider/provider.mjs'
-import { sendLog } from '#logger/logger.mjs'
 import { addToQueue } from '#utilities/queuedExecution.mjs'
 import { sendToChannels } from '#channels/channels.mjs'
 import { isProductionEnv } from '#config/config.mjs'
@@ -42,11 +41,5 @@ async function sendMessages({ message, assistant }) {
     console.log('Mensaje enviado a whatsapp:', assistant.name)
   } else {
     console.error('Error al enviar mensaje a whatsapp:', assistant.whatsappId)
-    sendLog(
-      'error',
-      'tools/sendRequest/functions/send/sendRequestWhatsapp',
-      'sendMessages',
-      `Error to send message to ${assistant.name}  whatsapp: ${assistant.whatsappId} message: ${message}`
-    )
   }
 }

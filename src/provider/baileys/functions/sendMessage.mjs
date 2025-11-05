@@ -2,7 +2,6 @@
 import { getProviderHost } from '#provider/provider.mjs'
 import { sendText } from './sends/sendText.mjs'
 import { sendMedia } from './sends/sendMedia.mjs'
-import { sendLog } from '#logger/logger.mjs'
 
 //TT ENVIAR MENSAJE
 export async function sendMessageWhatsappBaileys(phone, messageContent, role, channel, app) {
@@ -111,12 +110,10 @@ export async function sendMessageWhatsappBaileys(phone, messageContent, role, ch
     if (sentMsgs.length > 0) {
       return sentMsgs
     } else {
-      sendLog('error', 'provider/baileys/functions/sendMessage', 'No messages sent')
       console.error('No se pudo enviar ningún mensaje')
       return null
     }
   } catch (error) {
-    sendLog('error', 'provider/baileys/functions/sendMessage', 'Error sending messages')
     console.error('Error al enviar los mensajes:', error)
     return null
   }

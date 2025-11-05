@@ -1,7 +1,6 @@
 //TT MÓDULOS
 import { ENV } from '#config/config.mjs'
 
-import { sendLog } from '#logger/logger.mjs'
 import { getPresence } from './functionsProvider/getPresence.mjs'
 //whatsapp-Baileys
 import { sendMessageWhatsappBaileys } from './baileys/functions/sendMessage.mjs'
@@ -48,13 +47,11 @@ export function getProviderHost(platform) {
         return provider.whatsapp.host
       } else {
         console.error('Provider (getProviderHost): Whatsapp provider not supported')
-        sendLog('error', 'provider/provider', 'getProviderHost: Whatsapp provider not supported')
         return null
       }
     }
     return null
   } catch (err) {
-    sendLog('error', 'provider/provider', 'getProviderHost: Unexpected error')
     console.error('Provider (getProviderHost): Error al obtener el host del proveedor', err)
     return null
   }
@@ -68,13 +65,11 @@ export function setProviderHost(platform, host) {
         return true
       } else {
         console.error('Provider (setProviderHost): Whatsapp provider not supported')
-        sendLog('error', 'provider/provider', 'setProviderHost: Whatsapp provider not supported')
         return false
       }
     }
     return false
   } catch (err) {
-    sendLog('error', 'provider/provider', 'setProviderHost: Unexpected error')
     console.error('Provider (setProviderHost): Error al guardar el host del proveedor', err)
     return false
   }
@@ -90,7 +85,6 @@ export async function getUserName(userId, platform) {
       return res
     } //META
     else if (ENV.PROV_WHATSAPP === 'meta') {
-      sendLog('warn', 'provider/provider', 'getUserName: Whatsapp provider not supported')
       return 'New User - Whatsapp'
     }
   } //SS PATAFORMA MESSENGER
@@ -100,7 +94,6 @@ export async function getUserName(userId, platform) {
       const res = await getUserNameMessengerMeta(userId)
       return res
     } else {
-      sendLog('warn', 'provider/provider', 'getUserName: Messenger provider not supported')
       console.warn('Provider (getUserName): Proveedor no soportado: ' + provider.messenger.provider)
       return 'New User - Messenger'
     }
@@ -112,14 +105,12 @@ export async function getUserName(userId, platform) {
       const res = await getUserNameInstagramMeta(userId)
       return res
     } else {
-      sendLog('warn', 'provider/provider', 'getUserName: Instagram provider not supported')
       console.warn('Provider (getUserName): Proveedor no soportado: ' + provider.instagram.provider)
       return 'New User - Instagram'
     }
   }
   //SS PLATAFORMA NO SOPORTADA
   else {
-    sendLog('warn', 'provider/provider', 'getUserName: Platform not supported')
     console.warn('Provider (getUserName): Plataforma no soportada')
     return 'New User'
   }
@@ -148,7 +139,6 @@ export async function providerSendMessage(
         const res = await sendMessageWhatsappMeta(userId, message, role, channel, app)
         return res
       } else {
-        sendLog('error', 'provider/provider', 'providerSendMessage: Whatsapp provider not supported')
         console.error('Provider (providerSendMessage): Proveedor no soportado: ' + ENV.PROV_WHATSAPP)
         return null
       }
@@ -160,7 +150,6 @@ export async function providerSendMessage(
         const res = await sendMessageMessengerMeta(userId, message, role, channel, app)
         return res
       } else {
-        sendLog('error', 'provider/provider', 'providerSendMessage: Messenger provider not supported')
         console.error(
           'Provider (providerSendMessage): Proveedor no soportado: ' + provider.messenger.provider
         )
@@ -173,7 +162,6 @@ export async function providerSendMessage(
         const res = await sendMessageInstagramMeta(userId, message, role, channel, app)
         return res
       } else {
-        sendLog('error', 'provider/provider', 'providerSendMessage: Instagram provider not supported')
         console.error(
           'Provider (providerSendMessage): Proveedor no soportado: ' + provider.instagram.provider
         )
@@ -182,12 +170,10 @@ export async function providerSendMessage(
     }
     //SS PLATAFORMA NO SOPORTADA
     else {
-      sendLog('error', 'provider/provider', 'providerSendMessage: Platform not supported')
       console.error('Provider (providerSendMessage): Plataforma no soportada')
       return null
     }
   } catch (error) {
-    sendLog('error', 'provider/provider', 'providerSendMessage: Unexpected error')
     console.error('Provider (providerSendMessage): Error al enviar el mensaje', error)
     return null
   }
@@ -201,7 +187,6 @@ export async function providerSendPresence(userId, presence, platform) {
       const presenceBaileys = getPresence(platform, presence, ENV.PROV_WHATSAPP)
       if (!presenceBaileys) {
         console.error('Provider (providerSendPresence): Error al obtener presencia')
-        sendLog('error', 'provider/provider', 'providerSendPresence: Error getting presence')
         return null
       }
       const res = await sendPresence(presence, userId)
@@ -209,7 +194,6 @@ export async function providerSendPresence(userId, presence, platform) {
     } else if (ENV.PROV_WHATSAPP === 'meta') {
       return null
     } else {
-      sendLog('error', 'provider/provider', 'providerSendPresence: (whatsapp) Provider not supported')
       console.error('Provider (providerSendPresence): Proveedor no soportado')
       return null
     }
@@ -225,7 +209,6 @@ export async function providerSendPresence(userId, presence, platform) {
   //SS PLATAFORMA NO SOPORTADA
   else {
     console.error('Provider (providerSendPresence): Plataforma no soportada')
-    sendLog('error', 'provider/provider', 'providerSendPresence: Platform not supported')
     return null
   }
 }
@@ -239,7 +222,6 @@ export async function providerMarkReadMessage(orignalMessages = [], platform) {
     } else if (ENV.PROV_WHATSAPP === 'meta') {
       return true
     } else {
-      sendLog('warn', 'provider/provider', 'providerMarkReadMessage: (whatsapp) Provider not supported')
       console.error('Provider (providerMarkReadMessage): Proveedor no soportado')
       return null
     }
@@ -255,7 +237,6 @@ export async function providerMarkReadMessage(orignalMessages = [], platform) {
   //SS PLATAFORMA NO SOPORTADA
   else {
     console.error('Provider (providerMarkReadMessage): Plataforma no soportada')
-    sendLog('warn', 'provider/provider', 'providerMarkReadMessage: Platform not supported')
     return null
   }
 }

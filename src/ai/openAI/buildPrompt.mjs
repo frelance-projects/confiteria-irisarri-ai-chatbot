@@ -1,6 +1,5 @@
 //TT MÓDULOS
 import { getFullDateFormatGB, getFullDateFormatUS, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
-import { sendLog } from '#logger/logger.mjs'
 import { deletePhoneExtension } from '#utilities/facturapp/formatPhone.mjs'
 
 //TT CONSTRUIR PROMPTS
@@ -54,7 +53,6 @@ export async function buildPrompt(brain, user) {
     return txt
   } catch (error) {
     console.error('buildPrompt: Error al construir el prompt', error)
-    sendLog('error', 'ai/openAI/buildPrompt', 'Error creating message:\n' + String(error))
     return 'Error al construir el prompt'
   }
 }

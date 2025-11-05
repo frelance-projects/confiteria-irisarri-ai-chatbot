@@ -1,6 +1,5 @@
 import { addToQueue } from '#utilities/queuedExecution.mjs'
 import { sentNotificationTemplate } from '#provider/whatsapp-meta/templates/sentNotificationTemplate.mjs'
-import { sendLog } from '#logger/logger.mjs'
 import { getRandomDelay } from '#utilities/dateFunctions/time.mjs'
 
 export async function sendRequestWhatsappMeta(template, assistants, parameters) {
@@ -38,11 +37,5 @@ async function sendTemplate({ template, assistant, parameters }) {
     console.log('platilla enviada a whatsapp:', assistant.name)
   } else {
     console.error('Error al enviar platilla a whatsapp:', assistant.whatsappId)
-    sendLog(
-      'error',
-      'tools/sendRequest/functions/send/sendRequestWhatsappMeta',
-      'sendTemplate',
-      `Error to send template to ${assistant.name} whatsapp: ${assistant.whatsappId} template: ${template.name}`
-    )
   }
 }

@@ -1,7 +1,6 @@
 import { timeOutConnection } from '../events.mjs'
 import { stopProvider } from './stopProvider.mjs'
 import { existsSync, mkdirSync } from 'fs'
-import { sendLog } from '#logger/logger.mjs'
 import { publicPath } from '#config/paths.mjs'
 import qrcode from 'qrcode' // Importar la librería QR
 
@@ -15,7 +14,6 @@ export function generateQrCode(qr) {
 
   if (elapsedTime > timeOutConnection.timeoutLimit) {
     console.info('Conexión cerrada por más de 5 minutos. Deteniendo proveedor...')
-    sendLog('info', 'provider/baileys/functions/generateQrCode', 'Connection closed for more than 5 minutes')
     stopProvider() // Llama a la función para detener el proveedor
     timeOutConnection.disconnectStartTime = null // Resetea el temporizador
   } else {

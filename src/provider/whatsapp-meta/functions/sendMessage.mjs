@@ -2,7 +2,6 @@
 import { sendText } from './send/sendText.mjs'
 import { sendMedia } from './send/sendMedia.mjs'
 import { getCredentials } from './getCredentials.mjs'
-import { sendLog } from '#logger/logger.mjs'
 
 //TT ENVIAR MENSAJE
 export async function sendMessageWhatsappMeta(phone, messageContent, role, channel, app) {
@@ -94,12 +93,10 @@ export async function sendMessageWhatsappMeta(phone, messageContent, role, chann
     if (sentMsgs.length > 0) {
       return sentMsgs
     } else {
-      sendLog('error', 'provider/whatsapp-meta/functions/sendMessage', 'No messages sent')
       console.error('No se pudo enviar ningún mensaje')
       return null
     }
   } catch (error) {
-    sendLog('error', 'provider/whatsapp-meta/functions/sendMessage', 'Error sending messages')
     console.error('Error al enviar los mensajes:', error)
     return null
   }
