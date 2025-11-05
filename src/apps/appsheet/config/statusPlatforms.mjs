@@ -1,6 +1,6 @@
 import { appsheetTablesConfig } from '../tablesId.mjs'
 import { ENV } from '#config/config.mjs'
-import { patchTable } from '../api/patchTable.mjs'
+import { addData } from '#utilities/appsheet/addData.mjs'
 
 export async function updateStatusPlatforms(platform, { accountId, status }) {
   let table
@@ -10,7 +10,7 @@ export async function updateStatusPlatforms(platform, { accountId, status }) {
       data = {
         PLATFORM: platform,
         ACCOUNT_ID: accountId,
-        STATUS: status
+        STATUS: status,
       }
       table = appsheetTablesConfig.platformWaBaileys
     } else if (ENV.PROV_WHATSAPP === 'meta') {
@@ -18,7 +18,7 @@ export async function updateStatusPlatforms(platform, { accountId, status }) {
         PLATFORM: platform,
         PHONE_ID: ENV.WHATSAPP_META_PHONEID,
         ACCOUNT_ID: accountId,
-        STATUS: status
+        STATUS: status,
       }
       table = appsheetTablesConfig.platformWaMeta
     }
@@ -29,7 +29,7 @@ export async function updateStatusPlatforms(platform, { accountId, status }) {
   console.info(
     `updateStatusPlatforms: actualizando estado de plataforma *${platform}*, accountId: *${accountId}*, status: *${status}*`
   )
-  const res = await patchTable(table, data)
+  const res = await addData(table, {}, data)
   if (res) {
     console.log('appsheet: estado de plataforma actualizado')
     return res

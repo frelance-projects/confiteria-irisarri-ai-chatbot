@@ -1,5 +1,5 @@
 import { appsheetTablesConfig } from '../tablesId.mjs'
-import { postTable } from '../api/postTable.mjs'
+import { addData } from '#utilities/appsheet/addData.mjs'
 import { revertDateTime } from '#utilities/appsheetTools/formatDateTime.mjs'
 
 export async function sendLogsToken(data) {
@@ -15,10 +15,10 @@ export async function sendLogsToken(data) {
     INPUT: log.input,
     OUTPUT: log.output,
     CACHED_INPUT: log.cachedInput,
-    USER: log.id
+    USER: log.id,
   }))
   try {
-    const res = await postTable(appsheetTablesConfig.logsToken, logs)
+    const res = await addData(appsheetTablesConfig.logsToken, {}, logs)
     return res
   } catch (error) {
     console.error('Error al enviar los logs a AppSheet:', error)

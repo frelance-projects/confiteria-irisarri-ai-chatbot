@@ -1,11 +1,11 @@
-import { postTable } from '../../api/postTable.mjs'
+import { addData } from '#utilities/appsheet/addData.mjs'
 import { appsheetTablesOrders } from '../../tablesId.mjs'
 
 export async function addOrderItems(orderData) {
   const orders = Array.isArray(orderData) ? orderData : [orderData]
   const formattedData = reverseFormat(orders)
   try {
-    const res = await postTable(appsheetTablesOrders.ordersItems, formattedData)
+    const res = await addData(appsheetTablesOrders.ordersItems, {}, formattedData)
     console.info('Order items added:', res.length)
     if (res && res.length > 0) {
       const formattedOrders = buildFormat(res)

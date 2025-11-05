@@ -1,4 +1,4 @@
-import { postTable } from './api/postTable.mjs'
+import { addData } from '#utilities/appsheet/addData.mjs'
 import { urlMedia } from '#storage/urlMedia.mjs'
 import { createId } from '#utilities/createId.mjs'
 import { getFullDateFormatGB, getTimeFormat } from '#utilities/dateFunctions/dateNow.mjs'
@@ -71,7 +71,7 @@ export function addToChunk(messages) {
   CHUNK.push(...newMessages)
 
   if (CHUNK.length > 10) {
-    postTable(TABLE, CHUNK).then((res) => {
+    addData(TABLE, {}, CHUNK).then((res) => {
       if (!res) {
         console.error('appsheet: error al enviar mensajes')
       }
@@ -85,7 +85,7 @@ export function addToChunk(messages) {
   if (!TIME_OUT) {
     TIME_OUT = setTimeout(() => {
       if (CHUNK.length > 0) {
-        postTable(TABLE, CHUNK).then((res) => {
+        addData(TABLE, {}, CHUNK).then((res) => {
           if (!res) {
             console.error('appsheet: error al enviar mensajes')
           }
