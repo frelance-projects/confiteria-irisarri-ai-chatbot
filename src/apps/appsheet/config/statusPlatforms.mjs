@@ -1,6 +1,6 @@
 import { appsheetTablesConfig } from '../tablesId.mjs'
 import { ENV } from '#config/config.mjs'
-import { addData } from '#utilities/appsheet/addData.mjs'
+import { patchData } from '#utilities/appsheet/patchData.mjs'
 
 export async function updateStatusPlatforms(platform, { accountId, status }) {
   let table
@@ -29,7 +29,7 @@ export async function updateStatusPlatforms(platform, { accountId, status }) {
   console.info(
     `updateStatusPlatforms: actualizando estado de plataforma *${platform}*, accountId: *${accountId}*, status: *${status}*`
   )
-  const res = await addData(table, {}, data)
+  const res = await patchData(table, {}, data)
   if (res) {
     console.log('appsheet: estado de plataforma actualizado')
     return res
