@@ -6,25 +6,6 @@ import { getAuth } from './auth.mjs'
 import { buildFormatDateTime } from '#utilities/facturapp/formatDateTime.mjs'
 
 export class ClientsFacturapp {
-  // ss obtener todos los clientes
-  static async getAllClients() {
-    const url = `${ENV.FACTURAPP_URL}/listarClientes`
-    const data = getAuth()
-    try {
-      const res = await axios.post(url, data)
-      if (res.status !== 200) {
-        throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
-      }
-      if (!res.data || res.data.length === 0) {
-        throw new Error(`ClientsFacturapp: No se encontraron clientes`)
-      }
-      return DataFormatter.buildData(res.data)
-    } catch (error) {
-      console.error(`ClientsFacturapp: Error fetching all clients`, error.message)
-      throw new Error(`ClientsFacturapp: Error fetching all clients`)
-    }
-  }
-
   // ss obtener cliente por código
   //FIX: solicitar endpoint correcto para obtener cliente por código
   static async getClientByCode(clientCode) {

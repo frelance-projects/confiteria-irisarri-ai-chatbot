@@ -6,12 +6,6 @@ import { createIdNumber } from '#utilities/createId.mjs'
 const NAME_TABLE = 'CLIENTS'
 
 export class ClientsAppsheet {
-  // ss obtener todos los clientes
-  static async getAllClients() {
-    const res = await getData(NAME_TABLE)
-    return DataFormatter.buildData(res)
-  }
-
   //ss obtener cliente por código
   static async getClientByCode(clientCode) {
     const res = await getData(NAME_TABLE, {

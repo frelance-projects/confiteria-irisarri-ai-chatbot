@@ -1,6 +1,6 @@
 import { sendRequest as sendRequestTool } from '#tools/sendRequest/sendRequest.mjs'
 import { getBrainById } from '#db/brains/getBrainById.mjs'
-import { getToolSendRequestTagsById } from '#config/tools/toolSendRequestTags.mjs'
+import { getSendRequestTagById } from '#db/tools/sendRequestTags/getSendRequestTagById.mjs'
 
 export async function sendRequest(args, user, userIdKey) {
   const platform = userIdKey.split('-*-')[1]
@@ -17,7 +17,7 @@ export async function sendRequest(args, user, userIdKey) {
     return { response: 'error: tagId is required' }
   }
   //cargar etiqueta
-  const tag = await getToolSendRequestTagsById(tagId)
+  const tag = await getSendRequestTagById(tagId)
   if (!tag) {
     console.error('Error al cargar la etiqueta')
     return { response: 'error: error loading tag' }

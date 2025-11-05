@@ -1,5 +1,5 @@
 import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
-import { getToolSendRequestTags } from '#config/tools/toolSendRequestTags.mjs'
+import { getAllSendRequestTags } from '#db/tools/sendRequestTags/getAllSendRequestTags.mjs'
 export const functionName = 'sendRequest'
 
 export async function getJson(toolId) {
@@ -8,7 +8,7 @@ export async function getJson(toolId) {
     console.error('getJson: No se ha encontrado la configuración de sendRequest con ID: ' + toolId)
     return null
   }
-  const tags = await getToolSendRequestTags()
+  const tags = await getAllSendRequestTags()
   if (!tags) {
     console.error('getJson: No se han encontrado las etiquetas')
     return null

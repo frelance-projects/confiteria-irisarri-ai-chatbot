@@ -1,5 +1,5 @@
 import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
-import { getToolSendRequestTagsById } from '#config/tools/toolSendRequestTags.mjs'
+import { getSendRequestTagById } from '#db/tools/sendRequestTags/getSendRequestTagById.mjs'
 
 //TT CONSTRUIR CATALOGO
 export async function buildRequestTags(toolSendRequestId) {
@@ -9,7 +9,7 @@ export async function buildRequestTags(toolSendRequestId) {
   if (tool) {
     //obtener etiquetas
     for (const tagId of tool.tags) {
-      const tag = await getToolSendRequestTagsById(tagId)
+      const tag = await getSendRequestTagById(tagId)
       if (tag) {
         tags.push(tag)
       }

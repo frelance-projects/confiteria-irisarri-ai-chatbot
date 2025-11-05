@@ -13,16 +13,6 @@ export class ClientsDb {
     return ClientsAppsheet
   }
 
-  //ss cargar todos los clientes
-  static async getAllClients() {
-    try {
-      return await this.getProvider().getAllClients()
-    } catch (error) {
-      console.error('ClientsDb: Error al obtener todos los clientes:', error.message)
-      throw error
-    }
-  }
-
   //ss cargar cliente por código
   static async getClientByCode(code) {
     try {

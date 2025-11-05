@@ -8,14 +8,10 @@ import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
 //TT APPSHEET
 //ss config
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
-//ss tools
-//toolSendRequest
-import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#apps/appsheet/config/tools/toolSendRequestTags.mjs'
 
 //ss resources
 import { loadEmailTemplates as loadEmailTemplatesAppsheet } from '#apps/appsheet/config/resources/emailTemplates.mjs'
 import { loadMessageTemplates as loadMessageTemplatesAppsheet } from '#apps/appsheet/config/resources/messageTemplates.mjs'
-
 
 // TT ACTUALIZAR DATOS
 export async function updateData(data) {
@@ -27,9 +23,6 @@ export async function updateData(data) {
     const handlers = {
       //ss config
       userTags: loadUserTagsAppsheet,
-      //ss tools
-      //toolSendRequest
-      toolSendRequestTags: loadToolSendRequestTagsAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,
       resourceMessageTemplates: loadMessageTemplatesAppsheet,
