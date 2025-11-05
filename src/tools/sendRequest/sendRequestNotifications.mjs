@@ -50,7 +50,7 @@ export async function sendRequestNotifications(user, request, platform, tag, sen
         //verificar si la plantilla existe
         if (!template) {
           console.error(
-            'addAppointmentNotifications: No se encontro la plantilla de email ' + sendRequestConfig.emailTemplate
+            'addAppointmentNotifications: No se encontró la plantilla de email ' + sendRequestConfig.emailTemplate
           )
           //asignar plantilla por defecto
           emailTemplate.subject = 'Nueva solicitud {tag}'
@@ -104,7 +104,7 @@ export async function sendRequestNotifications(user, request, platform, tag, sen
     //meta
     else if (ENV.PROV_WHATSAPP === 'meta') {
       console.info('enviado consulta por whatsapp meta')
-      const template = await getWaTemplatesById(sendRequestConfig.tamplateId)
+      const template = await getWaTemplatesById(sendRequestConfig.templateId)
       if (!template || !template.name || !template.language) {
         console.error('sendRequest: Error al cargar la plantilla de WhatsApp Meta')
         return false

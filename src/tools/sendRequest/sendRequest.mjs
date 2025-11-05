@@ -3,7 +3,7 @@ import { isProductionEnv } from '#config/config.mjs'
 import { sendRequestNotifications } from './sendRequestNotifications.mjs'
 import { createIdNumber } from '#utilities/createId.mjs'
 import { addRequest } from '#config/data/request.mjs'
-import { getSendRequestToolById } from '#config/tools/toolSendRequest.mjs'
+import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
 
 export async function sendRequest(user, request, platform, tag, brain) {
   //crear solicitud
@@ -13,13 +13,13 @@ export async function sendRequest(user, request, platform, tag, brain) {
     tag: tag ? tag.id : '',
     request,
     platform,
-    status: 'pending'
+    status: 'pending',
   }
   const res = await addRequest(newRequest)
 
   //enviar notificaciones
   if (brain) {
-    const sendRequestConfig = await getSendRequestToolById(brain.toolSendRequest)
+    const sendRequestConfig = await getTool(brain.toolSendRequest)
     if (sendRequestConfig && sendRequestConfig.notify) {
       console.info('Enviando notificaciones')
       if (isProductionEnv()) {

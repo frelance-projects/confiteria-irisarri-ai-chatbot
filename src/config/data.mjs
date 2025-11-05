@@ -10,7 +10,6 @@ import { deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
 import { loadUserTags as loadUserTagsAppsheet } from '#apps/appsheet/config/userTags.mjs'
 //ss tools
 //toolSendRequest
-import { loadToolSendRequest as loadToolSendRequestAppsheet } from '#apps/appsheet/config/tools/toolSendRequest.mjs'
 import { loadToolSendRequestTags as loadToolSendRequestTagsAppsheet } from '#apps/appsheet/config/tools/toolSendRequestTags.mjs'
 
 //ss resources
@@ -30,7 +29,6 @@ export async function updateData(data) {
       userTags: loadUserTagsAppsheet,
       //ss tools
       //toolSendRequest
-      toolSendRequest: loadToolSendRequestAppsheet,
       toolSendRequestTags: loadToolSendRequestTagsAppsheet,
       //ss resources
       resourceEmailTemplates: loadEmailTemplatesAppsheet,

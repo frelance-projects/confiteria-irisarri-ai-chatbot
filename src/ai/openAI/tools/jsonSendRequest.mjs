@@ -1,9 +1,9 @@
-import { getSendRequestToolById } from '#config/tools/toolSendRequest.mjs'
+import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
 import { getToolSendRequestTags } from '#config/tools/toolSendRequestTags.mjs'
 export const functionName = 'sendRequest'
 
 export async function getJson(toolId) {
-  const sendRequestConfig = await getSendRequestToolById(toolId)
+  const sendRequestConfig = await getTool(toolId)
   if (!sendRequestConfig) {
     console.error('getJson: No se ha encontrado la configuración de sendRequest con ID: ' + toolId)
     return null

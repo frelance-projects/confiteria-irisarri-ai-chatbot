@@ -1,10 +1,10 @@
-import { getSendRequestToolById } from '#config/tools/toolSendRequest.mjs'
+import { getSendRequestById as getTool } from '#db/tools/sendRequest/getSendRequestById.mjs'
 import { getToolSendRequestTagsById } from '#config/tools/toolSendRequestTags.mjs'
 
 //TT CONSTRUIR CATALOGO
 export async function buildRequestTags(toolSendRequestId) {
   let text = 'sin etiquetas de solicitud disponibles\n'
-  const tool = await getSendRequestToolById(toolSendRequestId)
+  const tool = await getTool(toolSendRequestId)
   const tags = []
   if (tool) {
     //obtener etiquetas
