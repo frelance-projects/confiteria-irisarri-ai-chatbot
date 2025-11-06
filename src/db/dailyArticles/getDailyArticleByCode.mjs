@@ -21,7 +21,7 @@ export async function getDailyArticleByCode(code) {
 
     return article
   } catch (error) {
-    console.error('getDailyArticleByCode: Error al obtener el artículo por código:', error.message)
+    console.warn('getDailyArticleByCode: Error al obtener el artículo por código:', error.message)
     return null
   }
 }

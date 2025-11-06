@@ -112,7 +112,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
           sendToChannels(res)
         }
       }
-      //FIX enviar mensaje de error
+      //TODO: enviar mensaje de error
       else {
         console.error('Error al obtener respuesta de la IA')
         return null
@@ -126,7 +126,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
 
 async function isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform) {
   // Validar si es un cliente de compañía
-  const client = Clients.getClientCompany(userId)
+  const client = Clients.getClient(userId)
   if (client && client.empresa) {
     console.log('Cliente de compañía detectado:', client)
     const message = { type: 'text', text: 'Hola, en un momento un representante se pondrá en contacto contigo.' }

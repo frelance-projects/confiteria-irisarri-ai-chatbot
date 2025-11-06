@@ -22,7 +22,7 @@ export class DailyArticlesDb {
     try {
       return await this.getProvider().getDailyArticleByCode(code)
     } catch (error) {
-      console.error('DailyArticlesDb: Error al obtener el artículo por código:', error.message)
+      console.warn('DailyArticlesDb: Error al obtener el artículo por código:', error.message)
       throw error
     }
   }

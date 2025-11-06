@@ -4,12 +4,10 @@ import { sendToChatwoot } from './chatwoot/sendToChatwoot.mjs'
 import { sendToAppsheet } from '#apps/appsheet/sendToAppsheet.mjs'
 
 export async function sendToChannels(messages) {
-  /*
   if (!isProductionEnv()) {
-    console.log('sendToChannels: No se ejecuta en desarrollo')
+    console.warn('sendToChannels: No se ejecuta en desarrollo')
     return null
   }
-    */
   if (!Array.isArray(messages)) {
     return console.error('sendToChannels: messages no es un array')
   }
@@ -26,7 +24,7 @@ export async function sendToChannels(messages) {
 
   //SS CHATWOOT
   const chatwoot = services.find((service) => service.platform === 'chatwoot')
-  if (chatwoot && isProductionEnv()) {
+  if (chatwoot) {
     console.log('Canal de chatwoot activo')
     const chatwootMessages = filterByChannel(messages, 'chatwoot')
     if (chatwootMessages.length > 0) {
@@ -35,7 +33,7 @@ export async function sendToChannels(messages) {
   }
   //SS APPSHEET
   const appsheet = services.find((service) => service.platform === 'appsheet' && service.inbox)
-  if (appsheet && isProductionEnv()) {
+  if (appsheet) {
     console.log('Canal de appsheet activo')
     const appsheetMessages = filterByChannel(messages, 'appsheet')
     if (appsheetMessages.length > 0) {

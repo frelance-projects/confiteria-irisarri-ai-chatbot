@@ -1,50 +1,71 @@
+import { DELIVERY_MODES, PAYMENT_METHODS } from '#enums/tools/orders.mjs'
+
 export const functionName = 'addOrder'
 
 export async function getJson() {
   const jsonData = {
     type: 'function',
     name: functionName,
-    description: 'Crea un nuevo pedido para un cliente',
+    description: 'Crea un nuevo pedido con los detalles proporcionados.',
     parameters: {
       type: 'object',
       properties: {
-        client: {
+        //FechaEntrega
+        deliveryDate: {
           type: 'string',
-          description: 'Identificador del cliente (por ejemplo, DNI o ID interno)',
+          description: 'Fecha de entrega del pedido en formato AAAA-MM-DD HH:MM',
         },
+        paymentMethod: {
+          type: 'string',
+          enum: Object.values(PAYMENT_METHODS),
+          description: 'Método de pago del pedido, ya sea contado o crédito',
+        },
+        // modo de entrega (domicilio o recogida)
+        deliveryMode: {
+          type: 'string',
+          enum: Object.values(DELIVERY_MODES),
+          description: 'Modo de entrega del pedido, ya sea a domicilio o para recogida en tienda',
+        },
+
+        // dirección de entrega
         address: {
-          type: 'string',
-          description: 'Dirección de entrega del pedido',
+          type: ['string', 'null'],
+          description: 'Dirección de entrega del pedido en caso de ser a domicilio',
         },
+        // nota general del pedido
         note: {
           type: ['string', 'null'],
-          description: 'Nota u observaciones del pedido',
+          description: 'Nota u observaciones generales del pedido',
         },
-        products: {
+        // listado de artículos del pedido
+        articles: {
           type: 'array',
-          description: 'Listado de productos del pedido',
+          description: 'Listado de artículos del pedido',
           items: {
             type: 'object',
             properties: {
-              product: {
+              // código del articulo
+              code: {
                 type: 'string',
-                description: 'Código del producto',
+                description: 'Código del articulo solicitado',
               },
+              // cantidad solicitada
               quantity: {
                 type: 'number',
-                description: 'Cantidad solicitada del producto',
+                description: 'Cantidad solicitada del articulo',
               },
+              // nota específica del articulo
               note: {
                 type: ['string', 'null'],
-                description: 'Nota específica para este producto',
+                description: 'Nota específica para este articulo',
               },
             },
-            required: ['product', 'quantity', 'note'],
+            required: ['code', 'quantity', 'note'],
             additionalProperties: false,
           },
         },
       },
-      required: ['client', 'address', 'note', 'products'],
+      required: ['deliveryDate', 'paymentMethod', 'deliveryMode', 'address', 'note', 'articles'],
       additionalProperties: false,
     },
     strict: true,

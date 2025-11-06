@@ -1,5 +1,6 @@
 import { getCacheDuration } from '#config/config.mjs'
 import { CacheManager } from '#db/cache/cacheManager.mjs'
+import { getAssistantById } from '#db/assistants/getAssistantById.mjs'
 
 const CACHE_TTL = getCacheDuration()
 
@@ -57,6 +58,16 @@ export class CacheData {
   // Limpiar la caché
   static clear() {
     this.cache.clear()
+  }
+
+  // Recargar dato específico
+  static async reload(key) {
+    const assistant = await getAssistantById(key)
+    if (assistant) {
+      console.info(`Recargando asistente en caché con ID: ${key}`)
+    } else {
+      console.info(`No se encontró asistente para recargar con ID: ${key}`)
+    }
   }
 }
 

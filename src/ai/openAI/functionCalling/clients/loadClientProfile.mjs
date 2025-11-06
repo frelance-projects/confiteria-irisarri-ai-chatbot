@@ -11,34 +11,37 @@ const ACTION = {
 }
 
 export async function loadClientProfile(args, user, userIdKey) {
+  const platform = userIdKey.split('-*-')[1]
   const { number, dataType } = args
   //verificar datos
-  if (!number) {
-    console.error('number es requerido')
-    return { response: 'error: number is required' }
-  }
-  if (!dataType) {
-    console.error('dataType es requerido y debe ser document o phone')
-    return { response: 'error: dataType is required and must be document or phone' }
+  if (!number || !dataType) {
+    console.error('number y dataType son requeridos')
+    return { response: 'error: number and dataType are required' }
   }
 
+  // seleccionar acción
   const action = ACTION[dataType]
   if (!action) {
     console.error('dataType no soportado')
     return { response: 'error: dataType not supported' }
   }
 
+  // obtener cliente
   const client = await action(number)
   if (!client) {
     console.error('No se ha encontrado el cliente')
     return { response: 'error: client not found' }
   }
+
+  // agregar cliente a la sesión
+  Clients.addClient(user[platform]?.id, client)
+
+  // verificar si es cliente de empresa
   if (client.empresa) {
     console.log('Cliente de empresa detectado:', client)
-    console.log('userIdKey:', user.whatsapp?.id)
-    Clients.addClientCompany(user.whatsapp?.id, client)
   }
 
+  // agregar cliente a la sesión
   const cleanData = cleanDataClient(client)
   console.info('🧩 Respuesta de función <loadClientProfile>:\n', JSON.stringify(cleanData, null, 2))
   return { status: 'success', client: cleanData }

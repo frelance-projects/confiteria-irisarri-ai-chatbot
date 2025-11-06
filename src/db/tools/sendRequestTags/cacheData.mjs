@@ -1,5 +1,6 @@
 import { getCacheDuration } from '#config/config.mjs'
 import { CacheManager } from '#db/cache/cacheManager.mjs'
+import { getSendRequestTagById } from '#db/tools/sendRequestTags/getSendRequestTagById.mjs'
 
 const CACHE_TTL = getCacheDuration()
 
@@ -58,6 +59,16 @@ export class CacheData {
   // Limpiar la caché
   static clear() {
     this.cache.clear()
+  }
+
+  // Recargar dato específico
+  static async reload(key) {
+    const sendRequestTag = await getSendRequestTagById(key)
+    if (sendRequestTag) {
+      console.info(`Recargando etiqueta de solicitud en caché con ID: ${key}`)
+    } else {
+      console.info(`No se encontró etiqueta de solicitud para recargar con ID: ${key}`)
+    }
   }
 }
 

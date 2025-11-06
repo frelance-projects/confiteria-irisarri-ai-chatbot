@@ -21,6 +21,7 @@ export async function initData() {
     console.warn('initData: Modo de desarrollo - se omite la inicialización de la configuración del servicio.')
   }
 
+  //ss Iniciar datos de artículos
   // cargar lista de artículos inicial
   const articles = await getAllArticles()
   console.info(`initData - Artículos cargados en caché: ${articles ? articles.length : 0}`)
@@ -28,7 +29,7 @@ export async function initData() {
   const dailyArticles = await getAllDailyArticles()
   console.info(`initData - Artículos diarios cargados en caché: ${dailyArticles ? dailyArticles.length : 0}`)
 
-  //ss Iniciar datos de bloque
+  //ss Iniciar datos básicos
   // asistentes
   const assistants = await getAllAssistants()
   console.info(`initData - Asistentes cargados en caché: ${assistants ? assistants.length : 0}`)
