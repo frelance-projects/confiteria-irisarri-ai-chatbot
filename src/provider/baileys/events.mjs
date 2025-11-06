@@ -1,12 +1,12 @@
 import { DisconnectReason } from 'baileys'
 //TT MÓDULOS
-import { updateStatusPlatforms } from '#config/statusPlatforms/statusPlatforms.mjs'
+import { updateStatus } from '#db/statusPlatforms/updateStatus.mjs'
 import { eventMessages } from './messages/eventMessages.mjs'
 import { deployProvider } from './functions/deployProvider.mjs'
 import { generateQrCode } from './functions/generateQrCode.mjs'
 import { stopProvider } from './functions/stopProvider.mjs'
 
-const PLATFORM = 'whatsapp-baileys'
+const PLATFORM = 'whatsapp'
 export const timeOutConnection = {
   timeoutLimit: 5 * 60 * 1000, // 5 minutos
   disconnectStartTime: null
@@ -24,7 +24,7 @@ export async function events(provider) {
     }
     //SS CONECTANDO
     else if (connection === 'connecting') {
-      updateStatusPlatforms(PLATFORM, {
+      updateStatus(PLATFORM, {
         accountId: 'no available',
         status: 'waiting for connection'
       })
@@ -40,14 +40,14 @@ export async function events(provider) {
           deployProvider()
         } else {
           console.info('la session se cerro')
-          updateStatusPlatforms(PLATFORM, { accountId: 'no available', status: 'offline' })
+          updateStatus(PLATFORM, { accountId: 'no available', status: 'offline' })
           stopProvider()
         }
       }
       //SS SESSION CERRADO Y PROVEEDOR DETENIDO
       else {
         console.info('Conexión cerrada, no se recolectará.')
-        updateStatusPlatforms(PLATFORM, { accountId: 'no available', status: 'sleep mode' })
+        updateStatus(PLATFORM, { accountId: 'no available', status: 'sleep mode' })
       }
     }
     //SS CONEXIÓN ABIERTA
@@ -57,7 +57,7 @@ export async function events(provider) {
       timeOutConnection.disconnectStartTime = null
       const host = provider.whatsapp.sock?.user?.id?.split(':')[0]
       console.info(`¡Conexión exitosa con WhatsApp Baileys, count ${host} !`)
-      updateStatusPlatforms(PLATFORM, { accountId: host, status: 'online' })
+      updateStatus(PLATFORM, { accountId: host, status: 'online' })
     }
   })
 

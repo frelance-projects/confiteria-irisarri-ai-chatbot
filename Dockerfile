@@ -35,6 +35,7 @@ EXPOSE 3000
 # Variable de entorno
 ENV RUNNING_IN_DOCKER=true
 ENV NODE_ENV=production
+
 RUN ls -R /app/src
 # Ejecutar aplicación
 CMD ["pm2-runtime", "start", "src/index.js", "--cron", "0 3 * * *"]
