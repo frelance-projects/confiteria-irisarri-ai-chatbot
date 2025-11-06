@@ -1,10 +1,16 @@
 import { deleteUserHistoryByBrain, deleteAllHistory } from '#ai/agentProcess/deleteHistory.mjs'
 import { getAgent } from '#db/agent/getAgent.mjs'
 
-export async function getData(req, res) {
+export async function postData(req, res) {
   try {
+    // validar si el cuerpo de la solicitud existe
+    if (!req.body) {
+      console.error('Cuerpo de la solicitud vacío')
+      return res.status(400).send({ error: 'Request body is required' })
+    }
+
     console.log('Procesando solicitud para eliminar historial')
-    const { range, id } = req.headers
+    const { range, id } = req.body
 
     // validar si el rango es requerido
     if (!range) {
