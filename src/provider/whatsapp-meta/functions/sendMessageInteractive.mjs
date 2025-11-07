@@ -85,7 +85,6 @@ export async function sendMessageInteractive(phone, messageContent, role, channe
       }
     }
     if (sentMsgs.length > 0) {
-      console.info('Mensajes interactivos enviados:', sentMsgs)
       return sentMsgs
     } else {
       console.error('No se pudo enviar ningún mensaje')

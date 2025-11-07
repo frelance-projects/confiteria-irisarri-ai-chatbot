@@ -33,15 +33,15 @@ export async function sendText(phone, message) {
       recipient_type: 'individual',
       to: phone,
       type: 'text',
-      text: { body: convertMarkdownToWhatsapp(message) }
+      text: { body: convertMarkdownToWhatsapp(message) },
     }
 
     // Enviar la solicitud a la API utilizando Axios
     const response = await axios.post(url, body, {
       headers: {
         Authorization: `Bearer ${meta.token}`,
-        'Content-Type': 'application/json'
-      }
+        'Content-Type': 'application/json',
+      },
     })
 
     return response.data
@@ -49,7 +49,7 @@ export async function sendText(phone, message) {
     if (error.response) {
       console.error('Error en la solicitud:', error.response.data)
     } else {
-      console.error('Error al enviar el mensaje de texto:', error.message)
+      console.error('Error al enviar el mensaje de texto:', error)
     }
     return null
   }
