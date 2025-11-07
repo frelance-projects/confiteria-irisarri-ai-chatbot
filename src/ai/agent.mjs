@@ -11,6 +11,9 @@ import { sendResponse } from './agentProcess/sendResponse.mjs'
 import { mediaProcessing } from './agentProcess/mediaProcessing.mjs'
 import { sentToAi } from './agentProcess/sentToAi.mjs'
 import { Clients } from './agentProcess/clientAction.mjs'
+import { FunctionProcess } from '#ai/agentProcess/functionProcess.mjs'
+import { FUNCTION_STATUS } from '#enums/agent.mjs'
+
 
 export async function agentResponse(userId, message, origin, platform, originalMessage = null) {
   try {
@@ -48,7 +51,19 @@ export async function agentResponse(userId, message, origin, platform, originalM
       return null
     }
 
+    // Crear userIdKey
     const userIdKey = `${user[platform].id}-*-${platform}`
+
+    // validar si hay una función en proceso
+    const functionInProgress = FunctionProcess.isProcessing(userIdKey)
+    if (functionInProgress) {
+      if (message.type !== 'text') {
+        console.warn('solo se permiten mensajes de texto durante la ejecución de una función')
+        //TODO: Enviar mensaje al usuario indicando que solo se permiten mensajes de texto
+        return null
+      }
+      return await FunctionProcess.executeFunction(userIdKey, message.text)
+    }
 
     // Reiniciar sesión
     resetUserSession(userIdKey, agentConfig)
@@ -96,6 +111,11 @@ export async function agentResponse(userId, message, origin, platform, originalM
       // Enviar petición a OpenAI
 
       const resAi = await sentToAi(agentConfig.ai.provider, userIdKey, user, agentConfig)
+
+      // Si la IA solicita iniciar un flujo estático
+      if (resAi === FUNCTION_STATUS.IN_PROGRESS) {
+        return resAi
+      }
       //TODO: enviar mensaje de error
       if (!resAi) {
         console.error('Error al obtener respuesta de la IA')

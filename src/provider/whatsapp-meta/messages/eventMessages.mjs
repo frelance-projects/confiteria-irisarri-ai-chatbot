@@ -16,8 +16,9 @@ export async function eventMessages(data) {
   const list = []
   for (const message of data) {
     console.log(message)
-    //SS TEXTO
+
     switch (message.type) {
+      //SS TEXTO
       case 'text': {
         const text = message.text.body
         const userId = message.from
@@ -101,7 +102,50 @@ export async function eventMessages(data) {
         }
         break
       }
-
+      //SS INTERACTIVE
+      case 'interactive': {
+        // LISTA
+        if (message.interactive.type === 'list_reply') {
+          let text = message.interactive?.list_reply?.title
+          if (message.interactive?.list_reply?.description) {
+            text = text + '\n' + message.interactive?.list_reply?.description
+          }
+          const userId = message.from
+          agentResponse(userId, { type: 'text', text }, 'user', 'whatsapp', message)
+          const formatMessage = formatIncomingMessage('whatsapp', 'meta', 'user', userId, meta.phoneid, {
+            type: 'text',
+            text,
+          })
+          list.push(formatMessage)
+        }
+        // BOTÓN respuesta rápida
+        else if (message.interactive.type === 'button_reply') {
+          const text = message.interactive?.button_reply?.title || 'hola'
+          const userId = message.from
+          agentResponse(userId, { type: 'text', text }, 'user', 'whatsapp', message)
+          const formatMessage = formatIncomingMessage('whatsapp', 'meta', 'user', userId, meta.phoneid, {
+            type: 'text',
+            text,
+          })
+          list.push(formatMessage)
+        } else {
+          console.log('Mensaje interactivo de tipo desconocido:', message)
+        }
+        break
+      }
+      //SS BOTÓN SIMPLE
+      case 'button': {
+        const text = message.button?.text || message.button?.payload || 'hola'
+        const userId = message.from
+        agentResponse(userId, { type: 'text', text }, 'user', 'whatsapp', message)
+        const formatMessage = formatIncomingMessage('whatsapp', 'meta', 'user', userId, meta.phoneid, {
+          type: 'text',
+          text,
+        })
+        list.push(formatMessage)
+        break
+      }
+      //SS DESCONOCIDO
       default: {
         console.log('Mensaje de tipo desconocido:', message)
       }

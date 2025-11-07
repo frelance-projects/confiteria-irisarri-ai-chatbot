@@ -11,8 +11,8 @@ export class OrdersAppsheet {
     const { ordersInfo, orderItems } = DataFormatter.revertData(order)
 
     // enviar datos a AppSheet
-    const resOrder = await addData(NAME_TABLE, {}, ordersInfo)
-    const resOrderItems = await addData(NAME_TABLE_ITEMS, {}, orderItems)
+    const resOrder = await addData(NAME_TABLE, {}, ordersInfo) // enviar orden
+    const resOrderItems = await addData(NAME_TABLE_ITEMS, {}, orderItems) // enviar items del pedido
 
     // construir datos de configuración
     return DataFormatter.buildData(resOrder, resOrderItems)
@@ -37,6 +37,7 @@ class DataFormatter {
         deliveryMode: item.deliveryMode,
         deliveryDate: item.deliveryDate,
         note: item.note,
+        totalPrice: parseFloat(item.totalPrice),
         articles: [],
       }
       // filtrar items del pedido

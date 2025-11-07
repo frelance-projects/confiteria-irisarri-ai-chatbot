@@ -6,7 +6,8 @@ export async function getJson() {
   const jsonData = {
     type: 'function',
     name: functionName,
-    description: 'Crea un nuevo pedido con los detalles proporcionados.',
+    description:
+      'Crea un nuevo pedido con los detalles proporcionados (esta función solicitará al usuario confirmación de forma interactiva para proceder).',
     parameters: {
       type: 'object',
       properties: {

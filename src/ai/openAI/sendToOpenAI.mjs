@@ -7,6 +7,7 @@ import { addMessageToHistoryOpenAi } from './messageHistory.mjs'
 import { getToolsOpenAi } from './tools.mjs'
 import { addLog } from '#logger/loggerToken.mjs'
 import { select } from './models/select.mjs'
+import { FUNCTION_STATUS } from '#enums/agent.mjs'
 
 export async function sendToOpenAI(userIdKey, user, aiModel, aiMaxTokens, aiTemperature) {
   try {
@@ -41,7 +42,13 @@ export async function sendToOpenAI(userIdKey, user, aiModel, aiMaxTokens, aiTemp
     //SS TOOLS
     if (functionCall) {
       //ejecutar function
-      const resFunction = await functionCalling(functionCall, user, userIdKey)
+      const resFunction = await functionCalling(functionCall, user, userIdKey, response.output)
+
+      // si la función está en progreso, no continuar
+      if (resFunction === FUNCTION_STATUS.IN_PROGRESS) {
+        return resFunction
+      }
+
       //agregar respuesta a historial
       await addMessageToHistoryOpenAi(userIdKey, [...response.output, resFunction], user)
       //enviar respuesta

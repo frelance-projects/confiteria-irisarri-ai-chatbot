@@ -15,9 +15,10 @@ import { functionName as addOrderName } from './tools/orders/jsonAddOrder.mjs'
 import { functionName as getArticlesName } from './tools/articles/getArticles.mjs'
 import { functionName as getDailyArticlesName } from './tools/dailyArticles/getDailyArticles.mjs'
 import { functionName as getShippingAvailabilityName } from './tools/orders/jsonGetShippingAvailability.mjs'
+import { FUNCTION_STATUS } from '#enums/agent.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
-export async function functionCalling(aiFunction, user, userIdKey) {
+export async function functionCalling(aiFunction, user, userIdKey, responseOutput) {
   //Cargar argumentos
   const functionName = aiFunction.name
   const functionArgs = JSON.parse(aiFunction.arguments)
@@ -39,7 +40,14 @@ export async function functionCalling(aiFunction, user, userIdKey) {
   let result
   if (handlers[functionName]) {
     try {
-      const res = await handlers[functionName](functionArgs, user, userIdKey)
+      const res = await handlers[functionName](functionArgs, user, userIdKey, {
+        callId: aiFunction.call_id,
+        responseOutput,
+      })
+      if (res === FUNCTION_STATUS.IN_PROGRESS) {
+        console.log('La función está en progreso, no se devuelve respuesta aún.')
+        return res
+      }
       result = JSON.stringify(res, null, 2)
     } catch (error) {
       console.error('Error al llamar a la function', functionName, error)

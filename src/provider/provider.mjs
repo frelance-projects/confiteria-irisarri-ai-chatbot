@@ -10,6 +10,8 @@ import { getUserName as getUserNameBaileys } from './baileys/functions/userName.
 //whatsapp-meta
 import { sendMessageWhatsappMeta } from './whatsapp-meta/functions/sendMessage.mjs'
 import { getUserName as getUserNameMeta } from './whatsapp-meta/functions/userName.mjs'
+import { sendMessageInteractive } from './whatsapp-meta/functions/sendMessageInteractive.mjs'
+
 //messenger-meta
 import { sendMessageMessengerMeta } from './messenger-meta/functions/sendMessage.mjs'
 import { getUserName as getUserNameMessengerMeta } from './messenger-meta/functions/userName.mjs'
@@ -156,6 +158,37 @@ export async function providerSendMessage(userId, message, platform, role = 'bot
         return res
       } else {
         console.error('Provider (providerSendMessage): Proveedor no soportado: ' + provider.instagram.provider)
+        return null
+      }
+    }
+    //SS PLATAFORMA NO SOPORTADA
+    else {
+      console.error('Provider (providerSendMessage): Plataforma no soportada')
+      return null
+    }
+  } catch (error) {
+    console.error('Provider (providerSendMessage): Error al enviar el mensaje', error)
+    return null
+  }
+}
+
+//TT ENVIAR MENSAJE INTERACTIVO
+export async function providerSendMessageInteractive(
+  userId,
+  message,
+  platform,
+  role = 'bot',
+  channel = 'outgoing',
+  app = 'bot'
+) {
+  try {
+    //SS PATAFORMA WHATSAPP
+    if (platform === 'whatsapp') {
+      if (ENV.PROV_WHATSAPP === 'meta') {
+        const res = await sendMessageInteractive(userId, message, role, channel, app)
+        return res
+      } else {
+        console.error('Provider (providerSendMessage): Proveedor no soportado: ' + ENV.PROV_WHATSAPP)
         return null
       }
     }

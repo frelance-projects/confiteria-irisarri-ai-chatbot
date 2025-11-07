@@ -2,7 +2,7 @@ import { DELIVERY_MODES, PAYMENT_METHODS } from '#enums/tools/orders.mjs'
 import { validateArticles } from './validateOrder/validateArticles.mjs'
 import { validateDeliveryDate } from './validateOrder/validateDeliveryDate.mjs'
 
-export async function validateOrder({ deliveryDate, deliveryMode, address, articles, paymentMethod }) {
+export async function validateOrder({ paymentMethod, address, deliveryMode, deliveryDate, articles }) {
   const errors = []
   // Validar modo de entrega
   if (!Object.values(DELIVERY_MODES).includes(deliveryMode)) {
