@@ -1,3 +1,5 @@
+import { getShippingAvailability } from '../getShippingAvailability.mjs'
+
 export async function validateDeliveryDate(deliveryDate) {
   const errors = []
 
@@ -14,6 +16,14 @@ export async function validateDeliveryDate(deliveryDate) {
     errors.push("El formato de la fecha de entrega debe ser 'AAAA-MM-DD HH:MM'.")
     return errors
   }
+
+  // Validar que la fecha de entrega está dentro de las opciones disponibles
+  const availableDates = await getShippingAvailability()
+  if (!availableDates.includes(deliveryDate)) {
+    console.error('Fecha de entrega no disponible:', deliveryDate)
+    errors.push('La fecha de entrega seleccionada no está disponible.')
+  }
+
   return errors
 }
 

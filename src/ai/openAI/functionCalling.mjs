@@ -5,6 +5,7 @@ import { addClientProfile } from './functionCalling/clients/addClientProfile.mjs
 import { addOrder } from './functionCalling/orders/addOrder.mjs'
 import { getArticles } from './functionCalling/articles/getArticles.mjs'
 import { getDailyArticles } from './functionCalling/dailyArticles/getDailyArticles.mjs'
+import { getShippingAvailability } from './functionCalling/orders/getShippingAvailability.mjs'
 
 //SS NOMBRES
 import { functionName as sendRequestName } from './tools/jsonSendRequest.mjs'
@@ -13,6 +14,7 @@ import { functionName as addClientProfileName } from './tools/clients/jsonAddCli
 import { functionName as addOrderName } from './tools/orders/jsonAddOrder.mjs'
 import { functionName as getArticlesName } from './tools/articles/getArticles.mjs'
 import { functionName as getDailyArticlesName } from './tools/dailyArticles/getDailyArticles.mjs'
+import { functionName as getShippingAvailabilityName } from './tools/orders/jsonGetShippingAvailability.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
 export async function functionCalling(aiFunction, user, userIdKey) {
@@ -31,6 +33,7 @@ export async function functionCalling(aiFunction, user, userIdKey) {
     [addOrderName]: addOrder,
     [getArticlesName]: getArticles,
     [getDailyArticlesName]: getDailyArticles,
+    [getShippingAvailabilityName]: getShippingAvailability,
   }
 
   let result
