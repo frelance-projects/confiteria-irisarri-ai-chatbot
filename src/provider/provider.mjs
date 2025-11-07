@@ -9,6 +9,7 @@ import { markReadMessage } from './baileys/functions/updateState/markReadMessage
 import { getUserName as getUserNameBaileys } from './baileys/functions/userName.mjs'
 //whatsapp-meta
 import { sendMessageWhatsappMeta } from './whatsapp-meta/functions/sendMessage.mjs'
+import { getUserName as getUserNameMeta } from './whatsapp-meta/functions/userName.mjs'
 //messenger-meta
 import { sendMessageMessengerMeta } from './messenger-meta/functions/sendMessage.mjs'
 import { getUserName as getUserNameMessengerMeta } from './messenger-meta/functions/userName.mjs'
@@ -20,7 +21,7 @@ import { getUserName as getUserNameInstagramMeta } from './instagram-meta/functi
 export const provider = {
   whatsapp: { sock: null, provider: '', state: 'open', connection: 'disconnected' },
   messenger: { provider: 'meta' },
-  instagram: { provider: 'meta' }
+  instagram: { provider: 'meta' },
 }
 
 //TT OBTENER HOST DE DEL PROVEEDOR
@@ -85,7 +86,8 @@ export async function getUserName(userId, platform) {
       return res
     } //META
     else if (ENV.PROV_WHATSAPP === 'meta') {
-      return 'New User - Whatsapp'
+      const res = await getUserNameMeta(userId)
+      return res
     }
   } //SS PATAFORMA MESSENGER
   else if (platform === 'messenger') {
@@ -118,14 +120,7 @@ export async function getUserName(userId, platform) {
 }
 
 //TT ENVIAR MENSAJE
-export async function providerSendMessage(
-  userId,
-  message,
-  platform,
-  role = 'bot',
-  channel = 'outgoing',
-  app = 'bot'
-) {
+export async function providerSendMessage(userId, message, platform, role = 'bot', channel = 'outgoing', app = 'bot') {
   try {
     //SS PATAFORMA WHATSAPP
     if (platform === 'whatsapp') {
@@ -150,9 +145,7 @@ export async function providerSendMessage(
         const res = await sendMessageMessengerMeta(userId, message, role, channel, app)
         return res
       } else {
-        console.error(
-          'Provider (providerSendMessage): Proveedor no soportado: ' + provider.messenger.provider
-        )
+        console.error('Provider (providerSendMessage): Proveedor no soportado: ' + provider.messenger.provider)
         return null
       }
     }
@@ -162,9 +155,7 @@ export async function providerSendMessage(
         const res = await sendMessageInstagramMeta(userId, message, role, channel, app)
         return res
       } else {
-        console.error(
-          'Provider (providerSendMessage): Proveedor no soportado: ' + provider.instagram.provider
-        )
+        console.error('Provider (providerSendMessage): Proveedor no soportado: ' + provider.instagram.provider)
         return null
       }
     }

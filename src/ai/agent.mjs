@@ -94,29 +94,36 @@ export async function agentResponse(userId, message, origin, platform, originalM
         return
       }
       // Enviar petición a OpenAI
+
       const resAi = await sentToAi(agentConfig.ai.provider, userIdKey, user, agentConfig)
-      if (resAi) {
-        const isClientCompanyHandled = await isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform)
-        if (isClientCompanyHandled) {
-          return
-        }
-        // Enviar respuesta al usuario
-        let originalMessages = []
-        if (chunks.length > 0) {
-          originalMessages = chunks.map((obj) => obj.originalMessage)
-        }
-        const res = await sendResponse(agentConfig, resAi, userId, userIdKey, platform, originalMessages, user)
-        if (res) {
-          console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
-          console.info('Respuesta enviada al usuario', JSON.stringify(res[0].message, null, 2))
-          sendToChannels(res)
-        }
-      }
       //TODO: enviar mensaje de error
-      else {
+      if (!resAi) {
         console.error('Error al obtener respuesta de la IA')
         return null
       }
+
+      // Validar si es un cliente de compañía
+      const isClientCompanyHandled = await isClientCompany(userId, chunks, agentConfig, user, userIdKey, platform)
+      if (isClientCompanyHandled) {
+        return
+      }
+
+      // Enviar respuesta al usuario
+      let originalMessages = []
+      if (chunks.length > 0) {
+        originalMessages = chunks.map((obj) => obj.originalMessage)
+      }
+      const res = await sendResponse(agentConfig, resAi, userId, userIdKey, platform, originalMessages, user)
+      if (!res) {
+        console.error('Error al enviar respuesta al usuario')
+        return null
+      }
+      // Enviar a canales
+      sendToChannels(res)
+
+      //TODO: Crear sistema de logs para mensajes
+      console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
+      console.info('Respuesta enviada al usuario', JSON.stringify(res[0].message, null, 2))
     })
   } catch (error) {
     console.error('Error en agentResponse:', error)
@@ -137,6 +144,8 @@ async function isClientCompany(userId, chunks, agentConfig, user, userIdKey, pla
     const res = await sendResponse(agentConfig, message, userId, userIdKey, platform, originalMessages, user)
     if (res) {
       sendToChannels(res)
+
+      //TODO: Crear sistema de logs para mensajes
       console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
       console.info('Respuesta estática enviada al usuario', JSON.stringify(res, null, 2))
     }
