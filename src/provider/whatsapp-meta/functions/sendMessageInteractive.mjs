@@ -17,6 +17,18 @@ export async function sendMessageInteractive(phone, messageContent, role, channe
         //SS ENVIAR TEXTO
         if (message.type === 'buttons') {
           const sentMsg = await sendButtons(phone, message.message, message.buttonList)
+
+          // construir el texto completo del mensaje para el log
+          const { body, header, footer } = message.message
+          let allText = ''
+          if (header && header.length > 0) allText += header + '\n\n'
+          if (body && body.length > 0) allText += body + '\n\n'
+          if (footer && footer.length > 0) allText += footer + '\n\n'
+          // agregar los títulos de los botones al log
+          if (message.buttonList && message.buttonList.length > 0) {
+            const buttonTitles = message.buttonList.map((btn) => btn.title).join(' | ')
+            allText += `Buttons: [${buttonTitles}]`
+          }
           if (sentMsg) {
             //console.log(sentMsg)
             sentMsgs.push({
@@ -30,7 +42,10 @@ export async function sendMessageInteractive(phone, messageContent, role, channe
               channel,
               transmitter: meta.host,
               receiver: phone,
-              message,
+              message: {
+                type: 'text',
+                text: allText,
+              },
             })
           }
         }
