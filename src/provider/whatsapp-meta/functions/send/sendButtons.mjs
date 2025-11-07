@@ -58,7 +58,7 @@ export async function sendButtons(phone, { header, body, footer }, buttonList) {
     if (error.response) {
       console.error('Error en la solicitud:', error.response.data)
     } else {
-      console.error('Error al enviar el mensaje de texto:', error.message)
+      console.error('Error al enviar el mensaje de botones:', error.message)
     }
     return null
   }

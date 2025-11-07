@@ -9,7 +9,7 @@ export async function sendToChannels(messages) {
     return null
   }
   if (!Array.isArray(messages)) {
-    return console.error('sendToChannels: messages no es un array')
+    return console.error('sendToChannels: messages no es un array', messages)
   }
   if (messages.length < 1) {
     return console.error('sendToChannels: messages está vacío')
