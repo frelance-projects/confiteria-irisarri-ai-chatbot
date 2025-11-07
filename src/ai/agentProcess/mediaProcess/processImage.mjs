@@ -34,8 +34,8 @@ export async function processImage(path, provider) {
       type: 'media',
       media: {
         fileType: 'image',
-        image: [{ type: 'image_url', image_url: imageUrl }] //NEXT:AGREGAR ID DE IMAGEN
-      }
+        image: [{ type: 'input_image', image_url: imageUrl.url }], //NEXT:AGREGAR ID DE IMAGEN
+      },
     }
   } catch (error) {
     console.error('Error al procesar la imagen:', error.message)

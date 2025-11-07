@@ -1,11 +1,24 @@
 import axios from 'axios'
 import fs from 'fs'
+import { join } from 'path'
+
+import { ENV } from '#config/config.mjs'
+import { downloadFiles } from '#config/paths.mjs'
 
 // Importar credenciales desde otro módulo
 import { getCredentials } from '../getCredentials.mjs'
 
-export async function downloadFile(mediaId, extension, destination = './temp/instragram-meta/') {
+export async function downloadFile(mediaId, extension, localPath = 'whatsapp-meta') {
   try {
+    let destination = './temp/' + localPath
+    if (ENV.STORAGE === 'local') {
+      destination = downloadFiles + '/' + localPath
+    }
+    destination = join(process.cwd(), destination)
+    // Verificar si el directorio de destino existe y crearlo si es necesario
+    if (!fs.existsSync(destination)) {
+      fs.mkdirSync(destination, { recursive: true })
+    }
     // Obtener credenciales
     const meta = await getCredentials()
     if (!meta || !meta.version || !meta.phoneid || !meta.token) {
@@ -18,8 +31,8 @@ export async function downloadFile(mediaId, extension, destination = './temp/ins
     // Paso 1: Obtener la URL del archivo multimedia
     const mediaUrlResponse = await axios.get(`https://graph.facebook.com/v17.0/${mediaId}`, {
       headers: {
-        Authorization: `Bearer ${meta.token}`
-      }
+        Authorization: `Bearer ${meta.token}`,
+      },
     })
 
     const fileUrl = mediaUrlResponse.data.url
@@ -36,8 +49,8 @@ export async function downloadFile(mediaId, extension, destination = './temp/ins
       method: 'GET',
       responseType: 'stream', // Obtener el archivo como flujo de datos
       headers: {
-        Authorization: `Bearer ${meta.token}`
-      }
+        Authorization: `Bearer ${meta.token}`,
+      },
     })
 
     // Piped stream para guardar el archivo en el sistema
