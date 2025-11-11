@@ -29,7 +29,7 @@ export class ClientsDb {
     try {
       return await this.getProvider().getClientByPhone(phone)
     } catch (error) {
-      console.error('ClientsDb: Error al obtener el cliente por teléfono:', error.message)
+      console.warn(`ClientsDb: Error al obtener el cliente por teléfono: ${phone}`)
       throw error
     }
   }
@@ -39,7 +39,7 @@ export class ClientsDb {
     try {
       return await this.getProvider().getClientByDni(dni)
     } catch (error) {
-      console.error('ClientsDb: Error al obtener el cliente por dni:', error.message)
+      console.warn(`ClientsDb: Error al obtener el cliente por dni: ${dni}`)
       throw error
     }
   }
@@ -49,7 +49,7 @@ export class ClientsDb {
     try {
       return await this.getProvider().getClientByRut(rut)
     } catch (error) {
-      console.error('ClientsDb: Error al obtener el cliente por rut:', error.message)
+      console.warn(`ClientsDb: Error al obtener el cliente por rut: ${rut}`)
       throw error
     }
   }

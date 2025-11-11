@@ -35,7 +35,7 @@ export class ClientsFacturapp {
 
       return DataFormatter.buildData(res.data)
     } catch (error) {
-      console.error(`ClientsFacturapp: Error fetching client by phone ${phone}`, error.message)
+      //console.error(`ClientsFacturapp: Error fetching client by phone ${phone}`, error.message)
       throw new Error(`ClientsFacturapp: Cliente con teléfono ${phone} no encontrado`)
     }
   }
@@ -47,14 +47,11 @@ export class ClientsFacturapp {
     try {
       const res = await axios.post(url, { ...data, cedula: dni })
       if (res.status !== 200) {
-        console.error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
         throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
       }
-
-      console.log('Respuesta de Facturapp al buscar por DNI:', res.data)
       return DataFormatter.buildData(res.data)
     } catch (error) {
-      console.error(`ClientsFacturapp: Error fetching client by DNI ${dni}`, error.message)
+      //console.error(`ClientsFacturapp: Error fetching client by DNI ${dni}`, error.message)
       throw new Error(`ClientsFacturapp: Cliente con DNI ${dni} no encontrado`)
     }
   }
@@ -74,7 +71,7 @@ export class ClientsFacturapp {
       // buscar el cliente recién creado con su cedula para obtener todos sus datos
       return await this.getClientByDni(clientData.dni)
     } catch (error) {
-      console.error(`ClientsFacturapp: Error `, error.response?.data || error.message)
+      //console.error(`ClientsFacturapp: Error `, error.response?.data || error.message)
       throw new Error(`ClientsFacturapp: Cliente no pudo ser creado`)
     }
   }

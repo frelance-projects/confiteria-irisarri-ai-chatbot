@@ -15,7 +15,7 @@ export async function getClientByPhone(phone) {
 
     return client
   } catch (error) {
-    console.error('getClientByPhone: Error al obtener el cliente por teléfono:', error.message)
+    //console.warn(`getClientByPhone: Error al obtener el cliente por teléfono: ${phone}`)
     return null
   }
 }
