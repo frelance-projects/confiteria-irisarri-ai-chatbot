@@ -1,6 +1,8 @@
 export function buildOrder(clientCode, orderData) {
   const order = {
     client: clientCode,
+    name: orderData.name,
+    phone: orderData.phone,
     paymentMethod: orderData.paymentMethod,
     address: orderData.address || '',
     deliveryMode: orderData.deliveryMode,

@@ -11,6 +11,7 @@ import { sentToAi } from '#ai/agentProcess/sentToAi.mjs'
 import { sendToChannels } from '#channels/channels.mjs'
 import { sendResponse } from '#ai/agentProcess/sendResponse.mjs'
 import { providerSendMessageInteractive } from '#provider/provider.mjs'
+import { deletePhoneExtension } from '#utilities/facturapp/formatPhone.mjs'
 
 const ORDER_ACTIONS = {
   CONFIRM: 'Confirmar Pedido',
@@ -35,12 +36,19 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
   const platform = userIdKey.split('-*-')[1]
   // cargar datos del pedido desde los argumentos
   const order = {
+    name: args.name,
+    phone: deletePhoneExtension(user[platform]?.id || ''),
     deliveryDate: args.deliveryDate,
     deliveryMode: args.deliveryMode,
     address: args.address || '',
     note: args.note || '',
     articles: args.articles,
     paymentMethod: args.paymentMethod,
+  }
+
+  // validar nombre del cliente
+  if (!order.name || order.name.trim() === '') {
+    return { success: false, message: 'El nombre del cliente es requerido.' }
   }
 
   // cargar cliente desde la sesión
@@ -104,7 +112,7 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
       const newOrder = await addOrderTool(builtOrder)
 
       // si hubo un error al crear el pedido
-      if (!newOrder.success) {
+      if (!newOrder || !newOrder.success) {
         result = {
           success: false,
           message: newOrder.message || 'Error al crear el pedido',

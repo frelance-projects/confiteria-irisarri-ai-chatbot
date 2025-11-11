@@ -3,7 +3,8 @@ import { getArticleByCode } from '#db/articles/getArticleByCode.mjs'
 // crear resumen de orden para confirmación
 export async function createOrderSummary(order) {
   // datos generales del pedido
-  let summary = `**Método de Pago:** ${order.paymentMethod}\n`
+  let summary = `**Nombre del Cliente:** ${order.name}\n`
+  summary += `**Método de Pago:** ${order.paymentMethod}\n`
   if (order.address) summary += `**Dirección de Entrega:** ${order.address}\n`
   summary += `**Modo de Entrega:** ${order.deliveryMode}\n`
   summary += `**Fecha de Entrega:** ${order.deliveryDate}\n`

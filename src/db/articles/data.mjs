@@ -1,4 +1,5 @@
 import { isFacturappActive } from '#config/config.mjs'
+import { FACTURAPP_ACCESS } from '#enums/facturapp.mjs'
 
 //SS MODELOS
 import { ArticlesAppsheet } from '#services/appsheet/articles.mjs'
@@ -7,7 +8,7 @@ import { ArticlesFacturapp } from '#services/facturapp/articles.mjs'
 export class ArticlesDb {
   //ss Método para obtener el proveedor actual
   static getProvider() {
-    if (isFacturappActive('articles')) {
+    if (isFacturappActive(FACTURAPP_ACCESS.ARTICLES)) {
       return ArticlesFacturapp
     }
     return ArticlesAppsheet

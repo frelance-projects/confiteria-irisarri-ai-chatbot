@@ -1,6 +1,7 @@
 import { isFacturappActive } from '#config/config.mjs'
+import { FACTURAPP_ACCESS } from '#enums/facturapp.mjs'
 
-const IS_FACTURAPP_ACTIVE = isFacturappActive('articles')
+const IS_FACTURAPP_ACTIVE = isFacturappActive(FACTURAPP_ACCESS.ARTICLES)
 
 export function formatToAi(articles) {
   const data = []

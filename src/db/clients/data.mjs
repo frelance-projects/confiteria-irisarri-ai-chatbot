@@ -1,4 +1,5 @@
 import { isFacturappActive } from '#config/config.mjs'
+import { FACTURAPP_ACCESS } from '#enums/facturapp.mjs'
 
 //SS MODELOS
 import { ClientsAppsheet } from '#services/appsheet/clients.mjs'
@@ -7,7 +8,7 @@ import { ClientsFacturapp } from '#services/facturapp/clients.mjs'
 export class ClientsDb {
   //ss Método para obtener el proveedor actual
   static getProvider() {
-    if (isFacturappActive('clients')) {
+    if (isFacturappActive(FACTURAPP_ACCESS.CLIENTS)) {
       return ClientsFacturapp
     }
     return ClientsAppsheet

@@ -11,6 +11,11 @@ export async function getJson() {
     parameters: {
       type: 'object',
       properties: {
+        // nombre del cliente
+        name: {
+          type: 'string',
+          description: 'Nombre completo del cliente que realiza el pedido',
+        },
         //FechaEntrega
         deliveryDate: {
           type: 'string',
@@ -66,7 +71,7 @@ export async function getJson() {
           },
         },
       },
-      required: ['deliveryDate', 'paymentMethod', 'deliveryMode', 'address', 'note', 'articles'],
+      required: ['name', 'deliveryDate', 'paymentMethod', 'deliveryMode', 'address', 'note', 'articles'],
       additionalProperties: false,
     },
     strict: true,
