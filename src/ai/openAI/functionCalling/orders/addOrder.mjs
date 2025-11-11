@@ -38,7 +38,7 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
   const order = {
     name: args.name,
     phone: deletePhoneExtension(user[platform]?.id || ''),
-    deliveryDate: args.deliveryDate,
+    deliveryDate: `${args.deliveryDate?.date} ${args.deliveryDate?.time}`,
     deliveryMode: args.deliveryMode,
     address: args.address || '',
     note: args.note || '',
@@ -71,6 +71,7 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
     }
   }
 
+  //TODO: agregar aclaración sobre los kg que pueden variar en los artículos
   // crear resumen de pedido para confirmación
   const header = 'Resumen de tu pedido'
   const body = await createOrderSummary(builtOrder)

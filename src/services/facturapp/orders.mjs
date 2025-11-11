@@ -3,6 +3,16 @@ import axios from 'axios'
 //TT MÓDULOS
 import { ENV } from '#config/config.mjs'
 import { getAuth } from './auth.mjs'
+import { DELIVERY_MODES, PAYMENT_METHODS } from '#enums/tools/orders.mjs'
+
+const HANDLE_DELIVERY_MODES = {
+  [DELIVERY_MODES.PICKUP]: 1,
+  [DELIVERY_MODES.HOME_DELIVERY]: 2,
+}
+const HANDLE_PAYMENT_METHODS = {
+  [PAYMENT_METHODS.CASH]: 1,
+  [PAYMENT_METHODS.CREDIT]: 2,
+}
 
 export class OrdersFacturapp {
   // ss obtener cliente por código
@@ -10,13 +20,14 @@ export class OrdersFacturapp {
     const url = `${ENV.FACTURAPP_URL}/altaPedido`
     const data = getAuth()
     const orderFormat = DataFormatter.revertData(order)
-    console.log('Datos del pedido formateados para Facturapp:', orderFormat)
+    console.log('Datos del pedido formateados para Facturapp:\n', JSON.stringify(orderFormat, null, 2))
 
     try {
       const res = await axios.post(url, { ...data, ...orderFormat })
       if (res.status !== 200) {
         throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
       }
+      console.log('Respuesta de Facturapp al agregar pedido:\n', JSON.stringify(res.data, null, 2))
       return res.data
     } catch (error) {
       console.error(`OrdersFacturapp: Error adding order`, error.message)
@@ -36,11 +47,11 @@ class DataFormatter {
       Terminal: 1,
       FechaEntrega: item.deliveryDate,
       CodMovimiento: 6, // **6 (PEDIDOS)** o **16 (PEDIDOS WEB)**.
-      IdFormaPago: item.paymentMethod, //  **1 (Contado)** o **2 (Crédito)**.
-      IdModoEntrega: item.deliveryMode, //  **1 (Retira en local)** o **2 (Envío a domicilio)**
+      IdFormaPago: HANDLE_PAYMENT_METHODS[item.paymentMethod], //  **1 (Contado)** o **2 (Crédito)**.
+      IdModoEntrega: HANDLE_DELIVERY_MODES[item.deliveryMode], //  **1 (Retira en local)** o **2 (Envío a domicilio)**
       IdBarrio: 0,
       IdZona: 0,
-      IdAccion: 0, // **1 (Pedido para llevar)** o **2 (Pedido a domicilio)**
+      IdAccion: HANDLE_DELIVERY_MODES[item.deliveryMode], // **1 (Pedido para llevar)** o **2 (Pedido a domicilio)**
       Observaciones: item.note || '',
       ReferenciaExterna: 'BOT-123',
       ContactoNombre: item.name || '',

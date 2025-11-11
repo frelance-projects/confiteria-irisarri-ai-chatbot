@@ -1,24 +1,18 @@
-import { ENV } from '#config/config.mjs'
-import { DB_HOST } from '#enums/db.mjs'
+import { isFacturappActive } from '#config/config.mjs'
+import { FACTURAPP_ACCESS } from '#enums/facturapp.mjs'
 
 //SS MODELOS
 import { OrdersAppsheet } from '#services/appsheet/orders.mjs'
+import { OrdersFacturapp } from '#services/facturapp/orders.mjs'
 
 //ss Mapeo de proveedores de base de datos
 export class OrdersDb {
-  static dbProviders = {
-    // Proveedor AppSheet
-    [DB_HOST.APPSHEET]: OrdersAppsheet,
-  }
-
   //ss Método para obtener el proveedor actual
   static getProvider() {
-    const provider = this.dbProviders[ENV.DB_HOST]
-    if (!provider) {
-      console.error('Proveedor de base de datos no soportado')
-      throw new Error('Proveedor de base de datos no soportado')
+    if (isFacturappActive(FACTURAPP_ACCESS.ORDERS)) {
+      return OrdersFacturapp
     }
-    return provider
+    return OrdersAppsheet
   }
 
   //ss agregar pedido
