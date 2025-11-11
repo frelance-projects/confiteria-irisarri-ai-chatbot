@@ -15,7 +15,7 @@ export async function eventMessages(data) {
   }
   const list = []
   for (const message of data) {
-    console.log(message)
+    //console.log(message)
 
     switch (message.type) {
       //SS TEXTO

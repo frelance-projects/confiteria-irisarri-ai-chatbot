@@ -3,6 +3,7 @@ import { providerSendMessage } from '#provider/provider.mjs'
 import { validateUrlMedia } from '#utilities/validateMedia.mjs'
 import { sendToChannels } from '#channels/channels.mjs'
 
+
 export async function sendMessage(data, platform) {
   // Obtener ID de usuario
   const userId = getUserId(data, platform)

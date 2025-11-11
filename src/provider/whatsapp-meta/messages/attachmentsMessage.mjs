@@ -25,6 +25,7 @@ export async function attachmentsMessage(data) {
         console.error('Tipo de archivo multimedia no soportado')
         return null
     }
+    console.log('Attachment: ', attachment)
     attachment.extension = extension
     //console.log(attachment)
     const path = await downloadFile(attachment.message.id, extension) // Asegúrate de que downloadFile devuelva el path correctamente
@@ -32,7 +33,11 @@ export async function attachmentsMessage(data) {
       console.error('Error al descargar el archivo')
       return null
     }
-    return { fileType: attachment.type, path, fileUrl: attachment.message.id } // Devuelve un objeto con el tipo y el path
+    const res = { fileType: attachment.type, path, fileUrl: attachment.message.id } // Devuelve un objeto con el tipo y el path
+    if (attachment.message?.caption) {
+      res.caption = attachment.message.caption
+    }
+    return res
   })
 
   // Esperamos que todas las promesas se resuelvan

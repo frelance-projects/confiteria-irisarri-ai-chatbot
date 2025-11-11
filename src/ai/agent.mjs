@@ -14,7 +14,6 @@ import { Clients } from './agentProcess/clientAction.mjs'
 import { FunctionProcess } from '#ai/agentProcess/functionProcess.mjs'
 import { FUNCTION_STATUS } from '#enums/agent.mjs'
 
-
 export async function agentResponse(userId, message, origin, platform, originalMessage = null) {
   try {
     // Origen: Usuario
@@ -141,9 +140,7 @@ export async function agentResponse(userId, message, origin, platform, originalM
       // Enviar a canales
       sendToChannels(res)
 
-      //TODO: Crear sistema de logs para mensajes
-      console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
-      console.info('Respuesta enviada al usuario', JSON.stringify(res[0].message, null, 2))
+      // ver mensaje en consola para debug
     })
   } catch (error) {
     console.error('Error en agentResponse:', error)
@@ -164,10 +161,6 @@ async function isClientCompany(userId, chunks, agentConfig, user, userIdKey, pla
     const res = await sendResponse(agentConfig, message, userId, userIdKey, platform, originalMessages, user)
     if (res) {
       sendToChannels(res)
-
-      //TODO: Crear sistema de logs para mensajes
-      console.info('Mensaje del usuario', JSON.stringify(chunks, null, 2))
-      console.info('Respuesta estática enviada al usuario', JSON.stringify(res, null, 2))
     }
     return true
   }

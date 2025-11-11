@@ -24,7 +24,7 @@ import { contactsArrayMessage } from './typeMessages/contactsArrayMessage.mjs'
 const ENUM_MESSAGE_ORIGIN = {
   User: 'user',
   Group: 'group',
-  Hidden: 'hidden'
+  Hidden: 'hidden',
 }
 
 //SS MAPEO DE HANDLERS
@@ -40,7 +40,7 @@ const MESSAGE_HANDLER = {
   locationMessage,
   stickerMessage,
   contactMessage,
-  contactsArrayMessage
+  contactsArrayMessage,
 }
 
 //TT MENSAJES DE EVENTOS

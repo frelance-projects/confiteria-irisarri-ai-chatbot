@@ -2,8 +2,10 @@ import { isProductionEnv } from '#config/config.mjs'
 import { getServices } from '../config/services/services.mjs'
 import { sendToChatwoot } from './chatwoot/sendToChatwoot.mjs'
 import { sendToAppsheet } from '#apps/appsheet/sendToAppsheet.mjs'
+import { showMessage } from '#logger/showMessage.mjs'
 
 export async function sendToChannels(messages) {
+  showMessage(messages)
   if (!isProductionEnv()) {
     console.warn('sendToChannels: No se ejecuta en desarrollo')
     return null
