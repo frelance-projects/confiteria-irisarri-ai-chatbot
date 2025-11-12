@@ -24,4 +24,24 @@ export class OrdersDb {
       throw error
     }
   }
+
+  //ss obtener orden por número
+  static async getOrderByNumber(orderNumber) {
+    try {
+      return await this.getProvider().getOrderByNumber(orderNumber)
+    } catch (error) {
+      console.error('OrdersDb: Error al obtener la orden por número:', error.message)
+      throw error
+    }
+  }
+
+  //ss obtener historial de pedidos
+  static async getOrdersHistory(clientCode, startDate, endDate) {
+    try {
+      return await this.getProvider().getOrdersHistory(clientCode, startDate, endDate)
+    } catch (error) {
+      console.error('OrdersDb: Error al obtener el historial de pedidos:', error.message)
+      throw error
+    }
+  }
 }

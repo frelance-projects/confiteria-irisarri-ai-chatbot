@@ -14,6 +14,7 @@ export async function createOrderSummary(order) {
   summary += `\n**Artículos:**\n\n`
 
   let totalPrice = 0
+  let isKgBased = false // bandera para artículos por kg
   for (const item of order.articles) {
     const article = await getArticleByCode(item.article)
     if (!article) {
@@ -28,9 +29,19 @@ export async function createOrderSummary(order) {
     if (item.note) {
       summary += `${formatNote(item.note)}\n`
     }
+
+    // verificar si el artículo es por kg
+    if (String(article.unidadMedida).toLowerCase().includes('kg')) {
+      isKgBased = true
+    }
   }
 
   summary += `\n**Total: $${totalPrice}**`
+
+  // nota sobre artículos por kg
+  if (isKgBased) {
+    summary += `\n\n_Nota: Los artículos vendidos por kg pueden variar su peso final al momento de la entrega._`
+  }
   return summary
 }
 

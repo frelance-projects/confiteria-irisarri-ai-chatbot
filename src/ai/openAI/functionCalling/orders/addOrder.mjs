@@ -161,7 +161,6 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
     if (resAi) {
       const res = await sendResponse(agentConfig, resAi, user[platform].id, userIdKey, platform, [], user)
       if (res) {
-        console.info('Respuesta enviada al usuario', JSON.stringify(res, null, 2))
         sendToChannels(res)
       }
     }

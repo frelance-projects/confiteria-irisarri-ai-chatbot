@@ -8,6 +8,7 @@ import { getJson as jsonAddOrder } from './tools/orders/jsonAddOrder.mjs'
 import { getJson as getArticles } from './tools/articles/getArticles.mjs'
 import { getJson as getDailyArticles } from './tools/dailyArticles/getDailyArticles.mjs'
 import { getJson as jsonGetShippingAvailability } from './tools/orders/jsonGetShippingAvailability.mjs'
+import { getJson as jsonGetOrderByNumber } from './tools/orders/jsonGetOrderByNumber.mjs'
 
 export async function getToolsOpenAi(brainId) {
   const tools = []
@@ -47,6 +48,11 @@ export async function getToolsOpenAi(brainId) {
   const shippingAvailabilityJson = await jsonGetShippingAvailability()
   if (shippingAvailabilityJson) {
     tools.push(shippingAvailabilityJson)
+  }
+  //getOrderByNumber
+  const getOrderByNumberJson = await jsonGetOrderByNumber()
+  if (getOrderByNumberJson) {
+    tools.push(getOrderByNumberJson)
   }
 
   //sendRequest

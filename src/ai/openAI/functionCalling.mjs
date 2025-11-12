@@ -1,3 +1,5 @@
+import { FUNCTION_STATUS } from '#enums/agent.mjs'
+
 //SS FUNCIONES
 import { sendRequest } from './functionCalling/sendRequest.mjs'
 import { loadClientProfile } from './functionCalling/clients/loadClientProfile.mjs'
@@ -6,6 +8,7 @@ import { addOrder } from './functionCalling/orders/addOrder.mjs'
 import { getArticles } from './functionCalling/articles/getArticles.mjs'
 import { getDailyArticles } from './functionCalling/dailyArticles/getDailyArticles.mjs'
 import { getShippingAvailability } from './functionCalling/orders/getShippingAvailability.mjs'
+import { getOrderByNumber } from './functionCalling/orders/getOrderByNumber.mjs'
 
 //SS NOMBRES
 import { functionName as sendRequestName } from './tools/jsonSendRequest.mjs'
@@ -15,7 +18,7 @@ import { functionName as addOrderName } from './tools/orders/jsonAddOrder.mjs'
 import { functionName as getArticlesName } from './tools/articles/getArticles.mjs'
 import { functionName as getDailyArticlesName } from './tools/dailyArticles/getDailyArticles.mjs'
 import { functionName as getShippingAvailabilityName } from './tools/orders/jsonGetShippingAvailability.mjs'
-import { FUNCTION_STATUS } from '#enums/agent.mjs'
+import { functionName as getOrderByNumberName } from './tools/orders/jsonGetOrderByNumber.mjs'
 
 // TT COMPROBAR LLAMADA A FUNCTION
 export async function functionCalling(aiFunction, user, userIdKey, responseOutput) {
@@ -35,6 +38,7 @@ export async function functionCalling(aiFunction, user, userIdKey, responseOutpu
     [getArticlesName]: getArticles,
     [getDailyArticlesName]: getDailyArticles,
     [getShippingAvailabilityName]: getShippingAvailability,
+    [getOrderByNumberName]: getOrderByNumber,
   }
 
   let result

@@ -39,7 +39,6 @@ export async function validateDeliveryDate(deliveryDate) {
   }
   // validar que la fecha de entrega no sea en el pasado
   else {
-    console.log('--------------Validando fecha de entrega con Facturapp:', deliveryDate)
     try {
       const availability = await ShippingAvailabilityFacturapp.getAvailability(deliveryDate, true)
       if (!availability) {

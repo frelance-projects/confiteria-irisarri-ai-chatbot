@@ -15,28 +15,128 @@ const HANDLE_PAYMENT_METHODS = {
 }
 
 export class OrdersFacturapp {
-  // ss obtener cliente por código
+  //ss obtener cliente por código
   static async addOrder(order) {
     const url = `${ENV.FACTURAPP_URL}/altaPedido`
     const data = getAuth()
     const orderFormat = DataFormatter.revertData(order)
-    console.log('Datos del pedido formateados para Facturapp:\n', JSON.stringify(orderFormat, null, 2))
+    //console.log('Datos del pedido formateados para Facturapp:\n', JSON.stringify(orderFormat, null, 2))
 
     try {
       const res = await axios.post(url, { ...data, ...orderFormat })
       if (res.status !== 200) {
         throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
       }
-      console.log('Respuesta de Facturapp al agregar pedido:\n', JSON.stringify(res.data, null, 2))
-      return res.data
+      //console.log('Respuesta de Facturapp al agregar pedido:\n', JSON.stringify(res.data, null, 2))
+
+      try {
+        return await this.getOrderByNumber(res.data.numeroPedido)
+      } catch (error) {
+        console.error(`OrdersFacturapp: Error al obtener pedido después de agregar`, error.message)
+        return DataFormatter.buildAddOrderData(res.data)
+      }
     } catch (error) {
-      console.error(`OrdersFacturapp: Error adding order`, error.message)
-      throw new Error(`OrdersFacturapp: Error adding order`)
+      console.error(`OrdersFacturapp: Error al agregar pedido`, error.message)
+      throw new Error(`OrdersFacturapp: Error al agregar pedido`)
+    }
+  }
+
+  //ss obtener pedido por número de pedido
+  static async getOrderByNumber(orderNumber) {
+    const url = `${ENV.FACTURAPP_URL}/consultaPedido`
+    const data = getAuth()
+    try {
+      const res = await axios.post(url, { ...data, NroPedido: parseInt(orderNumber, 10) })
+      if (res.status !== 200) {
+        throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
+      }
+      //console.log('Order cargada desde Facturapp:', JSON.stringify(res.data, null, 2))
+
+      return DataFormatter.buildGetOrderData(res.data)
+    } catch (error) {
+      console.error(`OrdersFacturapp: Error al obtener pedido con número ${orderNumber}`, error.message)
+      throw new Error(`OrdersFacturapp: Error al obtener pedido`)
+    }
+  }
+
+  //ss obtener historial de pedidos
+  static async getOrdersHistory(clientCode, startDate, endDate) {
+    const url = `${ENV.FACTURAPP_URL}/historialPedidos`
+    const data = getAuth()
+
+    // pase date a formato AAAA-MM-DD HH:MM:SS
+    const FechaDesde = startDate ? new Date(startDate).toISOString().slice(0, 19).replace('T', ' ') : null
+    const FechaHasta = endDate ? new Date(endDate).toISOString().slice(0, 19).replace('T', ' ') : null
+
+    try {
+      const res = await axios.post(url, {
+        ...data,
+        CodigoCliente: clientCode,
+        FechaDesde,
+        FechaHasta,
+      })
+      if (res.status !== 200) {
+        throw new Error(`ClientsFacturapp: Error en la petición, código de estado ${res.status}`)
+      }
+
+      return DataFormatter.buildGetOrderData(res.data)
+    } catch (error) {
+      console.error(`OrdersFacturapp: Error al obtener historial de pedidos`, error.message)
+      throw new Error(`OrdersFacturapp: Error al obtener historial de pedidos`)
     }
   }
 }
 
 class DataFormatter {
+  //ss construir datos de configuración
+  static buildAddOrderData(resOrder) {
+    const allOrders = Array.isArray(resOrder) ? resOrder : [resOrder]
+
+    const orders = []
+    // mapear datos al formato requerido
+    for (const item of allOrders) {
+      const _order = {
+        numeroPedido: item.numeroPedido,
+        estadoInicial: item.estadoInicial, //TODO: agregar mapeo de estados
+        total: item.total,
+      }
+      orders.push(_order)
+    }
+
+    if (orders.length === 1) {
+      return orders[0]
+    }
+    return orders
+  }
+
+  //ss construir datos de configuración
+  static buildGetOrderData(resOrder) {
+    const allOrders = Array.isArray(resOrder) ? resOrder : [resOrder]
+
+    const orders = []
+    // mapear datos al formato requerido
+    for (const item of allOrders) {
+      const _order = {
+        numeroPedido: item.NroPedido,
+        Fecha: item.Fecha, //TODO: agregar mapeo de estados
+        hora: item.Hora,
+        estado: item.Estado,
+        cliente: item.Cliente,
+        direccion: item.Direccion,
+        formaPago: item.FormaPago,
+        pago: item.Pago,
+        facturado: item.Facturado,
+        total: item.Total,
+      }
+      orders.push(_order)
+    }
+
+    if (orders.length === 1) {
+      return orders[0]
+    }
+    return orders
+  }
+
   //ss revertir datos de configuración
   static revertData(data) {
     const allData = Array.isArray(data) ? data : [data]
