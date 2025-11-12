@@ -1,3 +1,6 @@
+import { isFacturappActive } from '#config/config.mjs'
+import { FACTURAPP_ACCESS } from '#enums/facturapp.mjs'
+import { ShippingAvailabilityFacturapp } from '#services/facturapp/shippingAvailability.mjs'
 import { getShippingAvailability } from '../getShippingAvailability.mjs'
 
 export async function validateDeliveryDate(deliveryDate) {
@@ -16,14 +19,49 @@ export async function validateDeliveryDate(deliveryDate) {
     errors.push("El formato de la fecha de entrega debe ser 'AAAA-MM-DD HH:MM'.")
     return errors
   }
-
-  // Validar que la fecha de entrega está dentro de las opciones disponibles
-  const availableDates = await getShippingAvailability()
-  if (!availableDates.includes(deliveryDate)) {
-    console.error('Fecha de entrega no disponible:', deliveryDate)
-    errors.push('La fecha de entrega seleccionada no está disponible.')
+  // validar que la fecha de entrega no sea en el pasado
+  const now = new Date()
+  const delivery = new Date(deliveryDate)
+  if (delivery < now) {
+    console.error('Fecha de entrega en el pasado:', deliveryDate)
+    errors.push('La fecha de entrega no puede ser en el pasado.')
+    return errors
   }
 
+  // Si Facturapp está activo, validar contra la disponibilidad de envío
+  if (!isFacturappActive(FACTURAPP_ACCESS.SHIPPING_AVAILABILITY)) {
+    // Validar que la fecha de entrega está dentro de las opciones disponibles
+    const availableDates = await getShippingAvailability()
+    if (!availableDates.includes(deliveryDate)) {
+      console.error('Fecha de entrega no disponible:', deliveryDate)
+      errors.push('La fecha de entrega seleccionada no está disponible.')
+    }
+  }
+  // validar que la fecha de entrega no sea en el pasado
+  else {
+    console.log('--------------Validando fecha de entrega con Facturapp:', deliveryDate)
+    try {
+      const availability = await ShippingAvailabilityFacturapp.getAvailability(deliveryDate, true)
+      if (!availability) {
+        console.error('Fecha de entrega no disponible según Facturapp:', deliveryDate)
+        errors.push('La fecha de entrega seleccionada no está disponible')
+      }
+      console.log(`Disponibilidad recibida de Facturapp para la fecha ${deliveryDate}`, availability)
+      const { cantidadPedidosEnHora, cantidadTopeHora } = availability
+      if (cantidadPedidosEnHora > cantidadTopeHora) {
+        console.error('Fecha de entrega no disponible según Facturapp (tope alcanzado) para la fecha:', {
+          deliveryDate,
+          availability,
+        })
+        errors.push('La fecha de entrega seleccionada no está disponible')
+      }
+    } catch (error) {
+      console.error('Error al validar la fecha de entrega con Facturapp:', error.message)
+      errors.push('La fecha de entrega seleccionada no está disponible')
+    }
+  }
+
+  // Retornar la lista de errores (vacía si no hay errores)
   return errors
 }
 

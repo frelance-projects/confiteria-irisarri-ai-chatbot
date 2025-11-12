@@ -29,7 +29,7 @@ export async function loadClientProfile(args, user, userIdKey) {
   // obtener cliente
   const client = await action(number)
   if (!client) {
-    console.error('No se ha encontrado el cliente')
+    console.warn('No se ha encontrado el cliente en la base de datos')
     return { response: 'error: client not found' }
   }
 
