@@ -54,8 +54,12 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
   // cargar cliente desde la sesión
   const client = Clients.getClient(user[platform]?.id)
   if (!client) {
-    console.error('No se ha encontrado el cliente en la sesión')
-    return { success: false, message: 'Cliente no registrado' }
+    console.warn('No se ha encontrado el cliente en la sesión')
+    return {
+      success: false,
+      message:
+        'Perfil de cliente no cargado, por favor solicita al cliente que se identifique mediante cédula, telefono o RUT. o que se registre como cliente nuevo.',
+    }
   }
 
   // construir pedido para la base de datos
@@ -71,7 +75,6 @@ export async function addOrder(args, user, userIdKey, { callId, responseOutput }
     }
   }
 
-  //TODO: agregar aclaración sobre los kg que pueden variar en los artículos
   // crear resumen de pedido para confirmación
   const header = 'Resumen de tu pedido'
   const body = await createOrderSummary(builtOrder)

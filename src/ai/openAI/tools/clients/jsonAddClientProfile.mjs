@@ -4,7 +4,7 @@ export async function getJson() {
   const jsonData = {
     type: 'function',
     name: functionName,
-    description: 'Añade la información de un nuevo cliente a la base de datos',
+    description: 'Registra a un nuevo cliente a la base de datos',
     parameters: {
       type: 'object',
       properties: {
