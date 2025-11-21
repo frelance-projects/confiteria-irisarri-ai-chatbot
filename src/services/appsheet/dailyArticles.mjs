@@ -39,7 +39,7 @@ class DataFormatter {
       codigo: item.code,
       descripcion: item.description,
       descripcionAvanzada: item.advancedDescription,
-      stockActual: parseFloat(item.stock),
+      active: item.active,
       ramo: item.branch,
       familia: item.family,
       grupo: item.group,
@@ -57,8 +57,6 @@ class DataFormatter {
       esVegano: item.vegan,
       remitirHumano: item.goToHuman,
       commentario: item.comment,
-      // otros campos
-      active: item.active,
     }))
 
     // validar si es un solo objeto o un array

@@ -3,19 +3,19 @@ import { getDailyArticleByCode } from '#db/dailyArticles/getDailyArticleByCode.m
 import { validateDailyArticle } from './validateDailyArticle.mjs'
 import { validateBaseArticle } from './validateBaseArticle.mjs'
 
-export async function validateArticles(articles) {
+export async function validateArticles(articles, deliveryDate) {
   const errors = []
 
   for (const item of articles) {
     const itemErrors = []
     // validar que el código del artículo esté presente
     if (!item.article || item.article.trim() === '') {
-      console.error('Falta el código del artículo en uno de los artículos.')
+      console.error('validateArticles: Falta el código del artículo en uno de los artículos.')
       itemErrors.push('Falta el código del artículo en uno de los artículos.')
     }
     // validar que la cantidad sea un número positivo
     if (typeof item.quantity !== 'number' || item.quantity <= 0) {
-      console.error(`Cantidad del artículo con código ${item.article} no es un número positivo.`)
+      console.error(`validateArticles: Cantidad del artículo con código ${item.article} no es un número positivo.`)
       itemErrors.push(`Cantidad del artículo con código ${item.article} no es un número positivo.`)
     }
 
@@ -25,8 +25,9 @@ export async function validateArticles(articles) {
     // validar que el artículo exista en la base de datos
     const baseArticle = await getArticleByCode(item.article)
     if (!baseArticle) {
-      console.error(`Artículo con código ${item.article} no encontrado.`)
+      console.error(`validateArticles: Artículo con código ${item.article} no encontrado.`)
       errors.push(`Artículo con código ${item.article} no encontrado.`)
+      continue
     }
 
     // si hay errores en este artículo, continuar con el siguiente
@@ -35,7 +36,7 @@ export async function validateArticles(articles) {
     // Validar si es un articulo de production diario
     const dailyArticle = await getDailyArticleByCode(item.article)
     if (dailyArticle) {
-      const dailyArticleErrors = await validateDailyArticle(item, dailyArticle)
+      const dailyArticleErrors = await validateDailyArticle(item, dailyArticle, deliveryDate)
       if (dailyArticleErrors.length > 0) {
         errors.push(...dailyArticleErrors)
       }

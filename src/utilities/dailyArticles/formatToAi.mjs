@@ -4,7 +4,7 @@ export function formatToAi(dailyArticles) {
   for (const article of dailyArticles) {
     //TODO: agregar mas filtros según necesidad
     // validar stock
-    if (article.stockActual && article.stockActual > 0 && article.active === true) {
+    if (article.active) {
       const obj = {
         codigo: article.codigo,
         nombre: article.descripcion,

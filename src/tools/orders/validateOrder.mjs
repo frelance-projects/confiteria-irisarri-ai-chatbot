@@ -3,7 +3,9 @@ import { validateArticles } from './validateOrder/validateArticles.mjs'
 import { validateDeliveryDate } from './validateOrder/validateDeliveryDate.mjs'
 
 export async function validateOrder({ paymentMethod, address, deliveryMode, deliveryDate, articles }) {
+  //TODO: agregar validación de pasar a humano
   const errors = []
+  const toHuman = []
   // Validar modo de entrega
   if (!Object.values(DELIVERY_MODES).includes(deliveryMode)) {
     console.error('Modo de entrega inválido:', deliveryMode)
@@ -34,16 +36,16 @@ export async function validateOrder({ paymentMethod, address, deliveryMode, deli
   }
 
   // Validar cada artículo
-  const errorsArticles = await validateArticles(articles)
+  const errorsArticles = await validateArticles(articles, deliveryDate)
   if (errorsArticles && errorsArticles.length > 0) {
     errors.push(...errorsArticles)
   }
 
   // Volver errores si los hay
   if (errors.length > 0) {
-    return { error: true, details: errors }
+    return { error: true, details: errors, toHuman }
   }
 
   // Si todo es correcto
-  return { error: false }
+  return { error: false, toHuman }
 }
