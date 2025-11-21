@@ -12,7 +12,7 @@ export class SendRequestDataAppsheet {
     // enviar datos a AppSheet
     const res = await addData(NAME_TABLE, {}, data)
 
-    return DataFormatter.buildData(res[0])
+    return DataFormatter.buildData(res)
   }
 }
 
