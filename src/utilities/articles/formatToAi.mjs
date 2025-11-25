@@ -9,7 +9,13 @@ export function formatToAi(articles) {
   for (const article of articles) {
     //TODO: agregar mas filtros según necesidad
     // validar stock
-    if (article.stockActual && article.stockActual > 0 && isActive(article)) {
+    //filtar que el nombre del articulo no incluya la palabra "R8"
+    if (
+      article.stockActual &&
+      article.stockActual > 0 &&
+      isActive(article) &&
+      !article.descripcion.toUpperCase().includes('R8')
+    ) {
       const obj = {
         codigo: article.codigo,
         nombre: article.descripcion,
