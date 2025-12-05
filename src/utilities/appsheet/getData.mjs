@@ -39,6 +39,12 @@ export async function getData(table, properties = {}, rows = []) {
     // Devolver los datos formateados
     return data
   } catch (error) {
+    // si el status code es 429 esperar 1 segundo y reintentar
+    if (error.response?.status === 429) {
+      console.warn('appsheet - getData: Límite de peticiones alcanzado, esperando 1.5 segundos antes de reintentar...')
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      return getData(table, properties, rows)
+    }
     console.error('Error al realizar la petición:', error.response?.data || error.message)
     throw error
   }
